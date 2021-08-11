@@ -1,0 +1,46 @@
+#intro {
+    max-width: 1440px;
+    margin: 0 auto;
+}
+
+ /* Extra small devices (phones, 600px and down) */
+ @media only screen and (max-width: 600px) {
+    #intro {
+        padding: 70px 50px;
+    }
+ }
+
+ /* Small devices (portrait tablets and large phones, 600px and up) */
+ @media only screen and (min-width: 600px) {
+    #intro {
+        padding: 120px 50px;
+    }
+ }
+ 
+ /* Medium devices (landscape tablets, 768px and up) */
+ @media only screen and (min-width: 768px) and (min-width: 992px) {
+    #intro {
+        padding: 120px 70px;
+    }
+ }
+ 
+ /* Extra large devices (large laptops and desktops, 1200px and up) */
+ @media only screen and (min-width: 1200px) {
+     #intro {
+        padding: 120px 100px;
+    }
+} 
+
+#intro_email {
+    box-shadow: inset 0px -3px rgba(59, 130, 246, 1);
+}
+
+.pointer {
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+    background-image: url('./public/images/pointright.png');
+    margin: 0 5px;
+    vertical-align: text-bottom;
+}
+
