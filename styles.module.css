@@ -35,12 +35,3 @@
     box-shadow: inset 0px -3px rgba(59, 130, 246, 1);
 }
 
-.pointer {
-    display: inline-block;
-    height: 30px;
-    width: 30px;
-    background-image: url('./public/images/pointright.png');
-    margin: 0 5px;
-    vertical-align: text-bottom;
-}
-
