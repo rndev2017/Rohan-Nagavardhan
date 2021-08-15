@@ -1,4 +1,4 @@
-import otherProjects from "./OtherProjectsData";
+import { otherProjects } from "../components/ProjectsData";
 import SkillChip from "../components/SkillChip";
 import ExternalLinkIcon from "../components/ExternalLinkIcon";
 
