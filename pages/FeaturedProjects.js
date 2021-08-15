@@ -1,4 +1,4 @@
-import ProjectTile from './components/ProjectTile';
+import ProjectTile from '../components/ProjectTile';
 import { featuredProjects } from './Projects';
 
 export default function FeaturedProjects() {

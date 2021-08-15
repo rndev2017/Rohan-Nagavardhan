@@ -3,7 +3,7 @@ import Intro from './Intro'
 import About from './About'
 import Skills from './Skills'
 import FeaturedProjects from './FeaturedProjects'
-import { EmailIcon, GitHubIcon, LinkedInIcon, TwitterIcon } from './components/Icons'
+import { EmailIcon, GitHubIcon, LinkedInIcon, TwitterIcon } from '../components/Icons'
 import OtherProjects from './OtherProjects'
 
 export default function Site() {
