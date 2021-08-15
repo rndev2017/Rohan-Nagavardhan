@@ -1,6 +1,6 @@
-import { otherProjects } from "./Projects";
+import otherProjects from "./OtherProjectsData";
 import SkillChip from "../components/SkillChip";
-import { ExternalLinkIcon } from "../components/Icons";
+import ExternalLinkIcon from "../components/ExternalLinkIcon";
 
 
 function Project(props) {

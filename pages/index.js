@@ -3,8 +3,11 @@ import Intro from './Intro'
 import About from './About'
 import Skills from './Skills'
 import FeaturedProjects from './FeaturedProjects'
-import { EmailIcon, GitHubIcon, LinkedInIcon, TwitterIcon } from '../components/Icons'
 import OtherProjects from './OtherProjects'
+import GitHubIcon from '../components/GithubIcon'
+import EmailIcon from '../components/EmailIcon'
+import LinkedInIcon from '../components/LinkedInIcon'
+import TwitterIcon from '../components/TwitterIcon'
 
 export default function Site() {
   return (
@@ -33,7 +36,9 @@ export default function Site() {
         <div className="flex flex-row my-4">
           <a className="mx-2" href="mailto:rnagavar@umich.edu" target="_blank"><EmailIcon width="32" height="32"/></a>
           <a className="mx-2" href="https://www.linkedin.com/in/rohan-s-n/" target="_blank"><LinkedInIcon width="32" height="32"/></a>
-          <a className="mx-2" href="https://twitter.com/RohanNagavardh1" target="_blank"><TwitterIcon width="32" height="32"/></a>
+          <a className="mx-2" href="https://twitter.com/RohanNagavardh1" target="_blank">
+            <TwitterIcon width="32" height="32"/>
+          </a>
           <a className="mx-2" href="https://github.com/rndev2017" target="_blank">
             <GitHubIcon color="#FFFFFF" hoverColor="#BEBEBE" width="32" height="32"/>
           </a>

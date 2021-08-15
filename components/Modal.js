@@ -1,7 +1,8 @@
 import React from "react";
 import styles from './Modal.module.css'
 import SkillChip from "./SkillChip";
-import { GitHubIcon, ExternalLinkIcon } from "./Icons";
+import GitHubIcon from "./GithubIcon";
+import ExternalLinkIcon from "./ExternalLinkIcon";
 
 function CloseButton(props) {
     return (
