@@ -5,7 +5,7 @@ let featuredProjects = [
         link: null,
         code: null,
         thumbnail: "./images/htccli.jpg",
-        description: `A mobile application that allows devotees to keep up to date with temples announcements
+        description: `A mobile application that allows devotees to keep up to date with temple announcements,
                         double check temple timings, glance at upcoming festivities, or request religious rituals.`,
         skills: ["Flutter", "UI/UX", "REST API", "FastAPI", "PostgreSQL", "Figma"]
     },
@@ -16,7 +16,7 @@ let featuredProjects = [
         link: "https://astrobites.org/2021/06/27/ur-use-of-machine-learning-techniques-to-analyze-radial-velocity-data-to-find-exoplanets/",
         code: "https://github.com/rndev2017/ExoBoost",
         description: `An intelligent system that can predict 
-            how many planets can orbit a distant star with 81% percent accuracy. 
+            how many planets can orbit a distant star with 81% accuracy. 
             Includes a radial velocity data generator that was used extensively to train the model.`,
         skills: ["Python", "XGBoost", "Pandas", "NumPy", "SciPy", 
             "AstroPy", "Matplotlib"]
@@ -77,7 +77,7 @@ let otherProjects = [
         name: "Web Backend",
         description: `A project where I created a simple office hours queue using a doubly linked list as the 
         underlying data structure. I gained an understanding of how web backends work and got a
-        taste of creating APIs using C++. Additionally, I implemented my own doubly linked list using iterators 
+        taste of creating APIs using C++ and Python. Additionally, I implemented my own doubly linked list using iterators 
         and OOP concepts learned in the class.`,
         code: null,
         skills: ["C++", "Python", "Linked List", "Queue", "Iterators"]
@@ -94,6 +94,7 @@ let otherProjects = [
         name: "Least Squares Regression",
         description: `A Python-based CLI tool that uses linear algebra to do least squares regression. Applied our tool on real-world data
         and predicted the temperature in Detroit, MI in 2050 using our model.`,
+        code: "https://github.com/rndev2017/LeastSquaresRegression/",
         skills: ["Python", "CLI", "Data processing", "Matrix", "Linear Algebra", "Least Squares Regression"]
     },
     {
