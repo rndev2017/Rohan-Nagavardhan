@@ -9,10 +9,10 @@ export default function About() {
                 <div className="flex flex-row font-light">
                     <p>I am studying Computer Science at the 
                     <a href="https://umich.edu/" target="_blank" className="font-semibold"> University of Michigan </a> 
-                    and potentially considering a minor in Astronomy and Astrophysics. On the side, I am a full-stack software engineer at 
+                    and considering a minor in Astronomy and Astrophysics. On the side, I am a full-stack software engineer at 
                     <a href="https://www.thinkwander.com/landing" target="_blank"><span className="font-semibold"> Wander </span></a> 
                     building a platform for users to share and discuss intellectual content with their network. 
-                     Before college,
+                    In high school,
                     I worked on <a className="font-semibold" href={researchLink} target="_blank"> astrophysics research </a> 
                     at Stony Brook University aimed at creating an intelligent system to discover exoplanets.</p>
                 </div>
@@ -22,7 +22,7 @@ export default function About() {
                 </div>
                 <div className="flex flex-row mt-5 justify-center  font-light">
                     <p><span className="font-semibold">When I'm not sitting in front of my computer</span>, 
-                    I'm likely making pizza 🍕, staring at the sky 🌌, working out at the gym 💪, or playing video games 🎮 </p>
+                    I'm likely making pizza, staring at the sky, working out at the gym, or playing video games. </p>
                 </div>
             </div>
         </div>
