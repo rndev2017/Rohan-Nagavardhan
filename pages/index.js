@@ -11,7 +11,7 @@ import TwitterIcon from '../components/TwitterIcon'
 
 export default function Site() {
   return (
-    <div>
+    <div className="overflow-hidden">
       <Head>
         <title>Rohan Nagavardhan</title>
         <link rel="preconnect" href="https://fonts.gstatic.com" />
