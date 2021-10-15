@@ -17,7 +17,7 @@ export default function Modal(props) {
         <>
             <div
             className="justify-center items-center flex overflow-x-hidden overflow-y-auto fixed inset-0 z-50 outline-none focus:outline-none">
-                <div className="relative w-full m-5 xl:my-8 md:max-w-lg lg:max-w-xl xl:max-w-2xl">
+                <div className="relative w-full m-5 xl:my-8 md:max-w-lg lg:max-w-lg xl:max-w-xl">
                     {/*content*/}
                     <div className="border-0 rounded-lg shadow-lg relative flex flex-col w-full bg-white outline-none focus:outline-none">
                         {/*Project Thumbnail and Close Button*/}

@@ -17,7 +17,7 @@ export default function Intro() {
                 </p>
             </div>
             <div className="text-md lg:text-lg">
-                <DownloadButton buttonText="download CV"/>
+                <DownloadButton buttonText="Download CV"/>
             </div>
         </header>
     )

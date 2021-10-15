@@ -1,5 +1,25 @@
 let featuredProjects = [
     {
+        name: "SimulationPlayers.io",
+        org: "SimulationPlayers",
+        link: "https://www.simulationplayers.io/",
+        code: null,
+        thumbnail: './images/simulationplayers.io.png',
+        description: `An NFT collection by popular Instagram artist (@leolli). Designed and implemented a
+            website to improve project outreach and provide basic project information.`,
+        skills: ["TailwindCSS", "Next.js", "UI/UX", "React.js", "NFT"]
+    },
+    {
+       name: "Diego the Dog",
+       org:  "HackCEWIT 2020",
+       thumbnail: "./images/DoD.jpg",
+       link: "https://devpost.com/software/diego-the-dog",
+       code: "https://github.com/chmoore889/Hack-CEWIT-App",
+       description: `A mobile application that attempts to solve the issue of digital distractions in education through
+                      gamification. Users learn to form a better relationship with technology as they study more with Diego.`,
+        skills: ["Flutter", "Firebase", "Figma", "UI/UX"]
+    },
+    {
         name: "HTCCLI Mobile App",
         org: "HTCCLI",
         link: null,
@@ -21,28 +41,6 @@ let featuredProjects = [
         skills: ["Python", "XGBoost", "Pandas", "NumPy", "SciPy", 
             "AstroPy", "Matplotlib"]
     },
-    {
-       name: "Diego the Dog",
-       org:  "HackCEWIT 2020",
-       thumbnail: "./images/DoD.jpg",
-       link: "https://devpost.com/software/diego-the-dog",
-       code: "https://github.com/chmoore889/Hack-CEWIT-App",
-       description: `A mobile application that attempts to solve the issue of digital distractions in education through
-                      gamification. Users learn to grow and connect with Diego the Dog by studying without touching their
-                      phones in the process. The more a user studies = the more Diego grows.`,
-        skills: ["Flutter", "Firebase", "Figma", "UI/UX"]
-    },
-    {
-        name: "Polaris",
-        org: "SBUHacks 2019",
-        thumbnail: "./images/polaris.jpg",
-        link: "https://devpost.com/software/polaris-i-the-smart-cane",
-        code: "https://github.com/rndev2017/Polaris",
-        description: `A smart device that allows visually impaired users to navigate to their desired destinations 
-        with ease. Users can request a destination with their voice, and get directions through an in-built speaker system.`,
-        skills: ["Google Maps API", "Google Speech-to-Text", "Flask", "Python", "Raspberry Pi", 
-            "C"]
-    },
 ];
 
 let otherProjects = [
@@ -57,36 +55,30 @@ let otherProjects = [
     },
     {
         name: "Stocks on Stocks on Stocks",
-        description: `This project is split into two parts, Part A and B. Part A involves building a stock exchange 
-        simulator that allows a pre-determined set of traders to trade a pre-dertermined number of stocks with each other. Additionally,
-        at the end of each trading run, certain statistics are displayed such as total trades and the best time to buy and sell a specific stock.
-        Part B includes several implementations of Priority Queues (i.e. Heap, Pairing Heap, Array-based)`,
+        description: `A simple stock exchange simulator that allows a pre-determined set of traders to trade a 
+        pre-dertermined number of stocks with each other. Based on command line flags provided by the user, 
+        the program will output various statistics (i.e. Median Price of each Stock at t = 0).`,
         code: null,
-        skills: ["C++", "Priority Queue", "OOP", "Dynamic Programming", "Research"]
+        skills: ["C++", "Priority Queue", "OOP", "Finite State Machine", "Research"]
         
     },
     {
         name: "Piazza Post Classifer",
-        description: `A project that introduces the concept of machine learning by classifying 1000+ piazza posts
-        with certain labels with Bayes' Rule. Additionally, I implemented the ordered_map ADT from the C++ STL or Binary
-        Search Tree data structure.`,
+        description: `A C++ application that learns to classify 1000+ piazza posts with certain labels using Bayes' Rule.`,
         code: null,
         skills: ["C++", "BST", "Map ADT", "Iterators", "ML"]
     },
     {
         name: "Web Backend",
-        description: `A project where I created a simple office hours queue using a doubly linked list as the 
-        underlying data structure. I gained an understanding of how web backends work and got a
-        taste of creating APIs using C++ and Python. Additionally, I implemented my own doubly linked list using iterators 
-        and OOP concepts learned in the class.`,
+        description: ` A simple office hours queue that allows users to be pushed and popped off the queue with HTML/CSS/JS.
+        The frontend communicated via REST API that was developed in C++ and served, locally, using Python httpserver.`,
         code: null,
         skills: ["C++", "Python", "Linked List", "Queue", "Iterators"]
     },
     {
         name: "Image Processing: Seam Carving Algorithm",
-        description: `A project where I created a CLI tool that would apply the seam carving algorithm
-        on input images and resize them to a desired width and height. I gained an understanding of C-Style Abstract
-        Data Types, C++ pointers, and the basics of image processing.`,
+        description: `A C++ application that makes use of the seam carving algorithm to resize images to a 
+            desired height and width.`,
         code: null,
         skills: ["C++", "PPM", "CLI", "C Style ADT", "Matrix"]
     },
@@ -111,6 +103,14 @@ let otherProjects = [
          of image and video manipulation called deepfakes.`,
         code: "http://trushot.space/",
         skills: ["Python", "GCP", "Flutter", "Dart", "UI/UX", "HTML", "CSS", "Javascript"]
+    },
+    {
+        name: "Polaris",
+        description: `A smart device that allows visually impaired users to navigate to their desired destinations 
+        with ease. Users can request a destination with their voice, and get directions through an in-built speaker system.`,
+        code: "https://github.com/rndev2017/Polaris",
+        skills: ["Google Maps API", "Google Speech-to-Text", "Flask", "Python", "Raspberry Pi", 
+            "C"]
     },
     {
         name: "Ballz",

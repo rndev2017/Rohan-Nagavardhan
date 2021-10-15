@@ -23,6 +23,9 @@ module.exports = {
       animation: {
         wave: 'wave 1000ms',
       },
+      backgroundColor: {
+        'smokeWhite': '#f7f9f9',
+      },
     },
   },
   variants: {

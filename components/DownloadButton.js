@@ -12,10 +12,11 @@ function DownloadIcon(props) {
 
 export default function DownloadButton(props) {
     return (
-        <a href="./documents/resume.pdf" download="Rohan_Nagavardhan">
-            <button className="py-4 flex flex-row justify-center items-center rounded-full font-semibold hover:bg-gray-800 bg-gray-700">
-                <span className="pr-2 pl-6"><DownloadIcon height="19" width="19"/></span>
-                <p className="uppercase tracking-widest text-white pr-6">{props.buttonText}</p>
+        <a href="./documents/Rohan_Nagavardhan.pdf" download="Rohan_Nagavardhan">
+            <button className="hover:scale-105 hover:bg-black hover:transition hover:ease-in-out hover:duration-500 
+                py-4 flex flex-row justify-center items-center rounded-full bg-gray-900">
+                <span className="pr-2 pl-12"><DownloadIcon height="19" width="19"/></span>
+                <p className="tracking-widest text-white pr-12">{props.buttonText}</p>
             </button>
         </a>
     )
