@@ -23,7 +23,7 @@ function HomePage() {
         <p className='text-slate-500 pb-7 md:text-xl'> 
           I&apos;m a student at the University of Michigan studying Computer Science
           & Astrophysics. On the side, I work on the Engineering team at{' '} 
-          <a href={wanderUrl} target={'_blank'} 
+          <a rel="noreferrer" href={wanderUrl} target={'_blank'} 
             className='font-semibold text-orange-600 hover:text-orange-500'>Wander</a>{' '}
           which launched on Product Hunt this past winter. I love learning about
           software architecture and building products that people find useful.
