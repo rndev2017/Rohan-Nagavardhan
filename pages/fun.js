@@ -35,7 +35,7 @@ function Section({ imgData }) {
             </div>
             <div className="grid grid-cols-1 place-items-center md:grid-cols-2 md:place-items-start gap-y-4 md:gap-4 py-1">
                 {imgData.images.map((item, i) => {
-                    return (<img className='rounded-xl shadow-lg object-cover' src={item.path} />)
+                    return (<img key={i} className='rounded-xl shadow-lg object-cover' src={item.path} />)
                 })}
             </div>
         </div>
