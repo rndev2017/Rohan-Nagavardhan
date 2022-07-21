@@ -2,6 +2,7 @@ function FooterItem({ account }) {
     return (
         <a 
             href={account.href}
+            rel="noreferrer"
             target="_blank"
             className="font-mono font-medium text-slate-800 hover:font-semibold tracking-light">{account.name}
         </a>

@@ -14,14 +14,14 @@ function HomePage() {
       </Head>
       <div className='max-w-2xl'>
         <div className='pb-4'>
-          <p className='text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight'>Hey, I'm Rohan!</p>
+          <p className='text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight'>Hey, I&apos;m Rohan!</p>
           <p className='text-slate-800 md:text-lg lg:text-xl italic'>
-            Building{' '} <a href={logitUrl} target={'_blank'} className='text-cyan-600 hover:text-cyan-500 font-bold'>logit</a> / 
-            Engineering @ <a href={effectvUrl} target={'_blank'}  className='text-rose-500 hover:text-rose-400 font-bold'>Effectv</a>
+            Building{' '} <a rel="noreferrer" href={logitUrl} target={'_blank'} className='text-cyan-600 hover:text-cyan-500 font-bold'>logit</a> / 
+            Engineering @ <a rel="noreferrer" href={effectvUrl} target={'_blank'}  className='text-rose-500 hover:text-rose-400 font-bold'>Effectv</a>
           </p>
         </div>
         <p className='text-slate-500 pb-7 md:text-xl'> 
-          I'm a student at the University of Michigan studying Computer Science
+          I&apos;m a student at the University of Michigan studying Computer Science
           & Astrophysics. On the side, I work on the Engineering team at{' '} 
           <a href={wanderUrl} target={'_blank'} 
             className='font-semibold text-orange-600 hover:text-orange-500'>Wander</a>{' '}
@@ -29,6 +29,7 @@ function HomePage() {
           software architecture and building products that people find useful.
         </p>
         <a
+          rel="noreferrer"
           download={'Rohan_Nagavardhan.pdf'} 
           href="/resume.pdf"
           target={'_blank'}

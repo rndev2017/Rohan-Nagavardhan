@@ -74,7 +74,7 @@ function SectionHeader({ title, className }) {
 function SectionItem({ name, href }) {
     return (
         <li className="hover:text-slate-700">
-            <a target={'_blank'} href={href}>{name}</a>
+            <a rel="noreferrer" target={'_blank'} href={href}>{name}</a>
         </li>
     )
 }
