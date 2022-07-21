@@ -10,7 +10,6 @@ let accounts = [
 
 let links = [
     {name: "home", href:"/"},
-    {name: "fun", href:"/fun"},
     {name: "tools", href:"/tools"},
     {name: "blog", href:"/blog"}
 ]
