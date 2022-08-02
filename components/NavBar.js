@@ -1,12 +1,14 @@
+import Link from "next/link";
+
 function NavBarItem({ link }) {
     return (
-        <a 
-            href={link.href}
-            className="font-mono font-medium text-slate-800 hover:font-semibold tracking-light">{link.name}
-        </a>
+        <Link href={link.href}>
+            <a className="font-mono font-medium text-slate-800 hover:font-semibold tracking-light">
+                {link.name}
+            </a>
+        </Link>
     )
 }
-
 
 function NavBar({ links }) {
     return (

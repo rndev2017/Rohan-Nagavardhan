@@ -1,18 +1,38 @@
 import Head from "next/head"
-import Layout from "../components/Layout"
+import Preview from "../components/Preview";
+import getPosts from "../utils/getPosts"
 
-function Blog() {
+
+function Blog({ posts }) {
     return (
-        <Layout>
+        <>
             <Head>
                 <title>Rohan Nagavardhan | Blog</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <div>
-                <p className='text-lg md:text-xl lg:text-2xl font-semibold pb-px'>Under Construction 🚧</p>
-            </div> 
-        </Layout>
+                {posts.map((post) => (
+                    <Preview
+                        key={post.slug}
+                        title={post.data.title}
+                        date={post.data.date}
+                        description={post.data.description}
+                        slug={post.slug}
+                    />
+                ))}
+            </div>
+        </>
     )
 }
+
+export const getStaticProps = () => {
+    const posts = getPosts();
+
+    return {
+        props: {
+            posts,
+        },
+    };
+};
 
 export default Blog
