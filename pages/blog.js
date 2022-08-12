@@ -10,7 +10,7 @@ function Blog({ posts }) {
                 <title>Rohan Nagavardhan | Blog</title>
                 <link rel="icon" href="/favicon.ico" />
             </Head>
-            <div>
+            {posts && <div>
                 {posts.map((post) => (
                     <Preview
                         key={post.slug}
@@ -20,7 +20,8 @@ function Blog({ posts }) {
                         slug={post.slug}
                     />
                 ))}
-            </div>
+            </div>}
+            {!posts && <p className="font-mono">no posts :(</p>}
         </>
     )
 }

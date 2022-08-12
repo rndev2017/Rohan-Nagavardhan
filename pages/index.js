@@ -1,9 +1,8 @@
 import Head from 'next/head'
-import Layout from '../components/Layout'
+import Link from 'next/link'
 
 function HomePage() {
   let logitUrl = "https://fitbit-recipe-importer.netlify.app"
-  let wanderUrl = "https://www.thinkwander.com/"
   let effectvUrl = "https://www.effectv.com/"
 
   return (
@@ -16,18 +15,20 @@ function HomePage() {
         <div className='pb-4'>
           <p className='text-2xl md:text-3xl lg:text-5xl font-bold tracking-tight'>Hey, I&apos;m Rohan!</p>
           <p className='text-slate-800 md:text-lg lg:text-xl italic py-px'>
-            Building{' '} <a rel="noreferrer" href={logitUrl} target={'_blank'} className='text-cyan-600 hover:text-cyan-500 font-bold'>logit</a> /
-            Engineering @ <a rel="noreferrer" href={effectvUrl} target={'_blank'} className='text-rose-500 hover:text-rose-400 font-bold'>Effectv</a>
+            {/* Building{' '} <a rel="noreferrer" href={logitUrl} target={'_blank'} className='text-cyan-600 hover:text-cyan-500 font-bold'>logit</a> / */}
+            Engineering @ <a rel="noreferrer" href={effectvUrl} target={'_blank'} className='text-rose-500 hover:text-rose-400 font-bold'>Comcast</a>
           </p>
         </div>
-        <p className='text-slate-500 pb-7 md:text-xl'>
-          I&apos;m a student at the University of Michigan studying Computer Science
-          & Astrophysics. On the side, I work on the Engineering team at{' '}
-          <a rel="noreferrer" href={wanderUrl} target={'_blank'}
-            className='font-semibold text-orange-600 hover:text-orange-500'>Wander</a>{' '}
-          which launched on Product Hunt this past winter. I love learning about
-          software architecture and building products that people find useful.
-        </p>
+        <div className='text-slate-500 pb-5 md:text-xl'>
+          <p>
+            I&apos;m a student at the University of Michigan studying Computer Science. 
+            I love learning about software architecture and building products that 
+            people find valuable.
+          </p>
+          <p className='py-3 text-[1rem] text-slate-400'>👀 I started a {' '}
+            <Link href="/blog"><a className="font-semibold text-sky-600 hover:text-sky-500">blog</a></Link>{' '}
+            where I talk about stuff that I find interesting</p>
+        </div>
         <a
           rel="noreferrer"
           download={'Rohan_Nagavardhan.pdf'}

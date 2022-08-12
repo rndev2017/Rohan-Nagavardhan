@@ -1,5 +1,4 @@
 import Head from "next/head";
-import Layout from "../components/Layout";
 
 let toolData = [
     {
@@ -11,7 +10,6 @@ let toolData = [
             { name: "Git Cheat Sheet", href: "https://overapi.com/git" },
             { name: "TailwindCSS Background Colors", href: "https://tailwindcss.com/docs/background-color" },
             { name: "TailwindCSS Install Page", href: "https://tailwindcss.com/docs/installation/framework-guides" },
-            { name: "Nano-React-App", href: "https://tailwindcss.com/docs/installation/framework-guides" },
             { name: "FastAPI CORS", href: "https://fastapi.tiangolo.com/tutorial/cors/" },
             { name: "Flutter: Debug Keystore (Android)", href: "https://gist.github.com/henriquemenezes/70feb8fff20a19a65346e48786bedb8f" },
             { name: "Common RegEx Expressions", href: "https://uibakery.io/regex-library?ref=producthunt" },
@@ -20,30 +18,6 @@ let toolData = [
             { name: "Vim Adventures", href: "https://vim-adventures.com" },
             { name: "vim.so", href: "https://www.vim.so" },
             { name: "Squash, Merge, Rebase?", href: "https://matt-rickard.com/squash-merge-or-rebase"},
-        ]
-    },
-    {
-        id: "startup",
-        header: "Startups",
-        items: [
-            { name: "Startup Growth Calculator", href: "http://growth.tlb.org/#_.eyJleHAwIjo1NjE3LCJyZXZHcm93dGgiOjAuMDU5NTQ0Njc1NDU3OTg3NTg0fQ==" },
-            { name: "Job interview questions engineers should ask", href: "https://posthog.com/blog/what-to-ask-in-interviews?utm_source=pointer&utm_medium=newsletter" },
-        ]
-    },
-    {
-        id: "recruiting",
-        header: "Recruiting",
-        items: [
-            { name: "internships.fyi", href: "https://www.levels.fyi/internships/" },
-            { name: "Summer 2023 Internship List", href: "https://github.com/pittcsc/Summer2023-Internships" },
-            { name: "Grokking the Coding Interview", href: "https://designgurus.org/course/grokking-the-coding-interview" },
-            { name: "Grind75", href: "https://www.techinterviewhandbook.org/grind75" }
-        ]
-    },
-    {
-        id: "uiux",
-        header: "UI/UX",
-        items: [
             { name: "Type System Tool", href: "https://archetypeapp.com/#" },
             { name: "Google Fonts", href: "https://fonts.google.com/" },
             { name: "External Fonts in TailwindCSS", href: "https://blog.logrocket.com/how-to-use-custom-fonts-tailwind-css/" },
@@ -53,7 +27,27 @@ let toolData = [
             { name: "Feather Icons", href: "https://feathericons.com" },
             { name: "Tabler Icons", href: "https://tablericons.com" },
             { name: "HeadlessUI", href: "https://headlessui.com" },
-            { name: "Color Pallete Generator", href: "https://coolors.co/" }
+            { name: "Color Pallete Generator", href: "https://coolors.co/" },
+            { name: "AutoAnimate", href: "https://auto-animate.formkit.com" },
+        ]
+    },
+    {
+        id: "career",
+        header: "Career",
+        items: [
+            { name: "internships.fyi", href: "https://www.levels.fyi/internships/" },
+            { name: "Summer 2023 Internship List", href: "https://github.com/pittcsc/Summer2023-Internships" },
+            { name: "Grokking the Coding Interview", href: "https://designgurus.org/course/grokking-the-coding-interview" },
+            { name: "Grind75", href: "https://www.techinterviewhandbook.org/grind75" }
+        ]
+    },
+    {
+        id: "startup",
+        header: "Startups",
+        items: [
+            { name: "Startup Growth Calculator", href: "http://growth.tlb.org/#_.eyJleHAwIjo1NjE3LCJyZXZHcm93dGgiOjAuMDU5NTQ0Njc1NDU3OTg3NTg0fQ==" },
+            { name: "Job interview questions engineers should ask", href: "https://posthog.com/blog/what-to-ask-in-interviews?utm_source=pointer&utm_medium=newsletter" },
+            { name: "Launching on Reddit", href: "https://artplusmarketing.com/how-i-successfully-launched-my-app-on-reddit-and-how-you-can-too-41f67cb3962b"}
         ]
     },
     {
@@ -107,7 +101,7 @@ function ToolsPage() {
                             <li key={i}>
                                 <a
                                     href={`#${section.id}`}
-                                    className="text-blue-600 hover:text-blue-500 cursor-pointer">
+                                    className="text-sky-600 hover:text-sky-500 cursor-pointer">
                                     {section.header}
                                 </a>
                             </li>

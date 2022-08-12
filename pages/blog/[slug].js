@@ -2,15 +2,25 @@ import { MDXRemote } from "next-mdx-remote";
 import getPost from "../../utils/getPost";
 import getPosts from "../../utils/getPosts";
 import { serialize } from "next-mdx-remote/serialize";
+import rehypeHighlight from "rehype-highlight";
+import { Prism } from "@mantine/prism";
+
+const components = { Prism }
 
 function Post({ data, content }) {
   return (
     <div>
-      <h1 className="text-xl md:text-2xl lg:text-3xl font-semibold">{data.title}</h1>
-      <time className="text-gray-500 italic">{data.date}</time>
-      <p className="prose">
-        <MDXRemote {...content} />
-      </p>
+      <h1 className="text-xl md:text-3xl lg:text-5xl font-bold">{data.title}</h1>
+      <p className=" text-gray-500 italic text-lg md:text-xl my-2">{data.date}</p>
+      <article 
+        className="prose prose-headings:my-3 lg:prose-lg 
+          lg:prose-headings:my-3 mt-6 prose-a:text-sky-600 marker:text-slate-700
+           prose-img:rounded-lg prose-img:shadow-md prose-video:rounded-lg
+           prose-video:shadow-md">
+        <MDXRemote
+          components={components}
+          {...content} />
+      </article>
     </div>
   );
 }
@@ -28,7 +38,11 @@ export const getStaticPaths = async () => {
 
 export const getStaticProps = async ({ params }) => {
   const post = await getPost(params.slug);
-  const mdxSource = await serialize(post.content);
+  const mdxSource = await serialize(
+    post.content, {
+      mdxOptions: [rehypeHighlight]
+    }
+  );
   return {
     props: {
       data: post.data,
