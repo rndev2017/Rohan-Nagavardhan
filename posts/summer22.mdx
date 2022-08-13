@@ -68,6 +68,7 @@ iterate quickly, so I opted to start when I had more bandwidth. Few weeks into m
 summer break, I implemented features such as in-app browsing, adding to unread/
 collections/playlists, displaying notifications, and a functioning 
 infinite scroll mechanism. Below is a brief demo of that work.
+(Note: Most of the work you see in the video is by me!)
 
 <video width="300" height="450" controls>
   <source 
@@ -157,8 +158,8 @@ and a half planning, researching valid approaches, prototyping quick solutions,
 and choosing which technolgies to use. The actual engineering was simple. 
 
 On a side note, I decided to use this project to learn more about containers and Docker.
-For this project, I spun up a container running my FastAPI REST API with a single endpoint
-with the path `/parse`. The `/parse` endpoint did the following things upon
+For this project, I spun up a container running my [FastAPI](https://fastapi.tiangolo.com) 
+REST API with a single endpoint with the path `/parse`. The `/parse` endpoint did the following things upon
 recieving a request:
 1. validate the link using regex
 2. request the HTML markup of the link
@@ -226,10 +227,11 @@ with other engineers maintaining and enhancing our core product called
 Enterprise Schedule & Verification Platform (or ESVP).
 
 ### Steel Cloud Migration
-My first task involved moving a two applications deployed on one server and 
-redeploying it on to another. One app was called "Server Restart Tool" which 
+My first task involved redeploying two critical applications onto a new
+server. One app was called "Server Restart Tool" which 
 enabled engineers to remotely restart any server. It was built with Django and
-deployed on a legacy web server tool called Internet Information Services. The
+deployed on a legacy web server tool called 
+[Internet Information Services (IIS)](https://stackify.com/iis-web-server/). The
 other was an Angular (🤢) application deployed using the same tool. This mini-project
 was super tedious because work just involved copying over the files from one
 Windows server to the other, and then spending hours configuring IIS. At the
@@ -255,9 +257,7 @@ all the pieces fit together and working on tests gave me the oppurtunity to
 dive deeper in to the code base. Although I hate writing tests, it ended up paying
 dividends in my speed of code output. 
 
-### ESVP
-Below are some of the major contributions to my teams flagship product.
-
+### My contributions to ESVP
 #### AWS SAM CLI
 ESVP has been running on premises (on servers directly owned and managed by Comcast) 
 since its inception. Jetway is an effort to refactor ESVP 
@@ -303,7 +303,7 @@ I was looking for. Also, it was an oppurtunity to help the team be more producti
 while learning more about Go. Here are the overarching goals of this project.
 
 1. Has to work with both containerized and non-containerized applications
-2. Has to be easily configrable
+2. Has to be easily configurable
 3. Has to be easy to use
 
 In about two weeks of work, I created `reload`. Reload is a CLI tool written
