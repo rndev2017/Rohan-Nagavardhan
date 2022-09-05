@@ -9,12 +9,14 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@heroicons/react": "^2.0.10",
     "@mantine/prism": "^5.1.3",
     "@tailwindcss/typography": "^0.5.4",
     "cmdk": "^0.1.18",
     "gray-matter": "^4.0.3",
     "next": "12.2.2",
     "next-mdx-remote": "^4.1.0",
+    "next-themes": "^0.2.0",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "rehype-highlight": "^5.0.2"

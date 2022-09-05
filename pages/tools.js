@@ -64,8 +64,8 @@ let toolData = [
 function Section({ sectionData }) {
     return (
         <div className="py-3">
-            <SectionHeader id={sectionData.id} title={sectionData.header} className='text-lg md:text-xl lg:text-2xl font-semibold pb-2' />
-            <ul role={'list'} className='marker:text-slate-800 list-disc pl-5 space-y-3 text-slate-500 md:text-lg lg:text-xl'>
+            <SectionHeader id={sectionData.id} title={sectionData.header} className='text-neutral-900 dark:text-neutral-50 text-lg md:text-xl lg:text-2xl font-semibold pb-2' />
+            <ul role={'list'} className='marker:text-neutral-800 list-disc pl-5 space-y-3 text-neutral-500 dark:text-neutral-400 md:text-lg lg:text-xl'>
                 {sectionData.items.map((item, i) => {
                     return (<SectionItem key={i} name={item.name} href={item.href} />)
                 })}
@@ -80,7 +80,7 @@ function SectionHeader({ id, title, className }) {
 
 function SectionItem({ name, href }) {
     return (
-        <li className="hover:text-slate-700">
+        <li className="hover:text-neutral-700 dark:hover:text-neutral-300">
             <a rel="noreferrer" target={'_blank'} href={href}>{name}</a>
         </li>
     )
@@ -95,13 +95,13 @@ function ToolsPage() {
             </Head>
             <div className='max-w-2xl'>
                 <div>
-                    <p className="text-lg md:text-xl lg:text-2xl font-semibold my-2">Table of Contents</p>
+                    <p className="text-neutral-900 dark:text-neutral-50 text-lg md:text-xl lg:text-2xl font-semibold my-2">Table of Contents</p>
                     <ol className="lg:text-lg">
                         {toolData.map((section, i) => (
                             <li key={i}>
                                 <a
                                     href={`#${section.id}`}
-                                    className="text-sky-600 hover:text-sky-500 cursor-pointer">
+                                    className="text-sky-600 dark:text-sky-500 dark:hover:text-sky-400 hover:text-sky-500 cursor-pointer">
                                     {section.header}
                                 </a>
                             </li>

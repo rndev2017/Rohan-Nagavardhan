@@ -1,4 +1,3 @@
-import Head from 'next/head.js'
 import Footer from './Footer.js'
 import NavBar from './NavBar.js'
 
@@ -11,7 +10,7 @@ let accounts = [
 let links = [
     {name: "home", href:"/"},
     {name: "tools", href:"/tools"},
-    {name: "blog", href:"/blog"}
+    {name: "blog", href:"/blog"},
 ]
 
 export default function Layout({ children }) {

@@ -4,7 +4,7 @@ function FooterItem({ account }) {
             href={account.href}
             rel="noreferrer"
             target="_blank"
-            className="font-mono font-medium text-slate-800 hover:font-semibold tracking-light">{account.name}
+            className="font-mono font-medium text-neutral-900 dark:text-neutral-50 hover:font-semibold tracking-light">{account.name}
         </a>
     )
 }
