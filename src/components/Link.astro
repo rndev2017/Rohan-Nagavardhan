@@ -1,0 +1,17 @@
+---
+interface Props {
+    href: string
+    text: string
+    lower: boolean
+}
+
+const { href, text, lower } = Astro.props;
+---
+
+<a
+    id={href}
+    href={href}
+    class=`text-gray-600 underline hover:no-underline ${lower ? 'lowercase' : null}`
+>
+    {text}
+</a>

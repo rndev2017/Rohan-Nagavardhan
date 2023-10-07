@@ -1,0 +1,31 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Link from '../components/Link.astro';
+
+const posts = await Astro.glob('../pages/blog/*.md');
+posts.sort((a, b) => {
+    if (new Date(a.frontmatter.date) < new Date(b.frontmatter.date)) {
+        return 1
+    } else if (new Date(a.frontmatter.date) > new Date(b.frontmatter.date)) {
+        return -1
+    } else {
+        return 0
+    }
+})
+---
+
+<Layout title="Blog · Rohan Nagavardhan">
+    <p class="text-base font-bold">Posts</p>
+    <p class="italic text-xs ">my thoughts are my own.</p>
+    <ul class="mt-4">
+        {posts.filter((post) => post.frontmatter.visible).map(post => {
+            return (
+                <li class="flex space-x-2">
+                    <Link lower={false} href={post.url as string} text={post.frontmatter.title} />
+                    <span>&middot;</span>
+                    <p class="italic">{post.frontmatter.date}</p>
+                </li>
+            )
+        })}
+    </ul>
+</Layout>
