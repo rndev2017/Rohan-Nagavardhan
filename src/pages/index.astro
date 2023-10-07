@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Link from '../components/Link.astro';
+---
+
+<Layout title="About · Rohan Nagavardhan">
+    <div class="max-w-md md:max-w-lg text-sm">
+        <img src="/images/headshot.jpeg" class="rounded-sm h-16 w-16 md:h-32 md:w-32" />
+        <p class="my-4 mr-2">
+            I'll be moving to Seattle (in February) to work at <Link lower={false} href="https://www.stripe.com" text="Stripe"/>. 
+            I grew up in Stony Brook and studied at the University of Michigan.
+            <a href="/Rohan_Nagavardhan_2023.pdf" class="underline text-gray-600 hover:no-underline" download>
+                (Resume)
+            </a>
+        </p>
+        <div class="mr-2">
+            <p class="text-base font-bold">Interests</p>
+            <ul class="ml-5 list-disc list-outside space-y-3">
+                <li>
+                    <strong>Running:</strong> Recently, I completed the Probility Ann Arbor Half Marathon in 02:32:00.
+                    Eventually, one of my goals is complete the <Link lower={false} href='https://www.superhalfs.com/en/' text="SuperHalfs" />
+                    challenge.
+                </li>
+                <li>
+                    <strong>Bread:</strong> I love baking bread (mostly naan, pizza, pasta) from scratch.
+                    Making, proofing the dough, and then using my wood fired oven to bring them to life.
+                </li>
+                <li>
+                    <strong>Entrepreneurship:</strong> Built 
+                    <Link lower={false} href='https://logit-xyz.netlify.app/' text='logit' />, an
+                    app to help FitBit users easily count calories coming from online recipes (~50-70 MAU). 
+                    Also, helped run 
+                    <Link lower={false} href="https://startupfair.v1michigan.com/" text="V1 Startup Fair" /> 
+                    at UofM in 2022, 2023.
+                </li>
+                <li>
+                    <strong>Astronomy/Physics:</strong> Competed in "Astronomy"
+                    in Science Olympiad Division C and ranked 2nd in all of New York.
+                    Created a ML algorithm to help astrophysicists find exoplanets in high
+                    school.
+                </li>
+                <li>
+                    <strong>Photography:</strong> Mostly 35mm film and Polaroid, check them
+                    out <Link href='/photos' text='here' lower={false}/>.
+                </li>
+                <li class="">
+                    <strong>DevTools:</strong> Love building tools to make developers more productive.
+                    Built a CLI to help Go programmers build web apps with hot reload. 
+                </li>
+            </ul>
+        </div>
+
+        <div class="mt-5 hidden md:block">
+            <p class="text-base font-bold">Find me</p>
+            <ul class="list-none space-x-1 flex flex-row">
+                <li>
+                    <Link lower={true} href='https://www.github.com/rndev2017' text='rndev2017' /> on GitHub;
+                </li>
+                <li>
+                    <Link lower={false} href='https://twitter.com/RohanNagavardh1' text='@RohanNagavardh1'/> on Twitter
+                </li>
+            </ul>
+        </div>
+
+        <div class="my-5 block md:hidden">
+            <p class="text-base font-bold">Find me</p>
+            <div class="flex flex-row justify-around mt-2">
+                <div class="flex flex-col items-center">
+                    <Link lower={true} href='https://www.github.com/rndev2017' text="rndev2017"/>
+                    <p class="italic">GitHub</p>
+                </div>
+                <div class="flex flex-col items-center">
+                    <Link lower={false} href='https://twitter.com/RohanNagavardh1' text="RohanNagavardh1"/>
+                    <p class="italic">Twitter</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</Layout>

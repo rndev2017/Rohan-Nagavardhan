@@ -1,0 +1,38 @@
+---
+const { frontmatter } = Astro.props;
+import Link from '../components/Link.astro';
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="description" content="Rohan's Personal Portifolio" />
+		<meta name="viewport" content="width=device-width" />
+		<meta name="generator" content={Astro.generator} />
+		<title>{frontmatter.title}</title>
+
+        <!-- Favicon Code -->
+        <link rel="apple-touch-icon" sizes="180x180" href="/favicons/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+        <link rel="manifest" href="/site.webmanifest">
+        <link rel="mask-icon" href="/favicons/safari-pinned-tab.svg" color="#5bbad5">
+        <meta name="msapplication-TileColor" content="#da532c">
+        <meta name="theme-color" content="#ffffff">
+	</head>
+
+	<body class="text-xs font-serif">
+        <a href="/blog" class="block text-gray-600 underline hover:no-underline lowercase ml-5 mt-2">Back</a>
+        <div class="text-base flex flex-col items-center">
+            <p class="font-semibold mt-3 md:mt-0 text-base md:text-xl">{frontmatter.title}</p>
+            <p class="italic text-sm md:text-base">{frontmatter.date}</p>
+            <article class="prose prose-neutral prose-headings:my-3 lg:prose-lg 
+                lg:prose-headings:my-3 my-6 prose-a:text-gray-600 marker:text-neutral-700
+                prose-img:rounded-sm prose-img:shadow-sm prose-video:rounded-sm
+                prose-video:shadow-sm max-w-[16rem] md:max-w-xl">
+                <slot />
+            </article>
+        </div>
+	</body>
+</html>
