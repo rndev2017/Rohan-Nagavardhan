@@ -31,7 +31,7 @@ Sound familiar? Yea, sounds a lot like Reshape, right?
 I still think Reshape was a great idea with 
 tons of potential, but unfortunately the technology necessary wasn't 
 available at the scale we needed to successfully execute our vision. 
-This is not to say you should wait until the conditions are right to launch or 
+We were too early. This isn't to say you should wait until the conditions are right to launch or 
 build a product because you can never know when its _right_ time. 
 
 \- rohan
