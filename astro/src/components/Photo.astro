@@ -1,0 +1,39 @@
+--- 
+// @ts-ignore - Don't know why Astro isn't picking up on the  module
+import { sanityClient } from "sanity:client";
+
+import imageUrlBuilder from "@sanity/image-url";
+import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
+import PhotoDescription from "./PhotoDescription.astro";
+
+const { photo, title, description, location, alt } = Astro.props.node
+
+const builder = imageUrlBuilder(sanityClient)
+const urlFor = (source: SanityImageObject) => builder.image(source);
+
+const url = urlFor(photo).url()
+const webpUrl = urlFor(photo).format('webp').url()
+
+---
+
+<div class="flex space-x-11 group max-w-5xl">
+    <picture>
+        <source
+            srcset={webpUrl}
+            type="image/webp"
+        />
+        <img
+            class="responsive__img max-w-xl max-h-[550px] transition ease-in-out delay-750 group-hover:scale-[1.015]"
+            src={url}
+            alt={alt}
+        />
+    </picture>
+
+    <div class="hidden transition-ease-in-out delay-1000 group-hover:block space-y-5">
+        <div>
+            <p class="font-semibold">{title}</p>
+            <p class="text-xs italic">{location}</p>
+        </div>
+        <PhotoDescription text={description}/>
+    </div>
+</div>
