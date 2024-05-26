@@ -1,4 +1,6 @@
 ---
+import  SpeedInsights  from "@vercel/speed-insights/astro"
+
 interface Props {
 	title: string;
 }
@@ -40,5 +42,6 @@ import Link from '../components/Link.astro';
 				<slot/>
 			</div>
 		</div>
+		<SpeedInsights />	
 	</body>
 </html>
