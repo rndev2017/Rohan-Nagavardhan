@@ -1,0 +1,51 @@
+---
+// @ts-ignore
+import { sanityClient } from "sanity:client"
+import Layout from "../layouts/Layout.astro";
+import Photo  from "../components/Photo.astro"
+import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
+
+export interface PhotoDocument {
+    title: string;
+    description: any,
+    location: string;
+    maxWidth: number,
+    photo: SanityImageObject;
+    _updatedAt: string;
+    _createdAt: string;
+    _rev: string;
+    _type: string;
+    _id: string;
+}
+
+const photos: PhotoDocument[] = await sanityClient.fetch(`*[_type == "photo"] | order(_createdAt desc)`)
+---
+
+<!-- https://www.youtube.com/watch?v=ha1ECFXW1w4 -->
+<Layout title="Photos · Rohan Nagavardhan">
+  <div>
+    <p class="text-base font-bold">Photos</p>
+    <p class="italic text-xs">my collection of film, polaroid, digital photography</p>
+    
+    <div class="mt-2">
+      <p class="font-medium">Gear</p>
+      <ul class="text-xs">
+        <li>Polaroid Now <span class="italic">(acq. ~ December 2022)</span></li>
+        <li>Elikon 35C <span class="italic">(acq. ~ May 2023)</span></li>
+        <li>Pentax K1000 <span class="italic">(acq. ~ January 2024)</span></li>
+        <li>Canon Prima Super 90 <span class="italic">(acq. ~ January 2024)</span></li>
+      </ul>
+    </div>
+
+
+    <div class="my-5 space-y-10">
+      {photos.map((photoDoc) => {
+        return (
+          <Photo 
+            node={photoDoc}
+          />
+        )
+      })}
+    </div>
+  </div>
+</Layout>
