@@ -18,7 +18,7 @@ export interface PhotoDocument {
     _id: string;
 }
 
-const photos: PhotoDocument[] = await sanityClient.fetch(`*[_type == "photo"] | order(_createdAt desc)`)
+const photos: PhotoDocument[] = await sanityClient.fetch(`*[_type == "photo"] | order(_updatedAt desc)`)
 ---
 
 <!-- https://www.youtube.com/watch?v=ha1ECFXW1w4 -->
@@ -30,10 +30,10 @@ const photos: PhotoDocument[] = await sanityClient.fetch(`*[_type == "photo"] | 
     <div class="mt-2">
       <p class="font-medium">Gear</p>
       <ul class="text-xs">
-        <li>Polaroid Now <span class="italic">(acq. ~ December 2022)</span></li>
-        <li>Elikon 35C <span class="italic">(acq. ~ May 2023)</span></li>
-        <li>Pentax K1000 <span class="italic">(acq. ~ January 2024)</span></li>
-        <li>Canon Prima Super 90 <span class="italic">(acq. ~ January 2024)</span></li>
+        <li>Polaroid Now <span class="italic">(acq. ~December 2022)</span></li>
+        <li>Elikon 35C <span class="italic">(acq. ~May 2023)</span></li>
+        <li>Pentax K1000 <span class="italic">(acq. ~January 2024)</span></li>
+        <li>Canon Prima Super 90 <span class="italic">(acq. ~January 2024)</span></li>
       </ul>
     </div>
 
