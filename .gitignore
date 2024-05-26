@@ -30,3 +30,8 @@ yarn-error.log*
 
 # vercel
 .vercel
+.env
+.sanity
+.sanity/runtime/app.js
+.sanity/runtime/index.html
+astro/node_modules

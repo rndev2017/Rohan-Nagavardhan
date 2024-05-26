@@ -1,0 +1,5 @@
+# Dependencies
+/node_modules
+
+# Compiled Sanity Studio
+/dist
