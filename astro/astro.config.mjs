@@ -21,5 +21,5 @@ export default defineConfig({
     react()
   ],
   output: "hybrid",
-  adapter: vercel()
+  adapter: vercel(),
 });
