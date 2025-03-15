@@ -40,11 +40,13 @@ const {photos, title, description} = Astro.props
 <Layout title=`Albums · ${title}`>
    <a href="/photos" class="block text-gray-600 underline hover:no-underline lowercase">&lt; Back</a>
 
-   <div class="space-y-1 mt-10 mb-8">
+   <div class="space-y-1 mt-10 mb-8 max-w-sm md:max-w-lg">
       <p class="text-base font-bold">{title}</p>
       <div class="italic"> 
          <SanityDescription text={description}/>
       </div>
    </div>
-   {photos.map((photo) => <Photo node={photo}/>)
+   <div class="max-w-sm" >
+      {photos.map((photo) => <Photo node={photo}/>)
+   </div>
 </Layout>
