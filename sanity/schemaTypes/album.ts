@@ -23,7 +23,7 @@ export default defineType({
       name: 'startedAt',
       type: 'date',
       options: {
-        dateFormat: 'MMM Do, YY',
+        dateFormat: 'MMM Do, YYYY',
       }
     }),
 
@@ -32,7 +32,7 @@ export default defineType({
       name: 'endedAt',
       type: 'date',
       options: {
-        dateFormat: 'MMM Do, YY',
+        dateFormat: 'MMM Do, YYYY',
       }
     })
   ]

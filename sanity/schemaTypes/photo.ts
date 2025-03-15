@@ -6,6 +6,12 @@ export default defineType({
   type: 'document',
   fields: [
     defineField({
+      title: 'Album',
+      name: 'album',
+      type: 'reference',
+      to: [{type: 'album'}]
+    }),
+    defineField({
       name: 'title',
       title: 'Title',
       type: 'string',

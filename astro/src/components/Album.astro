@@ -1,0 +1,12 @@
+---
+import SanityDescription from "./SanityDescription.astro";
+
+const { id, title, description } = Astro.props;
+---
+
+<a href=`/albums/${id}` class="hover:text-gray-700 max-w-md">
+    <p class="underline underline-offset-1">{title}</p>
+    <div class="my-2 text-xs">
+        <SanityDescription text={description}/>
+    </div>
+</a>

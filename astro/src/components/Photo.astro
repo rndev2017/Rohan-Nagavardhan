@@ -4,7 +4,7 @@ import { sanityClient } from "sanity:client";
 
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
-import PhotoDescription from "./PhotoDescription.astro";
+import PhotoDescription from "./SanityDescription.astro";
 
 const { photo, title, description, location, alt } = Astro.props.node
 
@@ -13,7 +13,6 @@ const urlFor = (source: SanityImageObject) => builder.image(source);
 
 const url = urlFor(photo).url()
 const webpUrl = urlFor(photo).format('webp').url()
-
 ---
 
 <div class="group flex flex-col space-y-6 lg:max-w-5xl lg:flex-row lg:space-x-11 lg:space-y-0">

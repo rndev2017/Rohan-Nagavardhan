@@ -1,0 +1,50 @@
+---
+// @ts-ignore
+import { sanityClient } from "sanity:client"
+import Photo from "../../components/Photo.astro"
+import Layout from "../../layouts/Layout.astro"
+import SanityDescription from "../../components/SanityDescription.astro"
+
+export interface PhotoDocument {
+   title: string,
+   location: string,
+   description: unknown,
+}
+
+export interface AlbumWithPhotos {
+   _id: string,
+   title: string,
+   description: unknown,
+   photos: PhotoDocument[]
+}
+
+export const getStaticPaths = (async () => {
+   const query = `*[_type == "album"] {_id, title, description, "photos": *[_type == "photo" && references(^._id)] | order(_createdAt, desc)}`
+   const albums: AlbumWithPhotos[] = await sanityClient.fetch(query)
+
+   return albums.map((album) => {
+       return {
+         params: {id: album._id},
+         props: {
+            title: album.title,
+            description: album.description,
+            photos: album.photos
+         }
+       }
+   })
+})
+
+const {photos, title, description} = Astro.props
+---
+
+<Layout title=`Albums · ${title}`>
+   <a href="/photos" class="block text-gray-600 underline hover:no-underline lowercase">&lt; Back</a>
+
+   <div class="space-y-1 mt-10 mb-8">
+      <p class="text-base font-bold">{title}</p>
+      <div class="italic"> 
+         <SanityDescription text={description}/>
+      </div>
+   </div>
+   {photos.map((photo) => <Photo node={photo}/>)
+</Layout>

@@ -2,29 +2,24 @@
 // @ts-ignore
 import { sanityClient } from "sanity:client"
 import Layout from "../layouts/Layout.astro";
-import Photo  from "../components/Photo.astro"
-import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
+import Album from "../components/Album.astro";
 
-export interface PhotoDocument {
-    title: string;
-    description: any,
-    location: string;
-    maxWidth: number,
-    photo: SanityImageObject;
-    _updatedAt: string;
-    _createdAt: string;
-    _rev: string;
-    _type: string;
-    _id: string;
+export interface AlbumDocument {
+  _id: string,
+  title: string,
+  description: unknown,
+  startedAt: string,
+  endedAt: string
 }
 
-const photos: PhotoDocument[] = await sanityClient.fetch(`*[_type == "photo"] | order(_updatedAt desc)`)
+const query = `*[_type == "album"] | order(startedAt desc) {_id, title, description, startedAt, endedAt}`
+const albums: AlbumDocument[] = await sanityClient.fetch(query)
 ---
 
 <!-- https://www.youtube.com/watch?v=ha1ECFXW1w4 -->
-<Layout title="Photos · Rohan Nagavardhan">
+<Layout title="Photography · Rohan Nagavardhan">
   <div>
-    <p class="text-base font-bold">Photos</p>
+    <p class="text-base font-bold">Photography</p>
     <p class="italic text-xs">my collection of film, polaroid, digital photography</p>
     
     <div class="mt-2">
@@ -38,14 +33,8 @@ const photos: PhotoDocument[] = await sanityClient.fetch(`*[_type == "photo"] | 
     </div>
 
 
-    <div class="my-5 space-y-10">
-      {photos.map((photoDoc) => {
-        return (
-          <Photo 
-            node={photoDoc}
-          />
-        )
-      })}
+    <div class="my-5">
+      {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} />)}
     </div>
   </div>
 </Layout>
