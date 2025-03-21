@@ -1,17 +1,23 @@
 ---
 interface Props {
+    active?: boolean
+    lower: boolean
     href: string
     text: string
-    lower: boolean
 }
 
-const { href, text, lower } = Astro.props;
+const { 
+    active = true, 
+    href, 
+    text, 
+    lower
+} = Astro.props;
 ---
 
 <a
     id={href}
     href={href}
-    class=`text-gray-600 underline hover:no-underline ${lower ? 'lowercase' : null}`
+    class=`text-gray-600 hover:text-gray-500 ${active ? 'underline' : null} ${lower ? 'lowercase' : null}`
 >
     {text}
 </a>
