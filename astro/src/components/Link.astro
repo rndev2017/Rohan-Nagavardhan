@@ -1,23 +1,27 @@
 ---
 interface Props {
-    active?: boolean
     lower: boolean
     href: string
     text: string
 }
 
 const { 
-    active = true, 
     href, 
     text, 
-    lower
+    lower,
 } = Astro.props;
+
+// Pulled from 
+// https://stackoverflow.com/questions/10687099/how-to-test-if-a-url-string-is-absolute-or-relative
+var r = new RegExp('^(?:[a-z+]+:)?//', 'i');
+const isExternalLink = r.test(href)
 ---
 
 <a
     id={href}
     href={href}
-    class=`text-gray-600 hover:text-gray-500 ${active ? 'underline' : null} ${lower ? 'lowercase' : null}`
+    target={isExternalLink ? '_blank' : '_self'}
+    class=`text-gray-600 hover:text-gray-500 underline ${lower ? 'lowercase' : null}`
 >
     {text}
 </a>

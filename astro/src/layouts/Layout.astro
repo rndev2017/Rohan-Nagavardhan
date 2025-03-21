@@ -1,6 +1,6 @@
 ---
 import  SpeedInsights  from "@vercel/speed-insights/astro"
-import Link from '../components/Link.astro';
+import NavLink from '../components/NavLink.astro';
 
 interface Props {
     title: string
@@ -33,9 +33,9 @@ const { title, page } = Astro.props;
 			<div class="flex flex-row space-x-4 mr-4">
 				<p>Rohan Nagavardhan</p>
 				<div class="space-x-4">
-					<Link active={page === "about"} lower={true} href='/' text='About'/>
-					<Link active={page === "blog"} lower={true} href='/blog' text='Blog'/>
-					<Link active={page === "photos"} lower={true} href='/photos' text='Photos'/>
+					<NavLink active={page === "about"} href='/' text='About'/>
+					<NavLink active={page === "blog"}  href='/blog' text='Blog'/>
+					<NavLink active={page === "photos"} href='/photos' text='Photos'/>
 				</div>
 			</div>
 			<div class="mt-8">
