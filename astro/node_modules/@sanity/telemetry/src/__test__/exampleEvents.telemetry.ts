@@ -11,3 +11,10 @@ export const ExampleEvent = defineEvent<{foo: 'bar'}>({
   version: 1,
   description: 'An example event happened',
 })
+
+export const ExampleSampledEvent = defineEvent<{sampledAt: string}>({
+  name: 'ExampleSampledEvent',
+  version: 1,
+  description: 'An example event happened',
+  maxSampleRate: 10,
+})

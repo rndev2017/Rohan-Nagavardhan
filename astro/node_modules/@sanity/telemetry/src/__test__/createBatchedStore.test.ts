@@ -1,7 +1,11 @@
 import {expect, test, vi} from 'vitest'
 import {createBatchedStore} from '../createBatchedStore'
 import {createSessionId} from '../'
-import {ExampleEvent, ExampleTrace} from './exampleEvents.telemetry'
+import {
+  ExampleEvent,
+  ExampleSampledEvent,
+  ExampleTrace,
+} from './exampleEvents.telemetry'
 
 test('Logging an example event', async () => {
   const sendEvents = vi.fn().mockResolvedValue(undefined)
@@ -69,6 +73,45 @@ test('Tracing an async operation that resolves to an invalid value', async () =>
       context: undefined,
       data: undefined,
       type: 'trace.complete',
+      version: 1,
+    },
+  ])
+})
+
+test('It logs at most n event every "maxSampleRate"', async () => {
+  const sendEvents = vi.fn().mockResolvedValue(undefined)
+  const {logger} = createBatchedStore(createSessionId(), {
+    flushInterval: 100,
+    resolveConsent: () => Promise.resolve({status: 'granted'}),
+    sendEvents,
+  })
+
+  logger.log(ExampleSampledEvent, {sampledAt: new Date().toISOString()})
+  logger.log(ExampleSampledEvent, {sampledAt: new Date().toISOString()})
+  logger.log(ExampleSampledEvent, {sampledAt: new Date().toISOString()})
+
+  await new Promise((resolve) => setTimeout(resolve, 20))
+  logger.log(ExampleSampledEvent, {sampledAt: new Date().toISOString()})
+  logger.log(ExampleSampledEvent, {sampledAt: new Date().toISOString()})
+  await new Promise((resolve) => setTimeout(resolve, 200))
+
+  const sentEvents = sendEvents.mock.calls?.[0]?.[0]
+
+  expect(sentEvents).toMatchObject([
+    {
+      sessionId: /.+/,
+      createdAt: /.+/,
+      data: {sampledAt: /.+/},
+      name: 'ExampleSampledEvent',
+      type: 'log',
+      version: 1,
+    },
+    {
+      sessionId: /.+/,
+      createdAt: /.+/,
+      data: {sampledAt: /.+/},
+      name: 'ExampleSampledEvent',
+      type: 'log',
       version: 1,
     },
   ])

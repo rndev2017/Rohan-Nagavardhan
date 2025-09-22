@@ -30,7 +30,6 @@ import {
   RequestParams,
   SubscribeMethods,
 } from './types'
-import {SUBSCRIBE_METHODS} from './methods'
 
 // at 1000 IDs per second ~4 million years needed in order to have a 1% probability of at least one collision.
 // => https://zelark.github.io/nano-id-cc/
@@ -185,18 +184,11 @@ export const createClient = (
     heartbeats: merge(authedConnection$, heartbeats$, responses$).pipe(
       map(() => new Date()),
     ),
-    request: (
-      method: SubscribeMethods | RequestMethod,
-      params?: RequestParams,
-    ) =>
-      isSubscribeMethod(method)
-        ? requestSubscribe(method, params)
-        : requestMethod(method, params),
-  }
-}
 
-function isSubscribeMethod(
-  method: SubscribeMethods | RequestMethod,
-): method is SubscribeMethods {
-  return SUBSCRIBE_METHODS.includes(method)
+    listen: (method: SubscribeMethods, params?: RequestParams) =>
+      requestSubscribe(method, params),
+
+    request: (method: RequestMethod, params?: RequestParams) =>
+      requestMethod(method, params),
+  }
 }

@@ -4,8 +4,7 @@ function E(t) {
   let e = JSON.stringify(t);
   return `${u}${Array.from(e).map((r) => {
     let n = r.charCodeAt(0);
-    if (n > 255)
-      throw new Error(`Only ASCII edit info can be encoded. Error attempting to encode ${e} on character ${r} (${n})`);
+    if (n > 255) throw new Error(`Only ASCII edit info can be encoded. Error attempting to encode ${e} on character ${r} (${n})`);
     return Array.from(n.toString(4).padStart(4, "0")).map((o) => String.fromCodePoint(c[o])).join("");
   }).join("")}`;
 }

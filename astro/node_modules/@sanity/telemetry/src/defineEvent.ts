@@ -11,6 +11,7 @@ export function defineEvent<Data = void>(
     name: options.name,
     version: options.version,
     description: options.description,
+    maxSampleRate: options.maxSampleRate,
     schema: undefined as unknown as Data,
   }
 }
