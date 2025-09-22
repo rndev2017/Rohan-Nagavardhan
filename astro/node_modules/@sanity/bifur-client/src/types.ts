@@ -7,9 +7,16 @@ export type RequestMethod =
   | 'presence_rollcall'
   | 'presence_announce'
   | 'presence_disconnect'
+  // authorization is both a request method (performs actual authorization) _AND_
+  // a subscription method (emits authorization events, eg expiring tokens)
   | 'authorization'
 
-export type SubscribeMethods = 'presence' | 'listen'
+export type SubscribeMethods =
+  | 'presence'
+  | 'listen'
+  // authorization is both a request method (performs actual authorization) _AND_
+  // a subscription method (emits authorization events, eg expiring tokens)
+  | 'authorization'
 
 export type RequestParams = Record<string, any>
 
@@ -23,10 +30,8 @@ export type JSONRpcMessage<T> = {
 
 export interface BifurClient {
   heartbeats: Observable<Date>
-  request: <T>(
-    method: RequestMethod | SubscribeMethods,
-    params?: RequestParams,
-  ) => Observable<T>
+  listen: <T>(method: SubscribeMethods, params?: RequestParams) => Observable<T>
+  request: <T>(method: RequestMethod, params?: RequestParams) => Observable<T>
 }
 
 export interface SanityClientLike {

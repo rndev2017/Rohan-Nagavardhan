@@ -5,6 +5,12 @@ export interface TelemetryLogOptions {
   version: number
   /** Description of log event */
   description: string
+
+  /**
+   * Max sample rate of this event.
+   * Calling telemetry.log(EventDefinition, data) repeatedly will submit at most one event every specified time interval (in milliseconds)
+   * */
+  maxSampleRate?: number
 }
 export interface TelemetryUserPropertyOptions {
   /** Data format version. Increment this by 1 whenever the shape of the data changes in a non-backwards compatible way */
@@ -30,6 +36,13 @@ export interface DefinedTelemetryLog<Schema> {
 
   /** Description of log event */
   description?: string
+
+  /**
+   * Max sample rate of this event.
+   * Calling telemetry.log(EventDefinition, data) repeatedly will submit at most one event every specified time interval (in milliseconds)
+   * */
+  maxSampleRate?: number
+
   /** Data schema. Will not be accessible at runtime */
   schema: Schema
 }

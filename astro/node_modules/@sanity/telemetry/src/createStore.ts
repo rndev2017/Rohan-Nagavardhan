@@ -22,6 +22,7 @@ export function createStore<UserProperties>(sessionId: SessionId): {
   logger: TelemetryLogger<UserProperties>
 } {
   const logEntries$ = new Subject<TelemetryEvent>()
+  const eventSampleTimes = new WeakMap<DefinedTelemetryLog<unknown>, Date>()
 
   function pushTraceError<Data, Err extends {message: string}>(
     traceId: string,
@@ -156,7 +157,19 @@ export function createStore<UserProperties>(sessionId: SessionId): {
   }
 
   function log<Data>(event: DefinedTelemetryLog<Data>, data?: Data) {
-    pushLogEntry('log', event, data)
+    if (typeof event.maxSampleRate === 'number' && event.maxSampleRate > 0) {
+      const lastSampledAt = eventSampleTimes.get(event)
+      const now = new Date()
+      if (
+        !lastSampledAt ||
+        now.getTime() - lastSampledAt.getTime() > event.maxSampleRate
+      ) {
+        eventSampleTimes.set(event, now)
+        pushLogEntry('log', event, data)
+      }
+    } else {
+      pushLogEntry('log', event, data)
+    }
   }
 
   return {

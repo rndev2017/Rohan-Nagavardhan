@@ -8,32 +8,40 @@ React-based JSON inspector that features tree expansion and fast search.
 
 ### Installation
 
-    npm install react-json-inspector
+    npm install @rexxars/react-json-inspector
 
 ### Usage
 
 ```jsx
-var Inspector = require('react-json-inspector');
-var data = { /* ... */ };
+import {JsonInspector} from '@rexxars/react-json-inspector'
 
-React.render(
-    <Inspector data={ data } />,
-    document.getElementById('inspector')
-);
+const data = {
+  /* ... */
+}
+
+createRoot(document.getElementById('inspector')).render(
+  <JsonInspector data={data} />,
+)
 ```
 
 Make sure to include `json-inspector.css` in your stylesheet. Feel free to
 override or amend default styles, for instance, when using a dark background.
+
+You can also import the CSS from the package, if your bundler supports it:
+
+```
+import '@rexxars/react-json-inspector/json-inspector.css'
+```
 
 ### Run the example
 
 ```bash
 cd /path/to/project
 npm install
-npm run watch
+npm run dev
 ```
 
-Then, visit http://localhost/path/to/project/example
+Then, visit http://localhost:7777 in your browser.
 
 ### Properties
 
