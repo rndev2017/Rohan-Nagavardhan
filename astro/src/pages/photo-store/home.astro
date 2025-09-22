@@ -1,4 +1,8 @@
 ---
+const scenario = Astro.url.searchParams.get('scenario') || null;
+
+const showBizPhone = scenario === null || scenario === "biz_phone"
+const showBizAddress = scenario === null || scenario === "biz_address"
 ---
 
 <body class="h-screen bg-parchment-500 font-serif p-5">
@@ -61,16 +65,25 @@
         <div id="#contact" class="space-y-5 my-6">
             <h2 class="text-2xl font-bold tracking-tight">Contact</h2>
             <div class="space-y-2">
-                <p>
-                    <span class="italic underline">Store Phone Number</span> 
-                        &middot;
-                    <span class="text-pumpkin-400">(206) 555-0199</span>
-                <p/>
-                <p>
-                    <span class="italic underline">Store Location</span> 
-                        &middot;
-                    <span class="text-pumpkin-400">1401 Pine Street, Seattle, WA 98101</span>
-                <p/>
+                {showBizPhone
+                    ?
+                        (<p>
+                            <span class="italic underline">Store Phone Number</span> 
+                                &middot;
+                            <span class="text-pumpkin-400">(206) 555-0199</span>
+                        <p/>)
+                    : null
+                }
+    
+                {showBizAddress
+                    ?
+                        (<p>
+                            <span class="italic underline">Store Location</span> 
+                                &middot;
+                            <span class="text-pumpkin-400">1401 Pine Street, Seattle, WA 98101</span>
+                        <p/>)
+                    : null
+                }
                 
                 <p>
                     <span class="italic underline">Customer Service Phone Number</span> 
