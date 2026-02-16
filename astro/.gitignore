@@ -1,5 +1,8 @@
 # Dependencies
 /node_modules
 
+# Astro generated files
+/.astro
+
 # Compiled Sanity Studio
 /dist
