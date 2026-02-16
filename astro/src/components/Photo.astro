@@ -15,24 +15,23 @@ const url = urlFor(photo).url()
 const webpUrl = urlFor(photo).format('webp').url()
 ---
 
-<div class="group flex flex-col space-y-6 lg:max-w-5xl lg:flex-row lg:space-x-11 lg:space-y-0">
+<div>
     <picture>
-        <source
-            srcset={webpUrl}
-            type="image/webp"
-        />
+        <source srcset={webpUrl} type="image/webp" />
         <img
-            class="responsive__img max-h-[550px] max-w-xs lg:max-w-xl transition ease-in-out delay-750 group-hover:scale-[1.015]"
+            class="max-h-[calc(100dvh-16rem)] max-w-full sm:max-w-xs md:max-w-lg lg:max-w-xl"
             src={url}
             alt={alt}
         />
     </picture>
 
-    <div class="hidden max-w-xs leading-relaxed md:max-w-none md:leading-normal transition-ease-in-out delay-1000 group-hover:block space-y-5">
+    <div class="text-left space-y-2 mt-3 text-xs md:text-sm lg:text-base">
         <div>
             <p class="font-semibold">{title}</p>
-            <p class="text-xs italic">{location}</p>
+            <p class="italic">{location}</p>
         </div>
-        <PhotoDescription text={description}/>
+        <div class="hidden lg:block">
+            <PhotoDescription text={description}/>
+        </div>
     </div>
 </div>
