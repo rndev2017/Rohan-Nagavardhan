@@ -1,0 +1,62 @@
+---
+import Photo from "./Photo.astro"
+
+interface Props {
+   photos: any[];
+   class?: string;
+}
+
+const { photos, class: className } = Astro.props
+---
+
+<div id="photo-carousel" class:list={["flex flex-col", className]}>
+   <div class="flex-1 min-h-0 flex items-center justify-center">
+      {photos.map((photo, i) => (
+         <div class:list={["carousel-slide", { hidden: i !== 0 }]}>
+            <Photo node={photo}/>
+         </div>
+      ))}
+   </div>
+
+   <div class="flex items-center justify-center gap-4 mt-6 flex-shrink-0">
+      <button id="prev-btn" class="text-gray-400 cursor-not-allowed lowercase" disabled>prev</button>
+      <span id="carousel-counter" class="text-gray-500">1 / {photos.length}</span>
+      <button id="next-btn" class="text-gray-600 hover:text-gray-500 lowercase">next</button>
+   </div>
+</div>
+
+<script>
+   const slides = document.querySelectorAll('.carousel-slide');
+   const prevBtn = document.getElementById('prev-btn') as HTMLButtonElement;
+   const nextBtn = document.getElementById('next-btn') as HTMLButtonElement;
+   const counter = document.getElementById('carousel-counter')!;
+   const total = slides.length;
+   let current = 0;
+
+   function show(index: number) {
+      slides[current].classList.add('hidden');
+      current = index;
+      slides[current].classList.remove('hidden');
+      counter.textContent = `${current + 1} / ${total}`;
+
+      prevBtn.disabled = current === 0;
+      prevBtn.classList.toggle('text-gray-400', current === 0);
+      prevBtn.classList.toggle('cursor-not-allowed', current === 0);
+      prevBtn.classList.toggle('text-gray-600', current !== 0);
+      prevBtn.classList.toggle('hover:text-gray-500', current !== 0);
+
+      nextBtn.disabled = current === total - 1;
+      nextBtn.classList.toggle('text-gray-400', current === total - 1);
+      nextBtn.classList.toggle('cursor-not-allowed', current === total - 1);
+      nextBtn.classList.toggle('text-gray-600', current !== total - 1);
+      nextBtn.classList.toggle('hover:text-gray-500', current !== total - 1);
+   }
+
+   prevBtn.addEventListener('click', () => { if (current > 0) show(current - 1); });
+   nextBtn.addEventListener('click', () => { if (current < total - 1) show(current + 1); });
+
+   document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowLeft' && current > 0) show(current - 1);
+      if (e.key === 'ArrowRight' && current < total - 1) show(current + 1);
+   });
+</script>

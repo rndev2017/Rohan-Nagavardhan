@@ -1,9 +1,8 @@
 ---
 // @ts-ignore
 import { sanityClient } from "sanity:client"
-import Photo from "../../components/Photo.astro"
+import PhotoCarousel from "../../components/PhotoCarousel.astro"
 import Layout from "../../layouts/Layout.astro"
-import SanityDescription from "../../components/SanityDescription.astro"
 
 export interface PhotoDocument {
    title: string,
@@ -34,19 +33,12 @@ export const getStaticPaths = (async () => {
    })
 })
 
-const {photos, title, description} = Astro.props
+const {photos, title} = Astro.props
 ---
 
-<Layout title=`Albums · ${title}`>
-   <a href="/photos" class="block text-gray-600 underline hover:no-underline lowercase">&lt; Back</a>
-
-   <div class="space-y-1 mt-10 mb-8 max-w-sm md:max-w-lg">
-      <p class="text-base font-bold">{title}</p>
-      <div class="italic"> 
-         <SanityDescription text={description}/>
-      </div>
-   </div>
-   <div class="max-w-sm" >
-      {photos.map((photo) => <Photo node={photo}/>)
+<Layout title=`Albums · ${title}`, page="photos">
+   <div class="flex flex-col h-[calc(100dvh-5rem)] overflow-hidden pr-5">
+      <a href="/photos" class="block text-gray-600 underline hover:no-underline lowercase">&lt; Back</a>
+      <PhotoCarousel photos={photos} class="flex-1 min-h-0" />
    </div>
 </Layout>
