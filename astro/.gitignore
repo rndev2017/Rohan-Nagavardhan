@@ -6,3 +6,4 @@
 
 # Compiled Sanity Studio
 /dist
+.vercel
