@@ -1,19 +1,9 @@
 ---
-// @ts-ignore
-import { sanityClient } from "sanity:client"
 import Layout from "../layouts/Layout.astro";
 import Album from "../components/Album.astro";
+import { getAlbums } from "../lib/queries";
 
-export interface AlbumDocument {
-  _id: string,
-  title: string,
-  description: unknown,
-  startedAt: string,
-  endedAt: string
-}
-
-const query = `*[_type == "album"] | order(startedAt desc) {_id, title, description, startedAt, endedAt}`
-const albums: AlbumDocument[] = await sanityClient.fetch(query)
+const albums = await getAlbums()
 ---
 
 <!-- https://www.youtube.com/watch?v=ha1ECFXW1w4 -->
