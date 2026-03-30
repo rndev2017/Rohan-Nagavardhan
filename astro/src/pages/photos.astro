@@ -26,7 +26,7 @@ const albums = await getAlbums()
 
 
     <div class="my-5">
-      {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} />)}
+      {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} isUploading={doc.isUploading} />)}
     </div>
   </div>
 </Layout>

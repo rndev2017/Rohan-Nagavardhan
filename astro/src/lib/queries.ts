@@ -6,7 +6,8 @@ export interface AlbumDocument {
   title: string,
   description: unknown,
   startedAt: string,
-  endedAt: string
+  endedAt: string,
+  isUploading: boolean,
 }
 
 export interface PhotoDocument {
@@ -27,7 +28,7 @@ export interface AlbumWithPhotos {
 
 export async function getAlbums(): Promise<AlbumDocument[]> {
   return sanityClient.fetch(
-    `*[_type == "album"] | order(startedAt desc) {_id, title, description, startedAt, endedAt}`
+    `*[_type == "album"] | order(startedAt desc) {_id, title, description, startedAt, endedAt, isUploading}`
   )
 }
 

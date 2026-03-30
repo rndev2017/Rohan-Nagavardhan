@@ -37,6 +37,13 @@ export default defineType({
     }),
 
     defineField({
+      name: 'isUploading',
+      title: 'Is Uploading',
+      type: 'boolean',
+      description: 'Show an "uploading..." indicator on the album listing.',
+    }),
+
+    defineField({
       name: 'photoSequence',
       title: 'Photo Sequence',
       type: 'array',
