@@ -5,7 +5,7 @@ const { id, title, description, isUploading } = Astro.props;
 ---
 
 <a href=`/albums/${id}` class="hover:text-gray-700 max-w-md">
-    <p class="underline underline-offset-1">{title}{isUploading && <span class="no-underline italic font-normal"> (uploading...)</span>}</p>
+    <p><span class="underline underline-offset-1">{title}</span>{isUploading && <span class="italic font-normal text-xs"> (uploading...)</span>}</p>
     <div class="my-2 text-xs">
         <SanityDescription text={description}/>
     </div>
