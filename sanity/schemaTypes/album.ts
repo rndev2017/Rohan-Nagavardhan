@@ -34,6 +34,19 @@ export default defineType({
       options: {
         dateFormat: 'MMM Do, YYYY',
       }
-    })
+    }),
+
+    defineField({
+      name: 'photoSequence',
+      title: 'Photo Sequence',
+      type: 'array',
+      description: 'Drag to reorder photos. Leave empty to use default chronological order.',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'photo'}],
+        },
+      ],
+    }),
   ]
 })
