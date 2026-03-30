@@ -34,6 +34,26 @@ export default defineType({
       options: {
         dateFormat: 'MMM Do, YYYY',
       }
-    })
+    }),
+
+    defineField({
+      name: 'isUploading',
+      title: 'Is Uploading',
+      type: 'boolean',
+      description: 'Show an "uploading..." indicator on the album listing.',
+    }),
+
+    defineField({
+      name: 'photoSequence',
+      title: 'Photo Sequence',
+      type: 'array',
+      description: 'Drag to reorder photos. Leave empty to use default chronological order.',
+      of: [
+        {
+          type: 'reference',
+          to: [{type: 'photo'}],
+        },
+      ],
+    }),
   ]
 })

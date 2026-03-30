@@ -1,19 +1,9 @@
 ---
-// @ts-ignore
-import { sanityClient } from "sanity:client"
 import Layout from "../layouts/Layout.astro";
 import Album from "../components/Album.astro";
+import { getAlbums } from "../lib/queries";
 
-export interface AlbumDocument {
-  _id: string,
-  title: string,
-  description: unknown,
-  startedAt: string,
-  endedAt: string
-}
-
-const query = `*[_type == "album"] | order(startedAt desc) {_id, title, description, startedAt, endedAt}`
-const albums: AlbumDocument[] = await sanityClient.fetch(query)
+const albums = await getAlbums()
 ---
 
 <!-- https://www.youtube.com/watch?v=ha1ECFXW1w4 -->
@@ -23,7 +13,7 @@ const albums: AlbumDocument[] = await sanityClient.fetch(query)
     <p class="italic text-xs">my collection of film, polaroid, digital photography</p>
     
     <div class="mt-2">
-      <p class="font-medium">Gear</p>
+      <p class="font-semibold">Gear</p>
       <ul class="text-xs">
         <li>Polaroid Now <span class="italic">(acq. ~December 2022)</span></li>
         <li>Elikon 35C <span class="italic">(acq. ~May 2023)</span></li>
@@ -35,8 +25,11 @@ const albums: AlbumDocument[] = await sanityClient.fetch(query)
     </div>
 
 
-    <div class="my-5">
-      {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} />)}
+    <div class="mt-4">
+      <p class="font-semibold">Projects</p>
+      <div class="mt-2 space-y-6">
+        {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} isUploading={doc.isUploading} startedAt={doc.startedAt} endedAt={doc.endedAt} />)}
+      </div>
     </div>
   </div>
 </Layout>

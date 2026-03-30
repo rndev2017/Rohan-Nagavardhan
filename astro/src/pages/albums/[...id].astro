@@ -1,33 +1,20 @@
 ---
-// @ts-ignore
-import { sanityClient } from "sanity:client"
 import PhotoCarousel from "../../components/PhotoCarousel.astro"
 import Layout from "../../layouts/Layout.astro"
-
-export interface PhotoDocument {
-   title: string,
-   location: string,
-   description: unknown,
-}
-
-export interface AlbumWithPhotos {
-   _id: string,
-   title: string,
-   description: unknown,
-   photos: PhotoDocument[]
-}
+import { getAlbumsWithPhotos } from "../../lib/queries"
 
 export const getStaticPaths = (async () => {
-   const query = `*[_type == "album"] {_id, title, description, "photos": *[_type == "photo" && references(^._id)] | order(_createdAt, desc)}`
-   const albums: AlbumWithPhotos[] = await sanityClient.fetch(query)
+   const albums = await getAlbumsWithPhotos()
 
    return albums.map((album) => {
+       const sequenced = album.sequencedPhotos?.filter(Boolean) ?? []
+       const photos = sequenced.length ? sequenced : album.allPhotos
        return {
          params: {id: album._id},
          props: {
             title: album.title,
             description: album.description,
-            photos: album.photos
+            photos
          }
        }
    })
