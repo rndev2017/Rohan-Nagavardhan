@@ -1,12 +1,20 @@
 ---
 import SanityDescription from "./SanityDescription.astro";
 
-const { id, title, description, isUploading } = Astro.props;
+const { id, title, description, isUploading, startedAt, endedAt } = Astro.props;
+
+function formatDate(iso: string) {
+  return new Date(iso).toLocaleDateString('en-US', { month: 'short', year: 'numeric', timeZone: 'UTC' })
+}
+const dateRange = startedAt
+  ? `${formatDate(startedAt)} – ${endedAt ? formatDate(endedAt) : 'present'}`
+  : null
 ---
 
-<a href=`/albums/${id}` class="hover:text-gray-700 max-w-md">
-    <p><span class="underline underline-offset-1">{title}</span>{isUploading && <span class="italic font-normal text-xs"> (uploading...)</span>}</p>
-    <div class="my-2 text-xs">
+<a href=`/albums/${id}` class="block hover:text-gray-700 max-w-md">
+    <p><span class="underline underline-offset-1">{title}</span>{isUploading && <span class="italic font-normal text-xs text-gray-500"> (uploading...)</span>}</p>
+    {dateRange && <p class="text-xs text-gray-600">{dateRange}</p>}
+    <div class="my-1 text-xs text-gray-600">
         <SanityDescription text={description}/>
     </div>
 </a>

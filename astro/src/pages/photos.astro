@@ -13,7 +13,7 @@ const albums = await getAlbums()
     <p class="italic text-xs">my collection of film, polaroid, digital photography</p>
     
     <div class="mt-2">
-      <p class="font-medium">Gear</p>
+      <p class="font-semibold">Gear</p>
       <ul class="text-xs">
         <li>Polaroid Now <span class="italic">(acq. ~December 2022)</span></li>
         <li>Elikon 35C <span class="italic">(acq. ~May 2023)</span></li>
@@ -25,8 +25,11 @@ const albums = await getAlbums()
     </div>
 
 
-    <div class="my-5">
-      {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} isUploading={doc.isUploading} />)}
+    <div class="mt-4">
+      <p class="font-semibold">Projects</p>
+      <div class="mt-2 space-y-6">
+        {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} isUploading={doc.isUploading} startedAt={doc.startedAt} endedAt={doc.endedAt} />)}
+      </div>
     </div>
   </div>
 </Layout>
