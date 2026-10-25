@@ -1,10 +1,16 @@
 ---
 import PhotoLayout from '../layouts/PhotoLayout.astro';
+import PhotoSlideshow from '../components/photography/PhotoSlideshow.astro';
+import {getPhotographyHome} from '../lib/queries';
+
+const home = await getPhotographyHome();
 ---
 
-<PhotoLayout title="Photography · Rohan Nagavardhan">
-  <section class="flex min-h-[60svh] items-center justify-center text-center" aria-labelledby="photos-title">
-    <h1 id="photos-title" class="sr-only">Photography by Rohan Nagavardhan</h1>
-    <p class="text-photo-muted">Photographs coming soon.</p>
-  </section>
+<PhotoLayout title="Photography · Rohan Nagavardhan" slideshow={home.photos.length > 0}>
+  <h1 class="sr-only">Photography by Rohan Nagavardhan</h1>
+  {home.photos.length ? <PhotoSlideshow {...home} /> : (
+    <section class="flex min-h-[60svh] items-center justify-center text-center" aria-label="Photography">
+      <p class="text-photo-muted">Photographs coming soon.</p>
+    </section>
+  )}
 </PhotoLayout>

@@ -4,9 +4,7 @@ module.exports = {
 	theme: {
 		extend: {
       fontFamily: {
-        'photo-serif': ['var(--photo-serif)'],
-        'photo-sans': ['var(--photo-sans)'],
-        'photo-mono': ['var(--photo-mono)'],
+        photo: ['var(--photo-font)'],
       },
       maxWidth: {
         'photo-page': 'var(--photo-page-width)',

@@ -10,7 +10,8 @@
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "test:photography": "node --experimental-strip-types --test tests/photography.test.mjs"
   },
   "dependencies": {
     "@astrojs/mdx": "^4.3.13",

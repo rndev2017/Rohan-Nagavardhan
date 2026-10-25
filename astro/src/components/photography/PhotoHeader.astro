@@ -5,7 +5,7 @@ const projectsActive = path.startsWith('/photos/projects') || path.startsWith('/
 
 <header class="mx-auto w-full max-w-photo-page px-photo-gutter pt-photo-md">
   <nav class="flex flex-wrap items-center justify-between gap-x-photo-md gap-y-photo-xs border-b border-photo-border pb-photo-md text-[0.8125rem]" aria-label="Photography">
-    <a class="font-photo-serif text-xl italic leading-tight" href="/photos">Rohan Nagavardhan</a>
+    <a class="text-xl italic leading-tight" href="/photos">Rohan Nagavardhan</a>
     <div class="flex items-center gap-photo-md">
       <a href="/photos/projects" aria-current={projectsActive ? 'page' : undefined} class:list={[projectsActive ? 'underline underline-offset-4' : 'text-photo-muted']}>Projects</a>
       <a class="text-photo-muted" href="/">Main site <span aria-hidden="true">↗</span></a>
