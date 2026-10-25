@@ -21,10 +21,17 @@ export const cameraSounds = defineType({
   name: 'cameraSounds',
   title: 'Camera sounds',
   type: 'document',
-  fields: ['rangefinder', 'slr', 'instant'].map((name) =>
+  fields: ['rangefinder', 'slr', 'instant', 'pointAndShoot'].map((name) =>
     defineField({
       name,
-      title: name === 'slr' ? 'SLR' : name === 'instant' ? 'Instant / Polaroid' : 'Rangefinder',
+      title:
+        name === 'slr'
+          ? 'SLR'
+          : name === 'instant'
+            ? 'Instant / Polaroid'
+            : name === 'pointAndShoot'
+              ? 'Point and shoot'
+              : 'Rangefinder',
       type: 'file',
       options: {accept: '.mp3,.wav'},
       description:

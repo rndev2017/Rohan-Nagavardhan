@@ -22,6 +22,7 @@ export default defineType({
           {title: 'Rangefinder', value: 'rangefinder'},
           {title: 'SLR', value: 'slr'},
           {title: 'Instant / Polaroid', value: 'instant'},
+          {title: 'Point and shoot', value: 'pointAndShoot'},
         ],
       },
       validation: (rule) => rule.required(),

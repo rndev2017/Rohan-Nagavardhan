@@ -23,7 +23,7 @@ export class CameraAudio {
     this.onChange = onChange;
   }
 
-  async setEnabled(enabled: boolean) {
+  async setEnabled(enabled: boolean, playCurrent = true) {
     this.stop();
     this.enabled = enabled;
     this.onChange(enabled);
@@ -33,13 +33,13 @@ export class CameraAudio {
       // Create/resume synchronously in the button's user gesture, before fetching.
       this.context ??= new AudioContext();
       this.gain ??= this.context.createGain();
-      this.gain.gain.value = 0.35;
+      this.gain.gain.value = 0.2;
       this.gain.disconnect();
       this.gain.connect(this.context.destination);
       await this.context.resume();
       if (!this.enabled || generation !== this.generation) return;
       if (this.context.state !== 'running') throw new Error('Audio unavailable');
-      await this.play(this.currentBody());
+      if (playCurrent) await this.play(this.currentBody());
     } catch {
       if (generation !== this.generation) return;
       this.enabled = false;

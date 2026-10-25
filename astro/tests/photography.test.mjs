@@ -122,9 +122,9 @@ function fixture(count, {reduced = false, hover = false, keyboard = false, fineP
     removeEventListener(type) { delete this.events[type]; },
     setAttribute(key, value) { this[key] = value; },
   });
-  const images = Array.from({length: count}, (_, i) => ({dataset: i ? {src: `photo-${i}`, srcset: `sources-${i}`} : {}, naturalWidth: 1000, decode: async () => {}}));
+  const images = Array.from({length: count}, (_, i) => node({dataset: i ? {src: `photo-${i}`, srcset: `sources-${i}`} : {}, naturalWidth: 1000, decode: async () => {}}));
   const slides = images.map((image, i) => ({hidden: i !== 0, dataset: {bodyType: i === 1 ? 'slr' : 'rangefinder'}, querySelector: () => image}));
-  const selectors = Object.fromEntries(['controls', 'previous', 'next', 'playback', 'sound-control', 'sound', 'sound-muted', 'sound-indicator'].map((key) => [`[data-${key}]`, node({hidden: true})]));
+  const selectors = Object.fromEntries(['controls', 'pause-indicator', 'previous', 'next', 'playback', 'sound-control', 'sound'].map((key) => [`[data-${key}]`, node({hidden: true})]));
   const root = node({dataset: {sounds: JSON.stringify(sounds)},
     querySelectorAll: () => slides,
     querySelector: (selector) => selector === ':focus-visible' ? null : selectors[selector],
@@ -136,7 +136,7 @@ function fixture(count, {reduced = false, hover = false, keyboard = false, fineP
   const win = node({matchMedia: (query) => query.includes('reduced') ? motion : {matches: finePointer}});
   const timers = new Map(); let timerId = 0;
   const originalTimeout = globalThis.setTimeout, originalClear = globalThis.clearTimeout;
-  globalThis.setTimeout = (fn, ms) => { assert.equal(ms, 10000); timers.set(++timerId, fn); return timerId; };
+  globalThis.setTimeout = (fn, ms) => { assert.equal(ms, 30000); timers.set(++timerId, fn); return timerId; };
   globalThis.clearTimeout = (id) => timers.delete(id);
   globalThis.document = doc; globalThis.window = win; globalThis.Element = class {};
   mountPhotoSlideshow(root);
@@ -158,7 +158,7 @@ test('empty/single selections, unavailable sounds, and reduced motion need no ti
   f.cleanup();
 });
 
-test('slideshow waits ten seconds, switches instantly, wraps, and preloads the next photo', async () => {
+test('slideshow waits thirty seconds, switches instantly, wraps, and preloads the next photo', async () => {
   const f = fixture(3);
   try {
     assert.equal(f.images[1].src, 'photo-1');

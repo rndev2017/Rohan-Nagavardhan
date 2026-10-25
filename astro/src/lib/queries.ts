@@ -3,7 +3,7 @@ import {sanityClient} from 'sanity:client';
 import type {PortableTextBlock} from '@portabletext/types';
 import type {SanityImageObject} from '@sanity/image-url';
 
-export type CameraBodyType = 'rangefinder' | 'slr' | 'instant';
+export type CameraBodyType = 'rangefinder' | 'slr' | 'instant' | 'pointAndShoot';
 export interface Reference { _type: 'reference'; _ref: string; _key?: string }
 export interface AudioFile { _type: 'file'; asset: Reference }
 export interface Camera {
@@ -36,7 +36,7 @@ export interface HomeSlideshow {
 }
 export interface CameraSounds {
   _type: 'cameraSounds'; _id: 'cameraSounds';
-  rangefinder?: AudioFile; slr?: AudioFile; instant?: AudioFile;
+  rangefinder?: AudioFile; slr?: AudioFile; instant?: AudioFile; pointAndShoot?: AudioFile;
 }
 export type SlideshowPhoto = Omit<Photo, 'camera'> & {camera?: Camera | null};
 export type SoundUrls = Partial<Record<CameraBodyType, string>>;
@@ -50,7 +50,8 @@ const HOME_QUERY = `{
   "sounds": *[_id == "cameraSounds"][0]{
     "rangefinder": rangefinder.asset->url,
     "slr": slr.asset->url,
-    "instant": instant.asset->url
+    "instant": instant.asset->url,
+    "pointAndShoot": pointAndShoot.asset->url
   }
 }`;
 
@@ -65,7 +66,7 @@ export function normalizePhotographyHome(data: {
     return true;
   });
   const sounds: SoundUrls = {};
-  for (const body of ['rangefinder', 'slr', 'instant'] as const) {
+  for (const body of ['rangefinder', 'slr', 'instant', 'pointAndShoot'] as const) {
     const url = data.sounds?.[body];
     if (url) sounds[body] = url;
   }
