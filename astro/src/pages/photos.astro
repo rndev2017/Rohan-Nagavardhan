@@ -1,34 +1,10 @@
 ---
-import PhotoLayout from "../layouts/PhotoLayout.astro";
-import Album from "../components/photography/Album.astro";
-import { getAlbums } from "../lib/queries";
-
-const albums = await getAlbums()
+import PhotoLayout from '../layouts/PhotoLayout.astro';
 ---
 
 <PhotoLayout title="Photography · Rohan Nagavardhan">
-  <div class="max-w-photo-reading">
-    <h1 class="text-[clamp(2.5rem,6vw,4rem)]">Photography</h1>
-    <p class="mt-photo-md text-photo-muted">my collection of film, polaroid, digital photography</p>
-    
-    <section class="mt-photo-lg">
-      <h2 class="mb-photo-sm text-[1.625rem]">Gear</h2>
-      <ul class="space-y-1 text-[0.8125rem]">
-        <li>Polaroid Now <span class="text-photo-muted">(acq. ~December 2022)</span></li>
-        <li>Elikon 35C <span class="text-photo-muted">(acq. ~May 2023)</span></li>
-        <li>Pentax K1000 <span class="text-photo-muted">(acq. ~January 2024)</span></li>
-        <li>Canon Prima Super 90 <span class="text-photo-muted">(acq. ~January 2024)</span></li>
-        <li>Polaroid Now+ <span class="text-photo-muted">(acq. ~April 2025)</span></li>
-        <li>Leica M6 <span class="text-photo-muted">(acq. ~March 2026)</span></li>
-      </ul>
-    </section>
-
-    <section class="mt-photo-lg" id="projects">
-      <h2 class="mb-photo-sm text-[1.625rem]">Projects</h2>
-      <div>
-        {albums.length === 0 && <p class="text-photo-muted">No projects yet.</p>}
-        {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} isUploading={doc.isUploading} startedAt={doc.startedAt} endedAt={doc.endedAt} />)}
-      </div>
-    </section>
-  </div>
+  <section class="flex min-h-[60svh] items-center justify-center text-center" aria-labelledby="photos-title">
+    <h1 id="photos-title" class="sr-only">Photography by Rohan Nagavardhan</h1>
+    <p class="text-photo-muted">Photographs coming soon.</p>
+  </section>
 </PhotoLayout>

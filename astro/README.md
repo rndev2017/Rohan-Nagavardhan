@@ -36,6 +36,9 @@ There's nothing special about `src/components/`, but that's where we like to put
 
 Any static assets, like images, can be placed in the `public/` directory.
 
+Use Node.js 24 for the frontend. With nvm, run `nvm install` and `nvm use`
+from `astro/`; `.nvmrc` and `package.json` pin the deployment major version.
+
 ## 🧞 Commands
 
 All commands are run from the root of the project, from a terminal:
@@ -64,9 +67,21 @@ styles remain in the layout stylesheet. Use it for future routes under
 avoid additional font requests. Tailwind's reset/utilities, `SiteHead`, Sanity
 queries/client, image URL generation, and Portable Text rendering remain shared.
 
-Existing album pages keep `/albums/{id}` and use the same shell. A future URL
-migration needs new `/photos` album routes, permanent redirects from every legacy
-album URL, and updated internal links. IDs remain the current URL identifiers.
-The carousel currently supports one instance per page; photo essays requiring
-multiple galleries should introduce instance-scoped controls. No essay/archive
-layouts or new CMS schemas are introduced by this foundation.
+The photography content model is being redesigned. `/photos` and
+`/photos/projects` render empty states without fetching CMS content. Previously
+published `/albums/{id}` URLs remain available as empty project pages; their IDs
+are recorded in the route so they survive content deletion. The former album/photo
+schemas, queries, and rendering components have been removed. Both Studio entry
+points have empty schema lists. Sanity configuration and shared Portable Text
+rendering remain available for the new content model.
+
+Repository/schema edits do not themselves delete documents or image assets from
+Sanity, nor do they publish changes to the live website or Studio.
+
+Production photography content was reset on 2026-10-25 after a verified full export.
+The ignored `.sanity/backups/` directory at the repository root contains the export,
+checksum, inventory, and deletion receipts. Sanity permission/retention records
+and the separate `production-comments` dataset were preserved. The empty Studio
+was deployed to `https://rohansogal.sanity.studio/`, and the stored production
+schema was deleted. The prior schema record is backed up in the same directory.
+The frontend still requires its own deployment to publish the empty pages.

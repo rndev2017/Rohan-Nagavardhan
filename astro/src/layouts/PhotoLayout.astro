@@ -17,7 +17,7 @@ const {
 <!doctype html>
 <html lang="en">
   <head>
-    <SiteHead title={title} description={description} themeColor="#f7f4ed" />
+    <SiteHead title={title} description={description} themeColor="#faf9f6" />
   </head>
   <body class="photo-site min-h-svh bg-photo-background text-photo-foreground font-photo-sans text-[0.9375rem] leading-[1.65]">
     <a class="absolute top-photo-xs left-photo-gutter -translate-y-[200%] bg-photo-background p-photo-xs focus:translate-y-0" href="#photo-content">Skip to content</a>
@@ -32,7 +32,7 @@ const {
 <style>
   /* Tokens are inherited only within the photography shell. */
   :global(.photo-site) {
-    --photo-background: #f7f4ed;
+    --photo-background: #faf9f6;
     --photo-foreground: #292620;
     --photo-muted: #6b6258;
     --photo-border: #d8d1c5;
@@ -50,7 +50,7 @@ const {
     --photo-gutter: clamp(1.25rem, 5vw, 3rem);
   }
 
-  :global(.photo-site :is(h1, h2, h3)) {
+  :global(:where(.photo-site) :where(h1, h2, h3)) {
     @apply font-photo-serif font-normal leading-[1.15];
   }
 

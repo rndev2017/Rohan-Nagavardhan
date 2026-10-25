@@ -1,0 +1,12 @@
+.git/
+.vercel/
+.sanity/
+**/node_modules/
+**/.vercel/
+**/.sanity/
+**/.astro/
+**/dist/
+**/.env*
+sanity/
+AGENTS.md
+CLAUDE.md

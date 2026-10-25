@@ -1,4 +1,2 @@
-import photoSchema from './photo'
-import albumSchema from './album'
-
-export const schemaTypes = [photoSchema, albumSchema]
+// Photography content types will be introduced with the new content model.
+export const schemaTypes = []
