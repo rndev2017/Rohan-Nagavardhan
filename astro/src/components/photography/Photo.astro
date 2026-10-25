@@ -4,7 +4,7 @@ import { sanityClient } from "sanity:client";
 
 import imageUrlBuilder from "@sanity/image-url";
 import type { SanityImageObject } from "@sanity/image-url/lib/types/types";
-import PhotoDescription from "./SanityDescription.astro";
+import PhotoDescription from "../SanityDescription.astro";
 
 const { photo, title, description, location, alt } = Astro.props.node
 
@@ -15,23 +15,23 @@ const url = urlFor(photo).url()
 const webpUrl = urlFor(photo).format('webp').url()
 ---
 
-<div>
+<figure class="mx-auto w-fit max-w-full">
     <picture>
         <source srcset={webpUrl} type="image/webp" />
         <img
-            class="max-h-[calc(100dvh-16rem)] max-w-full sm:max-w-xs md:max-w-lg lg:max-w-xl"
+            class="h-auto w-auto max-w-full max-h-[max(15rem,calc(100svh_-_22rem))]"
             src={url}
-            alt={alt}
+            alt={alt || title || 'Photograph'}
         />
     </picture>
 
-    <div class="text-left space-y-2 mt-3 text-xs md:text-sm lg:text-base">
+    <figcaption class="mt-photo-sm max-w-photo-reading">
         <div>
-            <p class="font-semibold">{title}</p>
-            <p class="italic">{location}</p>
+            <p class="font-medium">{title}</p>
+            <p class="font-photo-mono text-xs text-photo-muted">{location}</p>
         </div>
-        <div class="hidden lg:block">
+        <div class="mt-photo-xs text-[0.8125rem] text-photo-muted [overflow-wrap:anywhere] [&_p+p]:mt-photo-xs [&_a]:underline [&_a]:underline-offset-[0.2em]">
             <PhotoDescription text={description}/>
         </div>
-    </div>
-</div>
+    </figcaption>
+</figure>

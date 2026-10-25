@@ -1,35 +1,34 @@
 ---
-import Layout from "../layouts/Layout.astro";
-import Album from "../components/Album.astro";
+import PhotoLayout from "../layouts/PhotoLayout.astro";
+import Album from "../components/photography/Album.astro";
 import { getAlbums } from "../lib/queries";
 
 const albums = await getAlbums()
 ---
 
-<!-- https://www.youtube.com/watch?v=ha1ECFXW1w4 -->
-<Layout page="photos" title="Photography · Rohan Nagavardhan">
-  <div>
-    <p class="text-base font-bold">Photography</p>
-    <p class="italic text-xs">my collection of film, polaroid, digital photography</p>
+<PhotoLayout title="Photography · Rohan Nagavardhan">
+  <div class="max-w-photo-reading">
+    <h1 class="text-[clamp(2.5rem,6vw,4rem)]">Photography</h1>
+    <p class="mt-photo-md text-photo-muted">my collection of film, polaroid, digital photography</p>
     
-    <div class="mt-2">
-      <p class="font-semibold">Gear</p>
-      <ul class="text-xs">
-        <li>Polaroid Now <span class="italic">(acq. ~December 2022)</span></li>
-        <li>Elikon 35C <span class="italic">(acq. ~May 2023)</span></li>
-        <li>Pentax K1000 <span class="italic">(acq. ~January 2024)</span></li>
-        <li>Canon Prima Super 90 <span class="italic">(acq. ~January 2024)</span></li>
-        <li>Polaroid Now+ <span class="italic">(acq. ~April 2025)</span></li>
-        <li>Leica M6 <span class="italic">(acq. ~March 2026)</span></li>
+    <section class="mt-photo-lg">
+      <h2 class="mb-photo-sm text-[1.625rem]">Gear</h2>
+      <ul class="space-y-1 text-[0.8125rem]">
+        <li>Polaroid Now <span class="text-photo-muted">(acq. ~December 2022)</span></li>
+        <li>Elikon 35C <span class="text-photo-muted">(acq. ~May 2023)</span></li>
+        <li>Pentax K1000 <span class="text-photo-muted">(acq. ~January 2024)</span></li>
+        <li>Canon Prima Super 90 <span class="text-photo-muted">(acq. ~January 2024)</span></li>
+        <li>Polaroid Now+ <span class="text-photo-muted">(acq. ~April 2025)</span></li>
+        <li>Leica M6 <span class="text-photo-muted">(acq. ~March 2026)</span></li>
       </ul>
-    </div>
+    </section>
 
-
-    <div class="mt-4">
-      <p class="font-semibold">Projects</p>
-      <div class="mt-2 space-y-6">
+    <section class="mt-photo-lg" id="projects">
+      <h2 class="mb-photo-sm text-[1.625rem]">Projects</h2>
+      <div>
+        {albums.length === 0 && <p class="text-photo-muted">No projects yet.</p>}
         {albums.map((doc) => <Album id={doc._id} title={doc.title} description={doc.description} isUploading={doc.isUploading} startedAt={doc.startedAt} endedAt={doc.endedAt} />)}
       </div>
-    </div>
+    </section>
   </div>
-</Layout>
+</PhotoLayout>

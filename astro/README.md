@@ -52,3 +52,21 @@ All commands are run from the root of the project, from a terminal:
 ## 👀 Want to learn more?
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
+
+## Photography shell
+
+`PhotoLayout` owns the photography header, typography, spacing, and namespaced
+`--photo-*` tokens on its root. Tailwind maps these variables to photography
+colors, fonts, widths, and spacing in `tailwind.config.cjs`; components use
+utilities for their presentation. Only tokens, base typography, and interaction
+styles remain in the layout stylesheet. Use it for future routes under
+`/photos`; photography UI lives in `src/components/photography/`. System fonts
+avoid additional font requests. Tailwind's reset/utilities, `SiteHead`, Sanity
+queries/client, image URL generation, and Portable Text rendering remain shared.
+
+Existing album pages keep `/albums/{id}` and use the same shell. A future URL
+migration needs new `/photos` album routes, permanent redirects from every legacy
+album URL, and updated internal links. IDs remain the current URL identifiers.
+The carousel currently supports one instance per page; photo essays requiring
+multiple galleries should introduce instance-scoped controls. No essay/archive
+layouts or new CMS schemas are introduced by this foundation.
