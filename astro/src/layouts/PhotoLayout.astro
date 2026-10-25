@@ -1,0 +1,65 @@
+---
+import SpeedInsights from '@vercel/speed-insights/astro';
+import SiteHead from '../components/SiteHead.astro';
+import PhotoHeader from '../components/photography/PhotoHeader.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+}
+
+const {
+  title,
+  description = 'Film, Polaroid, and digital photography by Rohan Nagavardhan.',
+} = Astro.props;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <SiteHead title={title} description={description} themeColor="#faf9f6" />
+  </head>
+  <body class="photo-site min-h-svh bg-photo-background text-photo-foreground font-photo-sans text-[0.9375rem] leading-[1.65]">
+    <a class="absolute top-photo-xs left-photo-gutter -translate-y-[200%] bg-photo-background p-photo-xs focus:translate-y-0" href="#photo-content">Skip to content</a>
+    <PhotoHeader />
+    <main id="photo-content" class="mx-auto w-full max-w-photo-page px-photo-gutter pt-photo-lg pb-photo-xl" tabindex="-1">
+      <slot />
+    </main>
+    <SpeedInsights />
+  </body>
+</html>
+
+<style>
+  /* Tokens are inherited only within the photography shell. */
+  :global(.photo-site) {
+    --photo-background: #faf9f6;
+    --photo-foreground: #292620;
+    --photo-muted: #6b6258;
+    --photo-border: #d8d1c5;
+    --photo-accent: #6b6258;
+    --photo-serif: Georgia, 'Times New Roman', serif;
+    --photo-sans: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --photo-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+    --photo-page-width: 72rem;
+    --photo-reading-width: 42rem;
+    --photo-space-xs: 0.5rem;
+    --photo-space-sm: 1rem;
+    --photo-space-md: 1.5rem;
+    --photo-space-lg: 2.5rem;
+    --photo-space-xl: 4rem;
+    --photo-gutter: clamp(1.25rem, 5vw, 3rem);
+  }
+
+  :global(:where(.photo-site) :where(h1, h2, h3)) {
+    @apply font-photo-serif font-normal leading-[1.15];
+  }
+
+  :global(.photo-site a:hover),
+  :global(.photo-site button:enabled:hover) {
+    @apply text-photo-accent underline underline-offset-[0.2em];
+  }
+
+  :global(.photo-site :focus-visible) {
+    @apply outline outline-2 outline-photo-foreground outline-offset-4;
+  }
+</style>

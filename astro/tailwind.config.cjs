@@ -3,7 +3,31 @@ module.exports = {
 	content: ['./src/**/*.{astro,html,js,jsx,md,mdx,svelte,ts,tsx,vue}'],
 	theme: {
 		extend: {
+      fontFamily: {
+        'photo-serif': ['var(--photo-serif)'],
+        'photo-sans': ['var(--photo-sans)'],
+        'photo-mono': ['var(--photo-mono)'],
+      },
+      maxWidth: {
+        'photo-page': 'var(--photo-page-width)',
+        'photo-reading': 'var(--photo-reading-width)',
+      },
+      spacing: {
+        'photo-xs': 'var(--photo-space-xs)',
+        'photo-sm': 'var(--photo-space-sm)',
+        'photo-md': 'var(--photo-space-md)',
+        'photo-lg': 'var(--photo-space-lg)',
+        'photo-xl': 'var(--photo-space-xl)',
+        'photo-gutter': 'var(--photo-gutter)',
+      },
 			colors: {
+        photo: {
+          background: 'var(--photo-background)',
+          foreground: 'var(--photo-foreground)',
+          muted: 'var(--photo-muted)',
+          border: 'var(--photo-border)',
+          accent: 'var(--photo-accent)',
+        },
         jet: {
           DEFAULT: '#363537',
           100: '#0b0a0b',

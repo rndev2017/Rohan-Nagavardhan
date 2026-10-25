@@ -1,31 +1,19 @@
 ---
-import PhotoCarousel from "../../components/PhotoCarousel.astro"
-import Layout from "../../layouts/Layout.astro"
-import { getAlbumsWithPhotos } from "../../lib/queries"
+import PhotoLayout from '../../layouts/PhotoLayout.astro';
 
-export const getStaticPaths = (async () => {
-   const albums = await getAlbumsWithPhotos()
-
-   return albums.map((album) => {
-       const sequenced = album.sequencedPhotos?.filter(Boolean) ?? []
-       const photos = sequenced.length ? sequenced : album.allPhotos
-       return {
-         params: {id: album._id},
-         props: {
-            title: album.title,
-            description: album.description,
-            photos
-         }
-       }
-   })
-})
-
-const {photos, title} = Astro.props
+// Preserve previously published album URLs independently of the retired CMS model.
+export function getStaticPaths() {
+  return [
+    '71cf934a-9864-48ae-b1e4-bd4471b902ae',
+    '87ffe91f-0c5f-4fec-b586-d4ea93fc82b3',
+  ].map((id) => ({ params: { id } }));
+}
 ---
 
-<Layout title=`Albums · ${title}`, page="photos">
-   <div class="flex flex-col h-[calc(100dvh-5rem)] overflow-hidden pr-5">
-      <a href="/photos" class="block text-gray-600 underline hover:no-underline lowercase">&lt; Back</a>
-      <PhotoCarousel photos={photos} class="flex-1 min-h-0" />
-   </div>
-</Layout>
+<PhotoLayout title="Photography project · Rohan Nagavardhan">
+  <div class="max-w-photo-reading">
+    <a href="/photos/projects" class="text-photo-muted text-[0.8125rem]">&lt; Back to projects</a>
+    <h1 class="mt-photo-sm mb-photo-lg text-[2rem]">Project unavailable</h1>
+    <p class="text-photo-muted">New work is coming soon.</p>
+  </div>
+</PhotoLayout>
