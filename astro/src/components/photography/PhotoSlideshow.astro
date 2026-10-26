@@ -1,0 +1,76 @@
+---
+// @ts-ignore — supplied by the @sanity/astro integration.
+import {sanityClient} from 'sanity:client';
+import {createImageUrlBuilder} from '@sanity/image-url';
+import type {PhotographyHome} from '../../lib/queries';
+import SpeakerButton from './SpeakerButton.astro';
+
+interface Props extends PhotographyHome {}
+const {photos, sounds} = Astro.props;
+const builder = createImageUrlBuilder(sanityClient);
+const slides = photos.map((photo) => {
+  const dimensions = photo.image.asset._ref.match(/-(\d+)x(\d+)-/);
+  const url = (width: number) => builder.image(photo.image).width(width).fit('max').auto('format').url();
+  return {
+    bodyType: photo.camera?.bodyType,
+    alt: photo.altText,
+    src: url(1600),
+    srcset: [640, 960, 1600, 2400].map((width) => `${url(width)} ${width}w`).join(', '),
+    width: dimensions ? Number(dimensions[1]) : undefined,
+    height: dimensions ? Number(dimensions[2]) : undefined,
+  };
+});
+---
+
+<section data-photo-slideshow data-sounds={JSON.stringify(sounds)} class="flex min-h-0 flex-1 flex-col" aria-label="Selected photographs" aria-roledescription="carousel" tabindex="0">
+  <div data-photo-viewer class="min-h-0 flex-1">
+    {slides.map((slide, index) => (
+      <div data-slide data-body-type={slide.bodyType} hidden={index !== 0} class="h-full" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${slides.length}`}>
+        <div class="flex h-full items-center justify-center px-photo-xs py-photo-md md:px-photo-md">
+          <img
+            src={index === 0 ? slide.src : undefined}
+            srcset={index === 0 ? slide.srcset : undefined}
+            data-src={index === 0 ? undefined : slide.src}
+            data-srcset={index === 0 ? undefined : slide.srcset}
+            sizes="(min-width: 1152px) 1008px, 90vw"
+            width={slide.width} height={slide.height} alt={slide.alt}
+            loading={index === 0 ? 'eager' : undefined}
+            fetchpriority={index === 0 ? 'high' : 'low'} decoding="async"
+            data-photo-image
+            class="h-auto w-auto max-h-[92%] max-w-full border border-photo-image-border object-contain"
+          />
+        </div>
+      </div>
+    ))}
+  </div>
+  <div class="mt-photo-xs flex min-h-11 shrink-0 flex-wrap items-center justify-between gap-x-photo-md font-sans text-photo-utility text-photo-muted">
+    <div data-controls hidden class="flex items-center gap-photo-sm">
+      <button type="button" data-playback class="min-h-11 py-photo-xs text-left disabled:opacity-50" aria-label="Pause slideshow">Pause</button>
+      <p data-pause-indicator aria-hidden="true" class="pointer-events-none opacity-0">Paused while viewing</p>
+    </div>
+    <SpeakerButton />
+  </div>
+</section>
+
+<style>
+  [data-slide][hidden], [data-controls][hidden] { display: none; }
+
+  :global([data-photo-image][data-tilting]) {
+    transform: perspective(900px) rotateX(var(--photo-tilt-y, 0deg)) rotateY(var(--photo-tilt-x, 0deg)) scale(var(--photo-lift-scale, 1));
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    :global([data-photo-image]) {
+      transition: none;
+    }
+
+    :global([data-photo-image][data-tilting]) {
+      transform: none;
+    }
+  }
+</style>
+
+<script>
+  import {mountPhotoSlideshow} from '../../lib/photo-slideshow';
+  document.querySelectorAll<HTMLElement>('[data-photo-slideshow]').forEach(mountPhotoSlideshow);
+</script>

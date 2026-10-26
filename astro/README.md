@@ -56,32 +56,62 @@ All commands are run from the root of the project, from a terminal:
 
 Feel free to check [our documentation](https://docs.astro.build) or jump into our [Discord server](https://astro.build/chat).
 
-## Photography shell
+## Photography foundations
 
-`PhotoLayout` owns the photography header, typography, spacing, and namespaced
-`--photo-*` tokens on its root. Tailwind maps these variables to photography
-colors, fonts, widths, and spacing in `tailwind.config.cjs`; components use
-utilities for their presentation. Only tokens, base typography, and interaction
-styles remain in the layout stylesheet. Use it for future routes under
-`/photos`; photography UI lives in `src/components/photography/`. System fonts
-avoid additional font requests. Tailwind's reset/utilities, `SiteHead`, Sanity
-queries/client, image URL generation, and Portable Text rendering remain shared.
+`PhotoLayout` owns the photography shell, Georgia typography, and scoped `--photo-*`
+tokens. Tailwind maps these to `font-photo`, colors, widths, and spacing; the main
+site keeps its existing appearance. Photography UI lives in
+`src/components/photography/`; queries and data contracts live in `src/lib/queries.ts`.
 
-The photography content model is being redesigned. `/photos` and
-`/photos/projects` render empty states without fetching CMS content. Previously
-published `/albums/{id}` URLs remain available as empty project pages; their IDs
-are recorded in the route so they survive content deletion. The former album/photo
-schemas, queries, and rendering components have been removed. Both Studio entry
-points have empty schema lists. Sanity configuration and shared Portable Text
-rendering remain available for the new content model.
+The canonical schema source is `sanity/schemaTypes/`, maintained by the standalone
+Studio. Both `/admin` and old `/admin/...` URLs redirect to
+`https://rohansogal.sanity.studio/`; Astro no longer bundles a second Studio.
 
-Repository/schema edits do not themselves delete documents or image assets from
-Sanity, nor do they publish changes to the live website or Studio.
+### Authoring
 
-Production photography content was reset on 2026-10-25 after a verified full export.
-The ignored `.sanity/backups/` directory at the repository root contains the export,
-checksum, inventory, and deletion receipts. Sanity permission/retention records
-and the separate `production-comments` dataset were preserved. The empty Studio
-was deployed to `https://rohansogal.sanity.studio/`, and the stored production
-schema was deleted. The prior schema record is backed up in the same directory.
-The frontend still requires its own deployment to publish the empty pages.
+- **Cameras:** film/digital medium, rangefinder/SLR/instant body type, optional acquisition year/month.
+- **Photos:** reusable image documents with required alt text and optional Camera references and metadata.
+- **Projects:** title, slug, completion status, optional thumbnail, and ordered one-/two-column spreads. Panels hold Photo references, Portable Text writing, or deliberate blank space. A two-column spread cannot be entirely blank.
+- **Homepage Slideshow:** one fixed document (`homeSlideshow`) containing ordered Photo references, independent of project ordering.
+- **Camera Sounds:** one fixed document (`cameraSounds`) with optional MP3/WAV files for rangefinders, SLRs, and instant cameras. Film and digital rangefinders share a recording.
+
+Run `npm run dev` inside `sanity/` to review the new schemas locally. Deploy that
+Studio separately when ready to expose the schema changes to hosted editors.
+No content or sample recordings are seeded automatically.
+
+Publish the Camera and Photo documents, then select and publish the homepage
+photographs. Optionally upload/publish the shared camera recordings. The frontend
+is statically built: **publish content, then rebuild/redeploy Astro** to update the
+website. Drafts are excluded. Missing/deleted references and incomplete photographs
+are skipped; absent homepage settings show the empty state.
+
+The homepage shows complete centered images at 82.5% of available width/height,
+with a 2.5px black border and instant changes every ten seconds. The next image
+loads in advance. Hover (fine pointers), keyboard focus, and a hidden tab pause
+playback; reduced motion starts paused. Navigation controls are revealed by
+keyboard focus, without a visible image counter.
+
+The small speaker-cabinet button is available when at least one selected photo has
+a configured sound. Sound starts off on each visit. Enabling it plays the current
+camera category's sound; each new photograph plays its own category. Audio loads
+only after opt-in, is cached by asset URL, and never delays photographs. Muting,
+changing slides, or hiding the page stops the previous recording. Missing or failed
+recordings stay silent. Button state and keyboard labels remain accessible.
+
+The project reader is deliberately deferred: `/photos/projects` and existing
+`/albums/{id}` URLs retain their empty states. Future two-column spreads will stack
+left before right on mobile within a single navigation step. Existing album IDs
+are retained in the legacy route independently of the new model.
+
+### Verification
+
+Use Node 24 and run `npm run test:photography` in `astro/` for the focused native
+Node tests covering audio opt-in/caching/races, missing media, playback timing,
+reduced motion, and touch focus. Build each npm project separately. In `sanity/`,
+`npx sanity schema validate --level error` checks schema configuration. No new
+runtime or test dependencies are required.
+
+The production content reset on 2026-10-25 is backed up under the ignored root
+`.sanity/backups/` directory, including image files, checksum, prior schema, and
+reset receipts. Sanity permission/retention records and `production-comments`
+were preserved. New schemas and frontend changes must be deployed separately.

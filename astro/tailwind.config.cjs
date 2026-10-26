@@ -4,9 +4,17 @@ module.exports = {
 	theme: {
 		extend: {
       fontFamily: {
-        'photo-serif': ['var(--photo-serif)'],
-        'photo-sans': ['var(--photo-sans)'],
-        'photo-mono': ['var(--photo-mono)'],
+        photo: ['var(--photo-font)'],
+        'photo-cover': ['Fraunces Cover', 'Georgia', 'serif'],
+      },
+      fontSize: {
+        'photo-identity': ['clamp(1.375rem, 1.2rem + 0.4vw, 1.5rem)', {lineHeight: '1.2'}],
+        'photo-title': ['clamp(2rem, 1.8rem + 0.5vw, 2.25rem)', {lineHeight: '1.15'}],
+        'photo-heading': ['clamp(1.25rem, 1.1rem + 0.4vw, 1.625rem)', {lineHeight: '1.25'}],
+        'photo-body': ['clamp(1.0625rem, 1rem + 0.2vw, 1.125rem)', {lineHeight: '1.65'}],
+        'photo-summary': ['clamp(0.9375rem, 0.9rem + 0.15vw, 1rem)', {lineHeight: '1.6'}],
+        'photo-nav': ['1rem', {lineHeight: '1.5'}],
+        'photo-utility': ['clamp(0.8125rem, 0.78rem + 0.1vw, 0.875rem)', {lineHeight: '1.5'}],
       },
       maxWidth: {
         'photo-page': 'var(--photo-page-width)',
@@ -18,6 +26,7 @@ module.exports = {
         'photo-md': 'var(--photo-space-md)',
         'photo-lg': 'var(--photo-space-lg)',
         'photo-xl': 'var(--photo-space-xl)',
+        'photo-2xl': 'var(--photo-space-2xl)',
         'photo-gutter': 'var(--photo-gutter)',
       },
 			colors: {
@@ -27,6 +36,9 @@ module.exports = {
           muted: 'var(--photo-muted)',
           border: 'var(--photo-border)',
           accent: 'var(--photo-accent)',
+          surface: 'var(--photo-surface)',
+          focus: 'var(--photo-focus)',
+          'image-border': 'var(--photo-image-border)',
         },
         jet: {
           DEFAULT: '#363537',

@@ -1,0 +1,119 @@
+---
+import PhotoLayout from '../../../layouts/PhotoLayout.astro';
+import ProjectBook from '../../../components/photography/ProjectBook.astro';
+import ProjectSpread from '../../../components/photography/ProjectSpread.astro';
+import HeroIcon from '../../../components/icons/HeroIcon.astro';
+import {getProjectBySlug, getProjects} from '../../../lib/queries';
+import type {ProjectDetail} from '../../../lib/queries';
+
+export async function getStaticPaths() {
+  const paths: Array<{params: {slug: string}; props: {project: ProjectDetail}}> = [];
+  for (const {slug} of await getProjects()) {
+    if (!slug?.current) continue;
+    const project = await getProjectBySlug(slug.current);
+    if (project) paths.push({params: {slug: slug.current}, props: {project}});
+  }
+  return paths;
+}
+
+interface Props { project: ProjectDetail }
+const {project} = Astro.props;
+const spreads = project.spreads;
+---
+
+<PhotoLayout reader title={`${project.title} · Photography · Rohan Nagavardhan`} description={project.description}>
+  <script slot="head" is:inline>
+    // Run before paint so a normal page load can carry the selected cover into the hero.
+    try {
+      const key = 'photo-project-opening';
+      const origin = JSON.parse(sessionStorage.getItem(key) || 'null');
+      sessionStorage.removeItem(key);
+      if (origin && origin.path === location.pathname && Date.now() - origin.at < 10000 &&
+        !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(min-width: 768px)').matches) {
+        const root = document.documentElement;
+        root.dataset.bookOpening = '';
+        root.dataset.bookOrigin = JSON.stringify(origin);
+        root.style.setProperty('--book-origin-x', `${origin.left}px`);
+        root.style.setProperty('--book-origin-y', `${origin.top}px`);
+        root.style.setProperty('--book-origin-width', `${origin.width}px`);
+        // Never leave the real spread hidden if animation code fails to load.
+        root.dataset.bookFallback = String(setTimeout(() => root.removeAttribute('data-book-opening'), 4000));
+      }
+    } catch { /* Direct navigation remains an ordinary static project page. */ }
+  </script>
+
+  <article data-project-reader class="flex min-h-0 flex-1 flex-col">
+    <header class="relative z-[60] mb-photo-md flex items-baseline justify-between gap-photo-md">
+      <a href="/photos/projects" class="inline-flex min-h-11 shrink-0 items-baseline gap-1.5 font-sans text-photo-utility text-photo-muted">
+        <HeroIcon name="arrow-left" class="relative top-[0.08em] h-3 w-3" />
+        <span>Projects</span>
+      </a>
+      <div class="max-w-photo-reading text-right">
+        <h1 class="font-photo text-photo-heading">{project.title}</h1>
+        {project.description && <p class="mt-photo-xs font-sans text-photo-summary text-photo-muted">{project.description}</p>}
+      </div>
+    </header>
+    {spreads.length ? (
+      <>
+        <div data-opening-spread id="project-spreads" class="flex min-h-0 flex-1" data-columns={spreads[0]._type === 'twoColumnSpread' ? '2' : '1'}>
+          {spreads.map((spread, index) => (
+            <div data-reader-page hidden={index !== 0} class="min-h-0 w-full flex-1">
+              <ProjectSpread spread={spread} index={index} />
+            </div>
+          ))}
+        </div>
+        <nav data-reader-controls hidden aria-label="Project spreads" class="mt-photo-md flex shrink-0 items-center justify-between text-photo-muted">
+          <p data-reader-marker class="font-sans text-photo-utility tabular-nums" aria-hidden="true">1 / {spreads.length}</p>
+          <p data-reader-announcement class="sr-only" role="status" aria-live="polite" aria-atomic="true">Spread 1 of {spreads.length}</p>
+          <div class="flex gap-photo-xs">
+            <button data-reader-previous type="button" aria-label="Previous spread" aria-controls="project-spreads" disabled class="flex h-11 w-11 items-center justify-center disabled:cursor-default disabled:opacity-25">
+              <HeroIcon name="chevron-left" class="h-6 w-6" />
+            </button>
+            <button data-reader-next type="button" aria-label="Next spread" aria-controls="project-spreads" disabled={spreads.length < 2} class="flex h-11 w-11 items-center justify-center disabled:cursor-default disabled:opacity-25">
+              <HeroIcon name="chevron-right" class="h-6 w-6" />
+            </button>
+          </div>
+        </nav>
+        <div data-opening-book aria-hidden="true" inert>
+          <ProjectBook title={project.title} thumbnail={project.thumbnail} preview={false} />
+        </div>
+      </>
+    ) : <p class="font-sans text-photo-summary text-photo-muted">Project pages coming soon.</p>}
+    <noscript>
+      <style is:inline>
+        .photo-site { height: auto; }
+        [data-opening-spread] { display: block; }
+        [data-reader-page][hidden] { display: flex !important; }
+        [data-reader-page] { min-height: 60vh; margin-block: 2rem; }
+      </style>
+    </noscript>
+  </article>
+</PhotoLayout>
+
+<style>
+  [data-reader-page] { display: flex; }
+  [data-reader-page][hidden], [data-reader-controls][hidden] { display: none; }
+  [data-opening-book] { display: none; }
+  :global(html[data-book-opening] [data-opening-spread]) { opacity: 0; }
+  :global(html[data-book-opening]) [data-opening-book] {
+    display: block;
+    position: fixed;
+    z-index: 50;
+    left: var(--book-origin-x);
+    top: var(--book-origin-y);
+    width: var(--book-origin-width);
+    pointer-events: none;
+    transform-origin: top left;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :global(html[data-book-opening] [data-opening-spread]) { opacity: 1; }
+    [data-opening-book] { display: none !important; }
+  }
+</style>
+
+<script>
+  import {openProjectBook} from '../../../lib/project-opening';
+  import {mountProjectReader} from '../../../lib/project-reader';
+  document.querySelectorAll<HTMLElement>('[data-project-reader]').forEach(mountProjectReader);
+  void openProjectBook();
+</script>
