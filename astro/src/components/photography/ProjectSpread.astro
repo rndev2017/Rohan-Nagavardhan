@@ -11,6 +11,7 @@ const builder = createImageUrlBuilder(sanityClient);
 ---
 
 <section
+  data-project-spread
   data-columns={twoColumns ? '2' : '1'}
   aria-label={`Spread ${index + 1}`}
   class:list={[
@@ -26,10 +27,12 @@ const builder = createImageUrlBuilder(sanityClient);
         panel.photo?.image?.asset?._ref ? (
           <img
             src={builder.image(panel.photo.image).width(1600).fit('max').auto('format').url()}
+            srcset={[640, 960, 1600].map((width) => `${builder.image(panel.photo!.image).width(width).fit('max').auto('format').url()} ${width}w`).join(', ')}
+            sizes={twoColumns ? '(min-width: 768px) 45vw, 90vw' : '90vw'}
             alt={panel.photo.altText}
             loading={index === 0 ? 'eager' : 'lazy'}
             decoding="async"
-            class="max-h-full w-auto max-w-full object-contain"
+            class="max-h-[55svh] w-auto max-w-full object-contain md:max-h-full"
           />
         ) : <p class="font-sans text-photo-utility text-photo-muted">Photograph unavailable.</p>
       ) : panel._type === 'writingPanel' ? (
@@ -40,3 +43,13 @@ const builder = createImageUrlBuilder(sanityClient);
     </div>
   ))}
 </section>
+
+
+<style>
+  @media (max-width: 767px) {
+    [data-project-spread] { align-self: stretch; grid-auto-rows: minmax(min-content, 1fr); }
+    [data-project-spread][data-columns='2'] { flex: none; align-content: center; padding-block: 16px; }
+    [data-project-spread][data-columns='2'] [data-spread-page] { min-height: 8rem; }
+    [data-spread-page] > div { max-height: none; overflow: visible; }
+  }
+</style>

@@ -29,7 +29,7 @@ const spreads = project.spreads;
       const origin = JSON.parse(sessionStorage.getItem(key) || 'null');
       sessionStorage.removeItem(key);
       if (origin && origin.path === location.pathname && Date.now() - origin.at < 10000 &&
-        !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(min-width: 768px)').matches) {
+        !matchMedia('(prefers-reduced-motion: reduce)').matches && matchMedia('(min-width: 768px)').matches && matchMedia('(hover: hover)').matches) {
         const root = document.documentElement;
         root.dataset.bookOpening = '';
         root.dataset.bookOrigin = JSON.stringify(origin);
@@ -43,19 +43,19 @@ const spreads = project.spreads;
   </script>
 
   <article data-project-reader class="flex min-h-0 flex-1 flex-col">
-    <header class="relative z-[60] mb-photo-md flex items-baseline justify-between gap-photo-md">
+    <header data-reader-heading class="relative z-[60] mb-photo-md flex flex-col gap-photo-xs md:flex-row md:items-baseline md:justify-between md:gap-photo-md">
       <a href="/photos/projects" class="inline-flex min-h-11 shrink-0 items-baseline gap-1.5 font-sans text-photo-utility text-photo-muted">
         <HeroIcon name="arrow-left" class="relative top-[0.08em] h-3 w-3" />
         <span>Projects</span>
       </a>
-      <div class="max-w-photo-reading text-right">
-        <h1 class="font-photo text-photo-heading">{project.title}</h1>
+      <div class="min-w-0 max-w-photo-reading text-left md:text-right">
+        <h1 class="break-words font-photo text-photo-heading">{project.title}</h1>
         {project.description && <p class="mt-photo-xs font-sans text-photo-summary text-photo-muted">{project.description}</p>}
       </div>
     </header>
     {spreads.length ? (
       <>
-        <div data-opening-spread id="project-spreads" class="flex min-h-0 flex-1" data-columns={spreads[0]._type === 'twoColumnSpread' ? '2' : '1'}>
+        <div data-opening-spread id="project-spreads" class="flex min-h-0 flex-1 overflow-y-auto overscroll-contain md:overflow-visible" data-columns={spreads[0]._type === 'twoColumnSpread' ? '2' : '1'}>
           {spreads.map((spread, index) => (
             <div data-reader-page hidden={index !== 0} class="min-h-0 w-full flex-1">
               <ProjectSpread spread={spread} index={index} />

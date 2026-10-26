@@ -46,7 +46,7 @@ const slides = photos.map((photo) => {
   <div class="mt-photo-xs flex min-h-11 shrink-0 flex-wrap items-center justify-between gap-x-photo-md font-sans text-photo-utility text-photo-muted">
     <div data-controls hidden class="flex items-center gap-photo-sm">
       <button type="button" data-playback class="min-h-11 py-photo-xs text-left disabled:opacity-50" aria-label="Pause slideshow">Pause</button>
-      <p data-pause-indicator aria-hidden="true" class="pointer-events-none opacity-0">Paused while viewing</p>
+      <p data-pause-indicator aria-hidden="true" class="pointer-events-none hidden opacity-0 sm:block">Paused while viewing</p>
     </div>
     <SpeakerButton />
   </div>

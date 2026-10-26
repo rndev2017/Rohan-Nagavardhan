@@ -24,7 +24,7 @@ const {
     <SiteHead title={title} description={description} themeColor="#faf9f6" />
     <slot name="head" />
   </head>
-  <body class:list={["photo-site bg-photo-background text-photo-foreground font-photo text-photo-body", (slideshow || reader) ? "flex h-svh min-h-[28rem] flex-col" : "min-h-svh"]}>
+  <body data-photo-reader={reader || undefined} data-photo-slideshow-page={slideshow || undefined} class:list={["photo-site bg-photo-background text-photo-foreground font-photo text-photo-body", (slideshow || reader) ? "flex h-svh min-h-0 flex-col" : "min-h-svh"]}>
     <a class="absolute z-[100] top-photo-xs left-photo-gutter -translate-y-[200%] bg-photo-background p-photo-xs focus:translate-y-0" href="#photo-content">Skip to content</a>
     {!reader && <PhotoHeader />}
     <main id="photo-content" class:list={[reader ? "w-full flex min-h-0 flex-1 flex-col px-photo-gutter py-photo-md" : "mx-auto w-full max-w-photo-page px-photo-gutter", reader ? "" : slideshow ? "flex min-h-0 flex-1 flex-col py-photo-md" : "pt-photo-lg pb-photo-xl"]} tabindex="-1">
@@ -54,7 +54,35 @@ const {
     --photo-space-lg: 2rem;
     --photo-space-xl: 3rem;
     --photo-space-2xl: 4rem;
-    --photo-gutter: clamp(1.25rem, 5vw, 3rem);
+    --photo-gutter: clamp(1rem, 5vw, 3rem);
+  }
+
+  :global(.photo-site #photo-content) {
+    padding-bottom: max(var(--photo-space-xl), env(safe-area-inset-bottom));
+    padding-left: max(var(--photo-gutter), env(safe-area-inset-left));
+    padding-right: max(var(--photo-gutter), env(safe-area-inset-right));
+  }
+
+  :global(.photo-site[data-photo-reader] #photo-content),
+  :global(.photo-site[data-photo-slideshow-page] #photo-content) { padding-bottom: max(24px, env(safe-area-inset-bottom)); }
+
+  @media (max-width: 767px) {
+    :global(.photo-site[data-photo-reader] #photo-content),
+    :global(.photo-site[data-photo-slideshow-page] #photo-content) { padding-bottom: max(16px, env(safe-area-inset-bottom)); }
+  }
+  @media (pointer: coarse) {
+    :global(.photo-site > header a) { min-height: 44px; }
+  }
+  @media (max-height: 500px) and (pointer: coarse) {
+    :global(.photo-site #photo-content) { padding-top: 8px; }
+    :global(.photo-site[data-photo-reader] #photo-content),
+    :global(.photo-site[data-photo-slideshow-page] #photo-content) { padding-bottom: max(8px, env(safe-area-inset-bottom)); }
+    :global(.photo-site > header) { padding-top: 0; }
+    :global(.photo-site > header > a) { margin-bottom: 0; }
+    :global(.photo-site > header nav) { padding-bottom: 0; }
+    :global([data-photo-reader] [data-reader-heading]) { margin-bottom: 8px; }
+    :global([data-photo-reader] [data-reader-controls]) { margin-top: 8px; }
+    :global([data-photo-viewer] [data-slide] > div) { padding-block: 8px; }
   }
 
   :global(:where(.photo-site) :where(h1, h2, h3)) {

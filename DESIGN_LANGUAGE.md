@@ -70,7 +70,7 @@ directly, or define an explicit compatible color token when a different tone is 
 - Share the photography page width (`72rem`) and reading width (`42rem`).
 - Use the existing spacing scale: `photo-xs` = 0.5rem, `photo-sm` = 1rem,
   `photo-md` = 1.5rem, `photo-lg` = 2rem, `photo-xl` = 3rem, `photo-2xl` = 4rem.
-- Page gutters use `clamp(1.25rem, 5vw, 3rem)`.
+- Page gutters use `clamp(1rem, 5vw, 3rem)`.
 - Align content to a few clear edges. Keep repeated covers, image insets, title positions,
   and metadata aligned across a collection.
 - Prefer generous empty space, open layouts, and thin rules. Add containers only when they
@@ -188,3 +188,15 @@ Review changed pages at desktop and mobile widths, including empty content, miss
 long titles, keyboard focus, and reduced motion. Build the affected project. Sanity content is
 read at static build time for deployed pages, so publishing content requires a site rebuild
 before it appears there.
+
+## Phone layouts
+
+- Keep slideshow playback and sound controls on one row below the image; the hover-only status
+  does not reserve space on narrow screens. Preserve desktop hover tilt and pause.
+- Use 44px navigation hit areas and safe-area-aware gutters. Compact vertical spacing on short
+  touch screens so playback controls remain in view; avoid a fixed minimum viewport height.
+- Reader headings and descriptions align left on phones, with the Projects link above them.
+  Keep the marker and chevrons below a scrollable content area; two-column spreads stack in
+  authored order without squeezing long writing into separate tiny scroll boxes.
+- Serve responsive image candidates in the reader; keep image proportions and cap mobile reader images at 55svh. Book-entry motion requires
+  a wide screen and a hover-capable pointer, avoiding the desktop animation on landscape phones.
