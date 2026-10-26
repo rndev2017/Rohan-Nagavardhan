@@ -136,7 +136,7 @@ function fixture(count, {reduced = false, hover = false, keyboard = false, fineP
   const win = node({matchMedia: (query) => query.includes('reduced') ? motion : {matches: finePointer}});
   const timers = new Map(); let timerId = 0;
   const originalTimeout = globalThis.setTimeout, originalClear = globalThis.clearTimeout;
-  globalThis.setTimeout = (fn, ms) => { assert.equal(ms, 30000); timers.set(++timerId, fn); return timerId; };
+  globalThis.setTimeout = (fn, ms) => { assert.equal(ms, 15000); timers.set(++timerId, fn); return timerId; };
   globalThis.clearTimeout = (id) => timers.delete(id);
   globalThis.document = doc; globalThis.window = win; globalThis.Element = class {};
   mountPhotoSlideshow(root);
@@ -158,7 +158,7 @@ test('empty/single selections, unavailable sounds, and reduced motion need no ti
   f.cleanup();
 });
 
-test('slideshow waits thirty seconds, switches instantly, wraps, and preloads the next photo', async () => {
+test('slideshow waits fifteen seconds, switches instantly, wraps, and preloads the next photo', async () => {
   const f = fixture(3);
   try {
     assert.equal(f.images[1].src, 'photo-1');

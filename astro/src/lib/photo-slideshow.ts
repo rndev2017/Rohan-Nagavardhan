@@ -1,7 +1,7 @@
 import {CameraAudio} from './camera-audio.ts';
 import type {SoundUrls} from './queries';
 
-const SLIDESHOW_INTERVAL_MS = 30000;
+const SLIDESHOW_INTERVAL_MS = 15000;
 
 export function mountPhotoSlideshow(root: HTMLElement) {
   const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-slide]'));
