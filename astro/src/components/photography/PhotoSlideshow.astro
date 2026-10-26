@@ -22,39 +22,39 @@ const slides = photos.map((photo) => {
 });
 ---
 
-<section data-photo-slideshow data-sounds={JSON.stringify(sounds)} class="relative min-h-0 flex-1" aria-label="Selected photographs" aria-roledescription="carousel" tabindex="0">
-  <div class="h-full min-h-0">
+<section data-photo-slideshow data-sounds={JSON.stringify(sounds)} class="flex min-h-0 flex-1 flex-col" aria-label="Selected photographs" aria-roledescription="carousel" tabindex="0">
+  <div data-photo-viewer class="min-h-0 flex-1">
     {slides.map((slide, index) => (
       <div data-slide data-body-type={slide.bodyType} hidden={index !== 0} class="h-full" role="group" aria-roledescription="slide" aria-label={`${index + 1} of ${slides.length}`}>
-        <div class="flex h-full -translate-y-6 items-center justify-center">
+        <div class="flex h-full items-center justify-center px-photo-xs py-photo-md md:px-photo-md">
           <img
             src={index === 0 ? slide.src : undefined}
             srcset={index === 0 ? slide.srcset : undefined}
             data-src={index === 0 ? undefined : slide.src}
             data-srcset={index === 0 ? undefined : slide.srcset}
-            sizes="(min-width: 1152px) 872px, 75vw"
+            sizes="(min-width: 1152px) 1008px, 90vw"
             width={slide.width} height={slide.height} alt={slide.alt}
             loading={index === 0 ? 'eager' : undefined}
             fetchpriority={index === 0 ? 'high' : 'low'} decoding="async"
             data-photo-image
-            class="h-auto w-auto max-h-[82.5%] max-w-[82.5%] border-[2.5px] border-black object-contain"
+            class="h-auto w-auto max-h-[92%] max-w-full border border-photo-image-border object-contain"
           />
         </div>
       </div>
     ))}
   </div>
-  <p data-pause-indicator aria-hidden="true" class="pointer-events-none absolute bottom-0 left-0 px-photo-xs py-photo-sm text-[0.6875rem] italic text-photo-muted opacity-0 transition-opacity duration-300">Paused while viewing</p>
-  <div data-controls hidden class="sr-only focus-within:not-sr-only focus-within:absolute focus-within:bottom-0 focus-within:left-1/2 focus-within:-translate-x-1/2 focus-within:bg-photo-background focus-within:px-photo-sm text-[0.8125rem] text-photo-muted">
-    <div class="flex items-center justify-center gap-photo-md">
-      <button type="button" data-previous class="p-photo-xs" aria-label="Previous photograph">prev</button>
-      <button type="button" data-next class="p-photo-xs" aria-label="Next photograph">next</button>
-      <button type="button" data-playback class="min-w-14 p-photo-xs" aria-label="Pause slideshow">pause</button>
+  <div class="mt-photo-xs flex min-h-11 shrink-0 flex-wrap items-center justify-between gap-x-photo-md font-sans text-photo-utility text-photo-muted">
+    <div data-controls hidden class="flex items-center gap-photo-sm">
+      <button type="button" data-playback class="min-h-11 py-photo-xs text-left disabled:opacity-50" aria-label="Pause slideshow">Pause</button>
+      <p data-pause-indicator aria-hidden="true" class="pointer-events-none opacity-0">Paused while viewing</p>
     </div>
+    <SpeakerButton />
   </div>
-  <SpeakerButton />
 </section>
 
 <style>
+  [data-slide][hidden], [data-controls][hidden] { display: none; }
+
   :global([data-photo-image][data-tilting]) {
     transform: perspective(900px) rotateX(var(--photo-tilt-y, 0deg)) rotateY(var(--photo-tilt-x, 0deg)) scale(var(--photo-lift-scale, 1));
   }
@@ -64,7 +64,7 @@ const slides = photos.map((photo) => {
       transition: none;
     }
 
-    :global([data-photo-image]:hover) {
+    :global([data-photo-image][data-tilting]) {
       transform: none;
     }
   }

@@ -29,7 +29,19 @@ export interface Project {
   _type: 'project'; _id: string; title: string;
   slug: {_type: 'slug'; current: string};
   status: 'in_progress' | 'done'; description?: string;
-  thumbnail?: Reference; spreads: Spread[];
+  thumbnail?: Pick<Photo, 'title' | 'altText' | 'image'>; spreads: Spread[];
+}
+export type ResolvedPanel =
+  | (Omit<PhotoPanel, 'photo'> & {photo: Pick<Photo, 'title' | 'altText' | 'image'> | null})
+  | WritingPanel
+  | BlankPanel;
+export interface ResolvedSpread {
+  _key: string;
+  _type: 'oneColumnSpread' | 'twoColumnSpread';
+  panels: ResolvedPanel[];
+}
+export interface ProjectDetail extends Omit<Project, 'spreads'> {
+  spreads: ResolvedSpread[];
 }
 export interface HomeSlideshow {
   _type: 'homeSlideshow'; _id: 'homeSlideshow'; photos?: Reference[];
@@ -78,12 +90,28 @@ export async function getPhotographyHome(): Promise<PhotographyHome> {
   return normalizePhotographyHome(data);
 }
 
-// Kept separate from rendering: the photobook reader is a later task.
 export async function getProjects(): Promise<Project[]> {
   return sanityClient.fetch(
     `*[_type == "project"] | order(_createdAt desc) {
-      _id, _type, title, slug, status, description, thumbnail,
+      _id, _type, title, slug, status, description,
+      "thumbnail": thumbnail->{title, altText, image},
       "spreads": coalesce(spreads, [])
     }`, {}, {perspective: 'published'},
+  );
+}
+
+export async function getProjectBySlug(slug: string): Promise<ProjectDetail | null> {
+  return sanityClient.fetch(
+    `*[_type == "project" && slug.current == $slug][0]{
+      _id, _type, title, slug, status, description,
+      "thumbnail": thumbnail->{title, altText, image},
+      "spreads": coalesce(spreads, [])[]{
+        _key, _type,
+        "panels": coalesce(panels, [])[]{
+          _key, _type, content,
+          "photo": photo->{title, altText, image}
+        }
+      }
+    }`, {slug}, {perspective: 'published'},
   );
 }

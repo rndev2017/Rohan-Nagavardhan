@@ -1,13 +1,13 @@
 import {CameraAudio} from './camera-audio.ts';
-import type {CameraBodyType, SoundUrls} from './queries';
+import type {SoundUrls} from './queries';
+
+const SLIDESHOW_INTERVAL_MS = 30000;
 
 export function mountPhotoSlideshow(root: HTMLElement) {
   const slides = Array.from(root.querySelectorAll<HTMLElement>('[data-slide]'));
   if (!slides.length) return;
   const controls = root.querySelector<HTMLElement>('[data-controls]')!;
   const pauseIndicator = root.querySelector<HTMLElement>('[data-pause-indicator]')!;
-  const previous = root.querySelector<HTMLButtonElement>('[data-previous]')!;
-  const next = root.querySelector<HTMLButtonElement>('[data-next]')!;
   const playback = root.querySelector<HTMLButtonElement>('[data-playback]')!;
   const soundControl = root.querySelector<HTMLElement>('[data-sound-control]')!;
   const soundButton = root.querySelector<HTMLButtonElement>('[data-sound]')!;
@@ -22,10 +22,8 @@ export function mountPhotoSlideshow(root: HTMLElement) {
   let loading = false;
   let disposed = false;
   let timer: ReturnType<typeof setTimeout> | undefined;
-  const body = (index: number) => {
-    const value = slides[index].dataset.bodyType;
-    return ['rangefinder', 'slr', 'instant', 'pointAndShoot'].includes(value || '') ? value as CameraBodyType : undefined;
-  };
+  // One consistent shutter for every image, including photos without camera metadata.
+  const shutter = sounds.rangefinder ? 'rangefinder' : undefined;
   function updateSoundButton(enabled: boolean) {
     soundButton.setAttribute('aria-pressed', String(enabled));
     const label = enabled ? 'Disable sound' : 'Enable sound';
@@ -33,12 +31,10 @@ export function mountPhotoSlideshow(root: HTMLElement) {
     soundButton.title = label;
     soundButton.textContent = label;
   }
-  const audio = new CameraAudio(sounds, () => body(current), updateSoundButton);
+  const audio = new CameraAudio(sounds, () => shutter, updateSoundButton);
   function setHoverPaused(paused: boolean) {
     if (!canHover || hoverPaused === paused) return;
     hoverPaused = paused;
-    pauseIndicator.setAttribute('aria-hidden', String(!paused));
-    pauseIndicator.style.opacity = paused ? '1' : '0';
     syncPlayback();
   }
   for (const slide of slides) {
@@ -109,10 +105,15 @@ export function mountPhotoSlideshow(root: HTMLElement) {
 
   function syncPlayback() {
     clearTimeout(timer);
-    playback.textContent = userPaused ? 'play' : 'pause';
-    playback.setAttribute('aria-label', userPaused ? 'Play slideshow' : 'Pause slideshow');
+    const paused = userPaused || focused;
+    const hoverIsPausing = hoverPaused && !paused && slides.length > 1 && !document.hidden && !disposed;
+    pauseIndicator.setAttribute('aria-hidden', String(!hoverIsPausing));
+    pauseIndicator.style.opacity = hoverIsPausing ? '1' : '0';
+    playback.textContent = paused ? 'Play' : 'Pause';
+    playback.setAttribute('aria-label', paused ? 'Play slideshow' : 'Pause slideshow');
+    playback.disabled = slides.length < 2;
     if (slides.length > 1 && !disposed && !userPaused && !hoverPaused && !focused && !document.hidden && !loading) {
-      timer = setTimeout(() => { void show(current + 1); }, 30000);
+      timer = setTimeout(() => { void show(current + 1); }, SLIDESHOW_INTERVAL_MS);
     }
   }
 
@@ -120,7 +121,7 @@ export function mountPhotoSlideshow(root: HTMLElement) {
     if (manual) userPaused = true;
     if (loading || disposed) { syncPlayback(); return; }
     const target = (index + slides.length) % slides.length;
-    if (target === current) return;
+    if (target === current) { syncPlayback(); return; }
     loading = true;
     syncPlayback();
     const image = prepare(target);
@@ -139,17 +140,21 @@ export function mountPhotoSlideshow(root: HTMLElement) {
     current = target;
     slides[current].hidden = false;
     loading = false;
-    void audio.play(body(current));
+    void audio.play(shutter);
     prepare((current + 1) % slides.length);
-    void audio.preload(body((current + 1) % slides.length));
+    void audio.preload(shutter);
     syncPlayback();
   }
 
-  previous.addEventListener('click', () => { void show(current - 1, true); });
-  next.addEventListener('click', () => { void show(current + 1, true); });
-  playback.addEventListener('click', () => { userPaused = !userPaused; syncPlayback(); });
+  playback.addEventListener('click', () => {
+    // Explicit Play must work while the button retains keyboard focus.
+    const paused = userPaused || focused;
+    userPaused = !paused;
+    if (paused) focused = false;
+    syncPlayback();
+  });
   soundButton.addEventListener('click', () => {
-    void audio.setEnabled(!audio.enabled, false).then(() => audio.preload(body((current + 1) % slides.length)));
+    void audio.setEnabled(!audio.enabled, false).then(() => audio.preload(shutter));
   });
   root.addEventListener('keydown', (event) => {
     if (event.altKey || event.ctrlKey || event.metaKey || event.shiftKey) return;
@@ -175,11 +180,8 @@ export function mountPhotoSlideshow(root: HTMLElement) {
     motion.removeEventListener('change', onMotion);
   }, {once: true});
 
-  controls.hidden = slides.length <= 1;
-  soundControl.hidden = typeof AudioContext === 'undefined' || !slides.some((_, index) => {
-    const type = body(index);
-    return type && sounds[type];
-  });
+  controls.hidden = false;
+  soundControl.hidden = typeof AudioContext === 'undefined' || !shutter;
   if (slides.length > 1) prepare(1);
   syncPlayback();
 }

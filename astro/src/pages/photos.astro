@@ -10,7 +10,7 @@ const home = await getPhotographyHome();
   <h1 class="sr-only">Photography by Rohan Nagavardhan</h1>
   {home.photos.length ? <PhotoSlideshow {...home} /> : (
     <section class="flex min-h-[60svh] items-center justify-center text-center" aria-label="Photography">
-      <p class="text-photo-muted">Photographs coming soon.</p>
+      <p class="font-sans text-photo-summary text-photo-muted">Photographs coming soon.</p>
     </section>
   )}
 </PhotoLayout>

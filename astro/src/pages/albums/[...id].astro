@@ -1,4 +1,5 @@
 ---
+import HeroIcon from '../../components/icons/HeroIcon.astro';
 import PhotoLayout from '../../layouts/PhotoLayout.astro';
 
 // Preserve previously published album URLs independently of the retired CMS model.
@@ -12,8 +13,8 @@ export function getStaticPaths() {
 
 <PhotoLayout title="Photography project · Rohan Nagavardhan">
   <div class="max-w-photo-reading">
-    <a href="/photos/projects" class="text-photo-muted text-[0.8125rem]">&lt; Back to projects</a>
-    <h1 class="mt-photo-sm mb-photo-lg text-[2rem]">Project unavailable</h1>
-    <p class="text-photo-muted">New work is coming soon.</p>
+    <a href="/photos/projects" class="inline-flex min-h-11 items-center gap-photo-xs font-sans text-photo-utility text-photo-muted"><HeroIcon name="arrow-left" class="h-3 w-3" />Back to projects</a>
+    <h1 class="mt-photo-sm mb-photo-lg text-photo-title">Project unavailable</h1>
+    <p class="font-sans text-photo-summary text-photo-muted">New work is coming soon.</p>
   </div>
 </PhotoLayout>

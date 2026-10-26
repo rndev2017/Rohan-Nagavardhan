@@ -1,10 +1,38 @@
 ---
 import PhotoLayout from '../../layouts/PhotoLayout.astro';
+import {getProjects} from '../../lib/queries';
+import ProjectBook from '../../components/photography/ProjectBook.astro';
+
+const projects = await getProjects();
 ---
 
 <PhotoLayout title="Photography projects · Rohan Nagavardhan">
-  <div class="max-w-photo-reading">
-    <h1 class="mb-photo-lg text-[2rem]">Projects</h1>
-    <p class="text-photo-muted">No projects yet.</p>
+  <div class="max-w-photo-page">
+    <h1 class="mb-photo-lg text-photo-title">Projects</h1>
+    {projects.length ? (
+      <ul class="grid grid-cols-1 gap-x-photo-xl gap-y-photo-xl sm:grid-cols-[repeat(auto-fill,16rem)]">
+        {projects.map((project) => (
+          <li class="w-full max-w-[14rem] sm:max-w-[16rem]">
+            <a data-project-link href={`/photos/projects/${project.slug.current}`} aria-label={`Open ${project.title}`} class="mb-photo-md block hover:!no-underline">
+              <ProjectBook title={project.title} thumbnail={project.thumbnail} />
+            </a>
+            <h2 class="mb-photo-xs break-words text-photo-heading">
+              <a data-project-title href={`/photos/projects/${project.slug.current}`} class="decoration-photo-border underline underline-offset-4">{project.title}</a>
+            </h2>
+            <p class="mb-photo-xs font-sans text-photo-utility text-photo-muted">
+              {project.status === 'in_progress' ? 'In progress' : 'Complete'}
+            </p>
+            {project.description && <p class="font-sans text-photo-summary text-photo-muted">{project.description}</p>}
+          </li>
+        ))}
+      </ul>
+    ) : <p class="font-sans text-photo-summary text-photo-muted">No projects yet.</p>}
   </div>
 </PhotoLayout>
+
+<script>
+  import {rememberProjectOpening} from '../../lib/project-opening';
+  document.querySelectorAll<HTMLAnchorElement>('[data-project-link], [data-project-title]').forEach((link) => {
+    link.addEventListener('click', (event) => rememberProjectOpening(event, link));
+  });
+</script>

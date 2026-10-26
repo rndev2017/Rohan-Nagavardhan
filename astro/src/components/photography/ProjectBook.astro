@@ -1,0 +1,68 @@
+---
+import {createImageUrlBuilder} from '@sanity/image-url';
+import {sanityClient} from 'sanity:client';
+import type {Project} from '../../lib/queries';
+
+interface Props {
+  title: string;
+  thumbnail?: Project['thumbnail'];
+  preview?: boolean;
+}
+
+const {title, thumbnail, preview = true} = Astro.props;
+const titleSize = title.length > 48 ? '7.2cqw' : title.length > 28 ? '8.5cqw' : '9.82cqw';
+const builder = createImageUrlBuilder(sanityClient);
+---
+
+<div data-project-book data-book-preview={preview} class="relative aspect-[3/4] w-full [container-type:inline-size]">
+  <div data-book-back aria-hidden="true" class="absolute inset-0 border border-black/15 bg-[#78504c]"></div>
+  <div data-book-leaf="3" aria-hidden="true" class="absolute inset-y-[1%] left-[1.8%] right-0 border border-[#d3cec2] bg-[#f2eee5]"></div>
+  <div data-book-leaf="2" aria-hidden="true" class="absolute inset-y-[1%] left-[1.8%] right-0 border border-[#d3cec2] bg-[#eeeae0]"></div>
+  <div data-book-leaf="1" aria-hidden="true" class="absolute inset-y-[1%] left-[1.8%] right-0 border border-[#d3cec2] bg-[#f7f4ec]"></div>
+  <div data-book-cover class="relative h-full overflow-hidden border border-black/15 bg-[#78504c] shadow-[1px_2px_3px_rgba(41,38,32,0.1)]">
+    <div aria-hidden="true" class="absolute inset-y-0 left-0 z-10 w-[3.6%] border-r border-black/15 bg-black/[0.06]"></div>
+    {thumbnail?.image && (
+      <div class="absolute left-[10.7%] right-[8.9%] top-[8%] bottom-[29.5%] border-[2.68cqw] border-[#f4f1e9] bg-[#f4f1e9]">
+        <img
+          src={builder.image(thumbnail.image).width(600).height(650).fit('crop').auto('format').url()}
+          alt={thumbnail.altText}
+          loading={preview ? 'lazy' : 'eager'}
+          class="h-full w-full object-cover"
+        />
+      </div>
+    )}
+    <h2 style={{fontSize: titleSize}} class="absolute bottom-[6.7%] left-[10.7%] right-[8.9%] font-photo-cover line-clamp-3 break-words font-bold leading-[1.08] tracking-[-0.02em] text-[#f4f1e9]">{title}</h2>
+  </div>
+</div>
+
+<style>
+  @font-face {
+    font-family: 'Fraunces Cover';
+    src: url('/fonts/fraunces-cover-latin.woff2') format('woff2');
+    font-style: normal;
+    font-weight: 700;
+    font-display: swap;
+  }
+
+  [data-project-book] { perspective: 1100px; }
+  [data-book-cover], [data-book-leaf], [data-book-back] {
+    transform-origin: left center;
+    transition: transform 550ms cubic-bezier(0.2, 0.65, 0.3, 1);
+  }
+  [data-book-back] { transform: translateX(4px); }
+  [data-book-leaf='3'] { transform: translateX(3px); }
+  [data-book-leaf='2'] { transform: translateX(2px); }
+  [data-book-leaf='1'] { transform: translateX(1px); }
+
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    [data-book-preview='true']:is(:hover, :focus-within) [data-book-cover] { transform: rotateY(-22deg); }
+    [data-book-preview='true']:is(:hover, :focus-within) [data-book-leaf='1'] { transform: translateX(5px) rotateY(-16deg); }
+    [data-book-preview='true']:is(:hover, :focus-within) [data-book-leaf='2'] { transform: translateX(8px) rotateY(-10deg); }
+    [data-book-preview='true']:is(:hover, :focus-within) [data-book-leaf='3'] { transform: translateX(11px) rotateY(-4deg); }
+    [data-book-preview='true']:is(:hover, :focus-within) [data-book-back] { transform: translateX(14px); }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    [data-book-cover], [data-book-leaf], [data-book-back] { transition: none; }
+  }
+</style>

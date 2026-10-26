@@ -7,12 +7,12 @@ const aboutActive = path.startsWith('/photos/about');
 ---
 
 <header class="mx-auto w-full max-w-photo-page px-photo-gutter pt-photo-md">
-  <a class="mb-photo-sm inline-flex items-baseline gap-1.5 text-[0.8125rem] text-photo-muted" href="/">
+  <a class="mb-photo-sm inline-flex items-baseline gap-1.5 font-sans text-photo-utility text-photo-muted" href="/">
     <HeroIcon name="arrow-left" class="relative top-[0.08em] h-3 w-3 shrink-0" strokeWidth={1.8} />
     <span>Main site</span>
   </a>
-  <nav class="flex flex-wrap items-center justify-between gap-x-photo-md gap-y-photo-xs border-b border-photo-border pb-photo-md text-base" aria-label="Photography">
-    <a class="text-xl italic leading-tight" href="/photos">Rohan Nagavardhan</a>
+  <nav class="flex flex-wrap items-center justify-between gap-x-photo-md gap-y-photo-xs border-b border-photo-border pb-photo-md text-photo-nav" aria-label="Photography">
+    <a class="text-photo-identity italic" href="/photos">Rohan Nagavardhan</a>
     <div class="flex items-center gap-photo-md">
       <a href="/photos/projects" aria-current={projectsActive ? 'page' : undefined} class:list={[projectsActive ? 'underline underline-offset-4' : 'text-photo-muted']}>Projects</a>
       <a href="/photos/about" aria-current={aboutActive ? 'page' : undefined} class:list={[aboutActive ? 'underline underline-offset-4' : 'text-photo-muted']}>About</a>

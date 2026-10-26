@@ -7,11 +7,13 @@ interface Props {
   title: string;
   description?: string;
   slideshow?: boolean;
+  reader?: boolean;
 }
 
 const {
   title,
   slideshow = false,
+  reader = false,
   description = 'Film, Polaroid, and digital photography by Rohan Nagavardhan.',
 } = Astro.props;
 ---
@@ -20,11 +22,12 @@ const {
 <html lang="en">
   <head>
     <SiteHead title={title} description={description} themeColor="#faf9f6" />
+    <slot name="head" />
   </head>
-  <body class:list={["photo-site bg-photo-background text-photo-foreground font-photo text-[0.9375rem] leading-[1.65]", slideshow ? "flex h-svh min-h-[28rem] flex-col" : "min-h-svh"]}>
-    <a class="absolute top-photo-xs left-photo-gutter -translate-y-[200%] bg-photo-background p-photo-xs focus:translate-y-0" href="#photo-content">Skip to content</a>
-    <PhotoHeader />
-    <main id="photo-content" class:list={["mx-auto w-full max-w-photo-page px-photo-gutter", slideshow ? "flex min-h-0 flex-1 flex-col py-photo-md" : "pt-photo-lg pb-photo-xl"]} tabindex="-1">
+  <body class:list={["photo-site bg-photo-background text-photo-foreground font-photo text-photo-body", (slideshow || reader) ? "flex h-svh min-h-[28rem] flex-col" : "min-h-svh"]}>
+    <a class="absolute z-[100] top-photo-xs left-photo-gutter -translate-y-[200%] bg-photo-background p-photo-xs focus:translate-y-0" href="#photo-content">Skip to content</a>
+    {!reader && <PhotoHeader />}
+    <main id="photo-content" class:list={[reader ? "w-full flex min-h-0 flex-1 flex-col px-photo-gutter py-photo-md" : "mx-auto w-full max-w-photo-page px-photo-gutter", reader ? "" : slideshow ? "flex min-h-0 flex-1 flex-col py-photo-md" : "pt-photo-lg pb-photo-xl"]} tabindex="-1">
       <slot />
     </main>
     <SpeedInsights />
@@ -35,18 +38,22 @@ const {
   /* Tokens are inherited only within the photography shell. */
   :global(.photo-site) {
     --photo-background: #faf9f6;
-    --photo-foreground: #292620;
-    --photo-muted: #6b6258;
-    --photo-border: #d8d1c5;
-    --photo-accent: #6b6258;
+    --photo-foreground: #252522;
+    --photo-muted: #66665f;
+    --photo-border: #d8d7d0;
+    --photo-accent: #66665f;
+    --photo-surface: #f1f0ec;
+    --photo-focus: #365e70;
+    --photo-image-border: #53534d;
     --photo-font: Georgia, 'Times New Roman', serif;
     --photo-page-width: 72rem;
     --photo-reading-width: 42rem;
     --photo-space-xs: 0.5rem;
     --photo-space-sm: 1rem;
     --photo-space-md: 1.5rem;
-    --photo-space-lg: 2.5rem;
-    --photo-space-xl: 4rem;
+    --photo-space-lg: 2rem;
+    --photo-space-xl: 3rem;
+    --photo-space-2xl: 4rem;
     --photo-gutter: clamp(1.25rem, 5vw, 3rem);
   }
 
@@ -60,6 +67,6 @@ const {
   }
 
   :global(.photo-site :focus-visible) {
-    @apply outline outline-2 outline-photo-foreground outline-offset-4;
+    @apply outline outline-2 outline-photo-focus outline-offset-4;
   }
 </style>

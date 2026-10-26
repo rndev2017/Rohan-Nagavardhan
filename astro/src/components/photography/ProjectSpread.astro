@@ -1,0 +1,42 @@
+---
+import {createImageUrlBuilder} from '@sanity/image-url';
+import {sanityClient} from 'sanity:client';
+import SanityDescription from '../SanityDescription.astro';
+import type {ResolvedSpread} from '../../lib/queries';
+
+interface Props { spread: ResolvedSpread; index?: number }
+const {spread, index = 0} = Astro.props;
+const twoColumns = spread._type === 'twoColumnSpread';
+const builder = createImageUrlBuilder(sanityClient);
+---
+
+<section
+  data-columns={twoColumns ? '2' : '1'}
+  aria-label={`Spread ${index + 1}`}
+  class:list={[
+    'grid min-h-0 w-full flex-1 grid-cols-1 gap-photo-lg md:gap-0',
+    twoColumns && 'md:grid-cols-2',
+  ]}
+>
+  {spread.panels.map((panel) => (
+    <div data-spread-page class:list={[
+      'flex min-h-0 min-w-0 items-center justify-center md:px-photo-lg',
+    ]}>
+      {panel._type === 'photoPanel' ? (
+        panel.photo?.image?.asset?._ref ? (
+          <img
+            src={builder.image(panel.photo.image).width(1600).fit('max').auto('format').url()}
+            alt={panel.photo.altText}
+            loading={index === 0 ? 'eager' : 'lazy'}
+            decoding="async"
+            class="max-h-full w-auto max-w-full object-contain"
+          />
+        ) : <p class="font-sans text-photo-utility text-photo-muted">Photograph unavailable.</p>
+      ) : panel._type === 'writingPanel' ? (
+        <div class="max-h-full max-w-[32rem] overflow-y-auto text-photo-body [&_p+p]:mt-photo-sm [&_a]:underline">
+          <SanityDescription text={panel.content} />
+        </div>
+      ) : <span aria-hidden="true"></span>}
+    </div>
+  ))}
+</section>
