@@ -6,16 +6,16 @@ const projectsActive = path.startsWith('/photos/projects') || path.startsWith('/
 const aboutActive = path.startsWith('/photos/about');
 ---
 
-<header class="mx-auto w-full max-w-photo-page px-photo-gutter pt-photo-md">
-  <a class="mb-photo-sm inline-flex items-baseline gap-1.5 font-sans text-photo-utility text-photo-muted" href="/">
+<header class="mx-auto w-full max-w-photo-page px-photo-gutter pt-photo-sm md:pt-photo-md">
+  <a class="mb-0 inline-flex min-h-11 md:mb-photo-sm md:min-h-0 items-baseline gap-1.5 font-sans text-photo-utility text-photo-muted" href="/">
     <HeroIcon name="arrow-left" class="relative top-[0.08em] h-3 w-3 shrink-0" strokeWidth={1.8} />
     <span>Main site</span>
   </a>
-  <nav class="flex flex-wrap items-center justify-between gap-x-photo-md gap-y-photo-xs border-b border-photo-border pb-photo-md text-photo-nav" aria-label="Photography">
-    <a class="text-photo-identity italic" href="/photos">Rohan Nagavardhan</a>
+  <nav class="flex flex-wrap items-center justify-between gap-x-photo-md gap-y-photo-xs border-b border-photo-border pb-photo-sm md:pb-photo-md text-photo-nav" aria-label="Photography">
+    <a class="inline-flex min-h-11 items-center text-photo-identity italic md:min-h-0" href="/photos">Rohan Nagavardhan</a>
     <div class="flex items-center gap-photo-md">
-      <a href="/photos/projects" aria-current={projectsActive ? 'page' : undefined} class:list={[projectsActive ? 'underline underline-offset-4' : 'text-photo-muted']}>Projects</a>
-      <a href="/photos/about" aria-current={aboutActive ? 'page' : undefined} class:list={[aboutActive ? 'underline underline-offset-4' : 'text-photo-muted']}>About</a>
+      <a href="/photos/projects" aria-current={projectsActive ? 'page' : undefined} class:list={['inline-flex min-h-11 items-center md:min-h-0', projectsActive ? 'underline underline-offset-4' : 'text-photo-muted']}>Projects</a>
+      <a href="/photos/about" aria-current={aboutActive ? 'page' : undefined} class:list={['inline-flex min-h-11 items-center md:min-h-0', aboutActive ? 'underline underline-offset-4' : 'text-photo-muted']}>About</a>
     </div>
   </nav>
 </header>
