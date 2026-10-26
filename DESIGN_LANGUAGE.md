@@ -127,7 +127,7 @@ directly, or define an explicit compatible color token when a different tone is 
 Interaction should explain what is happening and stay subordinate to the photograph.
 
 - Homepage photos change instantly, without a crossfade or page-flip transition.
-- The slideshow loops continuously with a **30-second** interval, set by
+- The slideshow loops continuously with a **15-second** interval, set by
   `SLIDESHOW_INTERVAL_MS` in `photo-slideshow.ts`.
 - Hovering the photograph itself pauses playback and shows “Paused while viewing.” Show that message only when hover is what pauses autoplay; hide it when playback is
   already paused manually, by keyboard focus, or by reduced motion. Hovering
