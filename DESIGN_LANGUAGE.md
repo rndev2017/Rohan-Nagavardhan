@@ -110,6 +110,18 @@ directly, or define an explicit compatible color token when a different tone is 
 
 ### Project books
 
+- The empty catalog shows a small pixel-art portrait of Rohan holding a rangefinder, with chunky pixels and a restrained, muted palette,
+  followed by “No projects yet.” and “I’m out in the field making photographs. Check back soon.”
+  Once all poses load, play a short stepped sprite animation: raise the camera from chest to chin
+  to eye level, show one small pixel-shaped flash, then lower it to the resting pose. Keep the portrait itself stationary.
+  Play the entrance once per page load without looping. Hover raises the camera to eye level
+  and holds it there without a flash; pointer leave lowers it. Hover can interrupt the entrance
+  without restarting it afterward. Clicking or pressing Enter/Space raises the camera and triggers
+  one flash, with repeat clicks ignored until it finishes. Announce “Photo taken.” to assistive technology;
+  reduced motion uses only that announcement. Reduced motion keeps the portrait still without a flash. Keep the empty state unframed, centered horizontally with centered text, and vertically balanced
+  in a viewing area beneath the left-aligned Projects heading,
+  with Georgia for the heading and the existing sans-serif summary style for the message.
+
 - Covers use consistent 3:4 proportions, 14rem wide on small screens and up to 16rem on desktop, with square corners.
 - A selected Sanity thumbnail appears as a small inset print with a pale mat inside the cover.
 - Without a thumbnail, keep a plain colored cover with the title; do not invent an image.
