@@ -91,6 +91,15 @@ directly, or define an explicit compatible color token when a different tone is 
 
 ### Photographs
 
+- When the homepage slideshow is empty, center a small pixel-art carousel slide projector
+  above “Photographs coming soon.” and a short note about selecting photographs. Use the same
+  muted palette, Georgia heading, and sans-serif summary as the project empty state.
+  Place “Check back soon.” on its own line. Keep the original four-frame counterclockwise
+  carousel motion and stationary body. After the tray settles, the red power switch flickers
+  in two brief, irregular attempts, then goes dark. Keep the full lens visible, with no lens
+  glow or projected beam. Play once after the artwork loads, then replay on hover, focus, or tap.
+  Never loop; ignore retriggers while running. Reduced motion stays static.
+
 - Preserve the full photograph's proportions in the slideshow and editorial content.
 - The homepage image has a restrained 1px dark border and generous surrounding space.
 - Cropping is acceptable for a deliberately composed book-cover thumbnail. Do not apply that

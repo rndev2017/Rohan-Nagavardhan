@@ -1,0 +1,136 @@
+<button type="button" data-empty-projector class="projector relative mb-photo-md h-40 w-40 shrink-0" aria-label="Try the slide projector">
+  <span class="projector-still" aria-hidden="true"></span>
+  <canvas width="360" height="260" aria-hidden="true" hidden></canvas>
+</button>
+<span data-projector-status class="sr-only" role="status"></span>
+
+<style>
+  .projector { cursor: pointer; }
+  .projector-still {
+    position: absolute; inset: 0 auto auto 0; width: 168px; height: 160px;
+    background: url('/images/projector-carousel-frames.png') 0 0 / 320px 320px no-repeat;
+    image-rendering: pixelated;
+  }
+  .projector canvas {
+    position: absolute; left: -10.49px; top: 0; width: 236.07px; height: 170.49px;
+    max-width: none; image-rendering: pixelated; pointer-events: none;
+  }
+</style>
+
+<script>
+  const projector = document.querySelector<HTMLButtonElement>('[data-empty-projector]');
+  const canvas = projector?.querySelector('canvas');
+  const ctx = canvas?.getContext('2d');
+  if (projector && canvas && ctx) {
+    const context = ctx;
+    const status = document.querySelector<HTMLElement>('[data-projector-status]');
+    const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+    const art = new Image();
+    const x = 16,
+      y = 0,
+      size = 244;
+    let ready = false;
+    let running = false;
+    let animation = 0;
+    function draw(rotation: number, power: number) {
+      context.clearRect(0, 0, 360, 260);
+      context.imageSmoothingEnabled = false;
+      // Original site's four sprite frames, registration offsets, mask and timing.
+      const cell = art.width / 2;
+      context.drawImage(art, 0, 0, cell * 1.05, cell, x, y, size * 1.05, size);
+      if (rotation > 0) {
+        context.save();
+        context.beginPath();
+        [
+          [0.2, 0.23],
+          [0.78, 0.23],
+          [0.84, 0.39],
+          [0.84, 0.5],
+          [0.77, 0.57],
+          [0.25, 0.57],
+          [0.17, 0.5],
+          [0.17, 0.39],
+        ].forEach(([px, py], i) =>
+          i
+            ? context.lineTo(x + px * size, y + py * size)
+            : context.moveTo(x + px * size, y + py * size),
+        );
+        context.closePath();
+        context.clip();
+        const dx = rotation === 1 || rotation === 3 ? (155.15 / 160) * size : 0;
+        const dy = rotation >= 2 ? (150.05 / 160) * size : 0;
+        context.clearRect(x, y, size, size);
+        context.drawImage(art, x - dx, y - dy, size * 2, size * 2);
+        context.restore();
+      }
+      if (power > 0) {
+        // Follow the red switch's perspective, without lighting the lens or body.
+        context.save();
+        context.globalAlpha = power;
+        context.fillStyle = '#ed6149';
+        context.beginPath();
+        context.moveTo(x + size * 0.607, y + size * 0.635);
+        context.lineTo(x + size * 0.65, y + size * 0.617);
+        context.lineTo(x + size * 0.65, y + size * 0.657);
+        context.lineTo(x + size * 0.607, y + size * 0.675);
+        context.closePath();
+        context.fill();
+        context.restore();
+      }
+    }
+    const stop = () => {
+      cancelAnimationFrame(animation);
+      running = false;
+      if (ready) draw(0, 0);
+    };
+    const attempt = () => {
+      if (!ready || running) return;
+      if (status) status.textContent = '';
+      if (reducedMotion.matches) {
+        if (status) status.textContent = 'No photographs loaded yet.';
+        return;
+      }
+      running = true;
+      const start = performance.now();
+      const flickers = [
+        { start: 970, end: 1090, brightness: 0.9 },
+        { start: 1260, end: 1460, brightness: 0.7 },
+        { start: 1900, end: 1990, brightness: 0.55 },
+        { start: 2180, end: 2300, brightness: 0.35 },
+      ];
+      const tick = (now: number) => {
+        const t = now - start;
+        const frame = t < 620 * 0.38 ? 0 : t < 620 * 0.65 ? 1 : t < 620 * 0.85 ? 2 : 3;
+        const power = flickers.find(({ start, end }) => t >= start && t < end)?.brightness ?? 0;
+        draw(frame, power);
+        if (t < 2800) {
+          animation = requestAnimationFrame(tick);
+        } else {
+          stop();
+          if (status) status.textContent = 'No photographs loaded yet.';
+        }
+      };
+      animation = requestAnimationFrame(tick);
+    };
+    art.onload = () => {
+      ready = true;
+      draw(0, 0);
+      canvas.hidden = false;
+      projector.querySelector<HTMLElement>('.projector-still')!.hidden = true;
+      attempt();
+    };
+    art.src = '/images/projector-carousel-frames.png';
+    projector.addEventListener('pointerenter', (event) => {
+      if (event.pointerType !== 'touch' && matchMedia('(hover: hover)').matches) attempt();
+    });
+    projector.addEventListener('focus', () => {
+      if (projector.matches(':focus-visible')) attempt();
+    });
+    projector.addEventListener('click', attempt);
+    reducedMotion.addEventListener('change', stop);
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden) stop();
+    });
+    window.addEventListener('pagehide', stop, { once: true });
+  }
+</script>
