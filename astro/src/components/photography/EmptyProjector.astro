@@ -67,12 +67,25 @@
         // Follow the red switch's perspective, without lighting the lens or body.
         context.save();
         context.globalAlpha = power;
-        context.fillStyle = '#ed6149';
+        context.shadowColor = '#ff5a16';
+        context.shadowBlur = 5 * power;
+        context.fillStyle = '#ff4918';
         context.beginPath();
         context.moveTo(x + size * 0.607, y + size * 0.635);
         context.lineTo(x + size * 0.65, y + size * 0.617);
         context.lineTo(x + size * 0.65, y + size * 0.657);
         context.lineTo(x + size * 0.607, y + size * 0.675);
+        context.closePath();
+        context.fill();
+        context.shadowBlur = 0;
+        // A small amber filament behind the red switch glass.
+        context.fillStyle = '#ffb34b';
+        context.globalAlpha = power * power;
+        context.beginPath();
+        context.moveTo(x + size * 0.618, y + size * 0.638);
+        context.lineTo(x + size * 0.64, y + size * 0.629);
+        context.lineTo(x + size * 0.64, y + size * 0.65);
+        context.lineTo(x + size * 0.618, y + size * 0.659);
         context.closePath();
         context.fill();
         context.restore();
@@ -92,16 +105,26 @@
       }
       running = true;
       const start = performance.now();
-      const flickers = [
-        { start: 970, end: 1090, brightness: 0.9 },
-        { start: 1260, end: 1460, brightness: 0.7 },
-        { start: 1900, end: 1990, brightness: 0.55 },
-        { start: 2180, end: 2300, brightness: 0.35 },
+      // Irregular contacts, with thermal lag so the bulb warms and cools naturally.
+      const contacts = [
+        [0, 0], [970, 1], [1060, 0.12], [1135, 0.9], [1300, 0.4],
+        [1370, 1], [1610, 0.2], [1710, 0], [2040, 0.85], [2140, 0.15],
+        [2260, 0.65], [2410, 0],
       ];
+      let power = 0;
+      let previousTime = start;
       const tick = (now: number) => {
         const t = now - start;
         const frame = t < 620 * 0.38 ? 0 : t < 620 * 0.65 ? 1 : t < 620 * 0.85 ? 2 : 3;
-        const power = flickers.find(({ start, end }) => t >= start && t < end)?.brightness ?? 0;
+        let target = 0;
+        for (const [time, level] of contacts) {
+          if (t < time) break;
+          target = level;
+        }
+        const elapsed = Math.min(now - previousTime, 64);
+        previousTime = now;
+        const thermalLag = target > power ? 28 : 85;
+        power += (target - power) * (1 - Math.exp(-elapsed / thermalLag));
         draw(frame, power);
         if (t < 2800) {
           animation = requestAnimationFrame(tick);

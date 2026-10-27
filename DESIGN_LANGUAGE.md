@@ -96,7 +96,8 @@ directly, or define an explicit compatible color token when a different tone is 
   muted palette, Georgia heading, and sans-serif summary as the project empty state.
   Place “Check back soon.” on its own line. Keep the original four-frame counterclockwise
   carousel motion and stationary body. After the tray settles, the red power switch flickers
-  in two brief, irregular attempts, then goes dark. Keep the full lens visible, with no lens
+  in two brief, irregular attempts, then goes dark. Use bright red-orange glass, a small amber
+  core, and a restrained local glow; let brightness rise quickly and cool more slowly like a bulb. Keep the full lens visible, with no lens
   glow or projected beam. Play once after the artwork loads, then replay on hover, focus, or tap.
   Never loop; ignore retriggers while running. Reduced motion stays static.
 
