@@ -1,6 +1,7 @@
 ---
 import PhotoLayout from '../layouts/PhotoLayout.astro';
 import PhotoSlideshow from '../components/photography/PhotoSlideshow.astro';
+import EmptyProjector from '../components/photography/EmptyProjector.astro';
 import {getPhotographyHome} from '../lib/queries';
 
 const home = await getPhotographyHome();
@@ -9,8 +10,13 @@ const home = await getPhotographyHome();
 <PhotoLayout title="Photography · Rohan Nagavardhan" slideshow={home.photos.length > 0}>
   <h1 class="sr-only">Photography by Rohan Nagavardhan</h1>
   {home.photos.length ? <PhotoSlideshow {...home} /> : (
-    <section class="flex min-h-[50svh] md:min-h-[60svh] items-center justify-center text-center" aria-label="Photography">
-      <p class="font-sans text-photo-summary text-photo-muted">Photographs coming soon.</p>
+    <section class="mx-auto flex min-h-[50svh] max-w-[24rem] flex-col items-center justify-center py-photo-lg text-center md:min-h-[60svh]" aria-label="Photography">
+      <EmptyProjector />
+      <h2 class="mb-photo-xs text-photo-heading">Photographs coming soon.</h2>
+      <p class="font-sans text-photo-summary text-photo-muted">
+        <span class="block">I’m putting together a few favorites for the slideshow.</span>
+        <span class="block">Check back soon.</span>
+      </p>
     </section>
   )}
 </PhotoLayout>

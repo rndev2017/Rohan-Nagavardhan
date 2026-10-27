@@ -91,6 +91,16 @@ directly, or define an explicit compatible color token when a different tone is 
 
 ### Photographs
 
+- When the homepage slideshow is empty, center a small pixel-art carousel slide projector
+  above “Photographs coming soon.” and a short note about selecting photographs. Use the same
+  muted palette, Georgia heading, and sans-serif summary as the project empty state.
+  Place “Check back soon.” on its own line. Keep the original four-frame counterclockwise
+  carousel motion and stationary body. After the tray settles, the red power switch flickers
+  in two brief, irregular attempts, then goes dark. Use bright red-orange glass, a small amber
+  core, and a restrained local glow; let brightness rise quickly and cool more slowly like a bulb. Keep the full lens visible, with no lens
+  glow or projected beam. Play once after the artwork loads, then replay on hover, focus, or tap.
+  Never loop; ignore retriggers while running. Reduced motion stays static.
+
 - Preserve the full photograph's proportions in the slideshow and editorial content.
 - The homepage image has a restrained 1px dark border and generous surrounding space.
 - Cropping is acceptable for a deliberately composed book-cover thumbnail. Do not apply that
@@ -99,6 +109,18 @@ directly, or define an explicit compatible color token when a different tone is 
   do not invent a setting. Avoid placeholders such as `N/A` or `test`.
 
 ### Project books
+
+- The empty catalog shows a small pixel-art portrait of Rohan holding a rangefinder, with chunky pixels and a restrained, muted palette,
+  followed by “No projects yet.” and “I’m out in the field making photographs. Check back soon.”
+  Once all poses load, play a short stepped sprite animation: raise the camera from chest to chin
+  to eye level, show one small pixel-shaped flash, then lower it to the resting pose. Keep the portrait itself stationary.
+  Play the entrance once per page load without looping. Hover raises the camera to eye level
+  and holds it there without a flash; pointer leave lowers it. Hover can interrupt the entrance
+  without restarting it afterward. Clicking or pressing Enter/Space raises the camera and triggers
+  one flash, with repeat clicks ignored until it finishes. Announce “Photo taken.” to assistive technology;
+  reduced motion uses only that announcement. Reduced motion keeps the portrait still without a flash. Keep the empty state unframed, centered horizontally with centered text, and vertically balanced
+  in a viewing area beneath the left-aligned Projects heading,
+  with Georgia for the heading and the existing sans-serif summary style for the message.
 
 - Covers use consistent 3:4 proportions, 14rem wide on small screens and up to 16rem on desktop, with square corners.
 - A selected Sanity thumbnail appears as a small inset print with a pale mat inside the cover.
