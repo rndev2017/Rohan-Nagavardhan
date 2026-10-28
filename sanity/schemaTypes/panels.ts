@@ -1,4 +1,5 @@
 import {defineArrayMember, defineField, defineType} from 'sanity'
+import {createAlignedWritingStyle} from '../components/AlignedWritingStyle'
 
 type TextBlock = {children?: Array<{text?: string}>}
 function plainText(value: unknown): string {
@@ -32,13 +33,45 @@ export const writingPanel = defineType({
     defineField({
       name: 'content',
       type: 'array',
+      description:
+        'Choose a paragraph or heading style in the text toolbar. Each has left (default), centered, and right-aligned versions. Press Enter for a new block; Shift+Enter keeps the same block.',
       of: [
         defineArrayMember({
           type: 'block',
           styles: [
             {title: 'Paragraph', value: 'normal'},
+            {
+              title: 'Paragraph — centered',
+              value: 'normal-center',
+              component: createAlignedWritingStyle('normal', 'center'),
+            },
+            {
+              title: 'Paragraph — right',
+              value: 'normal-right',
+              component: createAlignedWritingStyle('normal', 'right'),
+            },
             {title: 'Heading', value: 'h2'},
+            {
+              title: 'Heading — centered',
+              value: 'h2-center',
+              component: createAlignedWritingStyle('h2', 'center'),
+            },
+            {
+              title: 'Heading — right',
+              value: 'h2-right',
+              component: createAlignedWritingStyle('h2', 'right'),
+            },
             {title: 'Subheading', value: 'h3'},
+            {
+              title: 'Subheading — centered',
+              value: 'h3-center',
+              component: createAlignedWritingStyle('h3', 'center'),
+            },
+            {
+              title: 'Subheading — right',
+              value: 'h3-right',
+              component: createAlignedWritingStyle('h3', 'right'),
+            },
           ],
           lists: [],
           marks: {

@@ -1,7 +1,7 @@
 ---
 import {createImageUrlBuilder} from '@sanity/image-url';
 import {sanityClient} from 'sanity:client';
-import SanityDescription from '../SanityDescription.astro';
+import WritingContent from './WritingContent.astro';
 import type {ResolvedSpread} from '../../lib/queries';
 
 interface Props { spread: ResolvedSpread; index?: number }
@@ -36,8 +36,8 @@ const builder = createImageUrlBuilder(sanityClient);
           />
         ) : <p class="font-sans text-photo-utility text-photo-muted">Photograph unavailable.</p>
       ) : panel._type === 'writingPanel' ? (
-        <div data-writing-panel class="max-h-full max-w-[32rem] overflow-y-auto text-photo-body [&_a]:underline">
-          <SanityDescription text={panel.content} />
+        <div data-writing-panel class="max-h-full w-full max-w-[32rem] overflow-y-auto text-photo-body [&_a]:underline">
+          <WritingContent text={panel.content} />
         </div>
       ) : <span aria-hidden="true"></span>}
     </div>
