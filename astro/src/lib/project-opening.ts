@@ -149,6 +149,10 @@ export async function openProjectBook() {
               position: 'absolute', inset: '0 -0.5px 0 0',
               background: index % 2 ? '#f4f1e9' : '#f7f4ec',
               borderTop: '1px solid #d8d1c5', borderBottom: '1px solid #d8d1c5',
+              // Reversed faces swap physical left/right edges. Keep only the
+              // sheet perimeter outlined, without drawing seams at the joints.
+              borderLeft: (back ? strip === 3 : strip === 0) ? '1px solid #d8d1c5' : 'none',
+              borderRight: (back ? strip === 0 : strip === 3) ? '1px solid #d8d1c5' : 'none',
               backfaceVisibility: 'hidden',
               transform: `${back ? 'rotateY(180deg) ' : ''}translateZ(0.2px)`,
             });

@@ -36,7 +36,7 @@ const builder = createImageUrlBuilder(sanityClient);
           />
         ) : <p class="font-sans text-photo-utility text-photo-muted">Photograph unavailable.</p>
       ) : panel._type === 'writingPanel' ? (
-        <div class="max-h-full max-w-[32rem] overflow-y-auto text-photo-body [&_p+p]:mt-photo-sm [&_a]:underline">
+        <div data-writing-panel class="max-h-full max-w-[32rem] overflow-y-auto text-photo-body [&_a]:underline">
           <SanityDescription text={panel.content} />
         </div>
       ) : <span aria-hidden="true"></span>}
@@ -46,6 +46,18 @@ const builder = createImageUrlBuilder(sanityClient);
 
 
 <style>
+  [data-writing-panel] :global(h2) {
+    @apply font-photo text-photo-title font-normal;
+  }
+  [data-writing-panel] :global(h3) {
+    @apply font-photo text-photo-heading font-normal;
+  }
+  [data-writing-panel] :global(p + p) { margin-top: var(--photo-space-sm); }
+  [data-writing-panel] :global(h2 + *),
+  [data-writing-panel] :global(h3 + *) { margin-top: var(--photo-space-sm); }
+  [data-writing-panel] :global(* + h2),
+  [data-writing-panel] :global(* + h3) { margin-top: var(--photo-space-lg); }
+
   @media (max-width: 767px) {
     [data-project-spread] { align-self: stretch; grid-auto-rows: minmax(min-content, 1fr); }
     [data-project-spread][data-columns='2'] { flex: none; align-content: center; padding-block: 16px; }
