@@ -8,12 +8,22 @@ const placeholder = (key: string, text: string): WritingPanel => ({
   }],
 });
 
+const opening: WritingPanel = {
+  ...placeholder('intro', 'Page one. Imagine something cool here.'),
+  content: [
+    {...placeholder('chapter', 'Chapter one').content[0], style: 'h2'},
+    ...placeholder('intro', 'Page one. Imagine something cool here. This is a paragraph beneath a heading.').content,
+    {...placeholder('section', 'A small detour').content[0], style: 'h3'},
+    ...placeholder('detail', 'A subheading gives this next bit of placeholder prose a little hierarchy.').content,
+  ],
+};
+
 export const mockProject = {
   _type: 'project', _id: 'dev-test-book', title: 'Test book',
   slug: {_type: 'slug', current: 'test-book'}, status: 'in_progress',
   description: 'Just a test book with placeholder text.',
   spreads: [
-    {_type: 'oneColumnSpread', _key: 'opening', panels: [placeholder('intro', 'Page one. Imagine something cool here.')]},
+    {_type: 'oneColumnSpread', _key: 'opening', panels: [opening]},
     {_type: 'twoColumnSpread', _key: 'pair', panels: [
       placeholder('left', 'Left page. Lorem ipsum dolor sit amet.'),
       placeholder('right', 'Right page. More placeholder nonsense.'),

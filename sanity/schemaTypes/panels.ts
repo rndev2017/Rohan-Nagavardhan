@@ -35,7 +35,11 @@ export const writingPanel = defineType({
       of: [
         defineArrayMember({
           type: 'block',
-          styles: [{title: 'Paragraph', value: 'normal'}],
+          styles: [
+            {title: 'Paragraph', value: 'normal'},
+            {title: 'Heading', value: 'h2'},
+            {title: 'Subheading', value: 'h3'},
+          ],
           lists: [],
           marks: {
             decorators: [

@@ -33,9 +33,13 @@ The main personal site is unaffected by these photography-only roles.
 | Cover lettering | Fraunces Bold | Scales with cover, line height 1.08, tracking -0.02em |
 
 - Use `font-photo`, `font-sans`, or `font-photo-cover font-bold` with the appropriate size role.
-- Reserve italics for the identity and occasional authored editorial emphasis. Controls are upright.
+- Reserve italics for the identity, the reader's running title, and occasional authored editorial emphasis. Controls are upright.
 - Use sentence case for summaries and status; avoid routine uppercase tracking.
 - Keep page and project headings normal weight. Preserve bold, tightly set cover lettering.
+- Writing panels allow Paragraph, Heading (`h2`), and Subheading (`h3`) in Portable Text.
+  Render headings in normal-weight Georgia: `text-photo-title` for h2 and
+  `text-photo-heading` for h3. Use `photo-sm` below headings and between paragraphs,
+  and `photo-lg` before subsequent headings. The running project title remains the page h1.
 - Covers self-host one small Latin Fraunces WOFF2 (weight 700, optical size 72, softness 80,
   wonk 1). License: `astro/public/fonts/Fraunces-OFL.txt`. No runtime font service or new weights.
 - Cover titles can decrease slightly for long names and use up to three lines within their
@@ -130,16 +134,17 @@ directly, or define an explicit compatible color token when a different tone is 
 - The oxblood cover supplies the color accent. Avoid adding random colors to metadata or controls.
 - Project details resolve every published spread in Sanity order. One spread is one navigation
   step, including both columns; two-column spreads stack left before right on mobile.
-- Reader controls use unframed Heroicons chevrons at the bottom right and a quiet `1 / N`
-  spread marker at the bottom left. Keep 44px hit targets, disabled and subdued at the first
+- Reader controls sit centered beneath the spread: an unframed Heroicons previous
+  chevron, a quiet upright sans-serif `1 / N` marker, and a next chevron. Keep 44px hit targets, disabled and subdued at the first
   and last spread, with no looping. A one-spread project disables both controls.
 - Left/right arrow keys navigate except inside editable controls or with modifier keys.
   Announce the spread count to assistive technology. Disable navigation during book entry/exit.
   Spread changes are instant for now; the elaborate opening effect runs only on entry/exit.
 - Project details use a viewport-filling reader variant of PhotoLayout, sharing its tokens,
   metadata, accessibility, and typography. Replace the main photography header with a persistent
-  Projects back link and a quiet Georgia project title. Place the description beneath the
-  title, leaving the bottom edge for progress and navigation.
+  Projects back link and a small, muted italic Georgia running title centered above the
+  spread (`font-photo text-photo-utility italic`). Keep descriptions on the catalog;
+  omit them from the visible reader, leaving the bottom edge for progress and navigation.
 - Place photographs and writing directly on the site background. No paper boxes, panel borders,
   or center divider in the settled reader. Keep full photograph proportions and responsive
   left-before-right stacking. Reserve the physical book treatment for covers and transitions.
@@ -169,6 +174,8 @@ Interaction should explain what is happening and stay subordinate to the photogr
   keep the real spread stationary and hidden until the final reveal, so it appears exactly once.
   Paper sheets bend through four joined strips, with an 11-degree curl at each free-edge
   joint and a gentle 3.5-degree reverse flex, then flatten before landing.
+  Keep a continuous thin perimeter border on both faces of bending sheets, without
+  outlining the internal strip joints.
   Preserve the cover's 3:4 proportions and leave room for perspective within the viewport.
   Anchor the spine at the horizontal center of the reader, independent of the first spread's
   column count. The closed cover sits right of the spine and opens into the left half.

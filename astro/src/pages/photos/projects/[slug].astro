@@ -43,16 +43,13 @@ const spreads = project.spreads;
   </script>
 
   <article data-project-reader class="flex min-h-0 flex-1 flex-col">
-    <header data-reader-heading class="relative z-[60] mb-photo-md flex flex-col gap-photo-xs md:flex-row md:items-baseline md:justify-between md:gap-photo-md">
+    <header data-reader-heading class="relative z-[60] mb-photo-xs flex">
       <a href="/photos/projects" class="inline-flex min-h-11 shrink-0 items-baseline gap-1.5 font-sans text-photo-utility text-photo-muted">
         <HeroIcon name="arrow-left" class="relative top-[0.08em] h-3 w-3" />
         <span>Projects</span>
       </a>
-      <div class="min-w-0 max-w-photo-reading text-left md:text-right">
-        <h1 class="break-words font-photo text-photo-heading">{project.title}</h1>
-        {project.description && <p class="mt-photo-xs font-sans text-photo-summary text-photo-muted">{project.description}</p>}
-      </div>
     </header>
+    <h1 class="mx-auto mb-photo-md w-full max-w-photo-reading break-words text-center font-photo text-photo-utility italic text-photo-muted">{project.title}</h1>
     {spreads.length ? (
       <>
         <div data-opening-spread id="project-spreads" class="flex min-h-0 flex-1 overflow-y-auto overscroll-contain md:overflow-visible" data-columns={spreads[0]._type === 'twoColumnSpread' ? '2' : '1'}>
@@ -62,13 +59,13 @@ const spreads = project.spreads;
             </div>
           ))}
         </div>
-        <nav data-reader-controls hidden aria-label="Project spreads" class="mt-photo-md flex shrink-0 items-center justify-between text-photo-muted">
-          <p data-reader-marker class="font-sans text-photo-utility tabular-nums" aria-hidden="true">1 / {spreads.length}</p>
+        <nav data-reader-controls hidden aria-label="Project spreads" class="mt-photo-md flex shrink-0 items-center justify-center text-photo-muted">
           <p data-reader-announcement class="sr-only" role="status" aria-live="polite" aria-atomic="true">Spread 1 of {spreads.length}</p>
-          <div class="flex gap-photo-xs">
+          <div class="flex items-center gap-photo-xs">
             <button data-reader-previous type="button" aria-label="Previous spread" aria-controls="project-spreads" disabled class="flex h-11 w-11 items-center justify-center disabled:cursor-default disabled:opacity-25">
               <HeroIcon name="chevron-left" class="h-6 w-6" />
             </button>
+            <p data-reader-marker class="min-w-[5ch] text-center font-sans text-photo-utility tabular-nums" aria-hidden="true">1 / {spreads.length}</p>
             <button data-reader-next type="button" aria-label="Next spread" aria-controls="project-spreads" disabled={spreads.length < 2} class="flex h-11 w-11 items-center justify-center disabled:cursor-default disabled:opacity-25">
               <HeroIcon name="chevron-right" class="h-6 w-6" />
             </button>
