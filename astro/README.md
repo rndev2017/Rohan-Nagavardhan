@@ -62,9 +62,9 @@ Feel free to check [our documentation](https://docs.astro.build) or jump into ou
 
 `npm run dev` returns the fixture in `src/lib/mock-projects.ts` for project queries.
 Open `/photos/projects` and select **Test book** to exercise the cover opening and
-five spreads with single/paired photos, writing, and blank space. Edit the fixture
-to try different content. Its photographs use existing Sanity CDN assets; image
-loading still needs an internet connection. No CMS documents are created.
+five spreads with placeholder text and deliberate blank space. Edit the fixture
+to try different content. No images or Sanity content are needed, and no CMS
+documents are created.
 
 Use `MOCK_PROJECTS=false npm run dev` to view published Sanity projects locally.
 Production builds always use published Sanity content, regardless of this setting.
