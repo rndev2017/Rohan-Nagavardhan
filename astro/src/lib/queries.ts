@@ -91,6 +91,10 @@ export async function getPhotographyHome(): Promise<PhotographyHome> {
 }
 
 export async function getProjects(): Promise<Project[]> {
+  if (import.meta.env.DEV && import.meta.env.MOCK_PROJECTS !== 'false') {
+    const {mockProjects} = await import('./mock-projects');
+    return mockProjects;
+  }
   return sanityClient.fetch(
     `*[_type == "project"] | order(_createdAt desc) {
       _id, _type, title, slug, status, description,
@@ -101,6 +105,10 @@ export async function getProjects(): Promise<Project[]> {
 }
 
 export async function getProjectBySlug(slug: string): Promise<ProjectDetail | null> {
+  if (import.meta.env.DEV && import.meta.env.MOCK_PROJECTS !== 'false') {
+    const {mockProject} = await import('./mock-projects');
+    return slug === mockProject.slug.current ? mockProject : null;
+  }
   return sanityClient.fetch(
     `*[_type == "project" && slug.current == $slug][0]{
       _id, _type, title, slug, status, description,
