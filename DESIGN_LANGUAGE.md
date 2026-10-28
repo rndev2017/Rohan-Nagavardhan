@@ -161,18 +161,19 @@ Interaction should explain what is happening and stay subordinate to the photogr
   The current cover angle is 22 degrees with a 550ms ease; keep this a cover preview rather
   than a full opening animation.
 - Clicking a project cover navigates to its own project URL. The entry prototype enlarges the
-  selected cover over 480ms, holds for 180ms, then opens with a brief overlapping riffle of six layers. The cover turns over 1100ms;
-  the paper leaves follow closely, with a slower final leaf settling around 1900ms.
+  selected cover over 552ms, holds for 207ms, then opens with a brief overlapping riffle of six layers. The cover turns over 1265ms;
+  the paper leaves follow closely, with a slower final leaf settling around 2185ms.
   Fade the final paper leaf while it is still turning and reveal the stationary spread in
   that same movement; do not leave a blank sheet resting before the content appears.
   Every animated leaf is decorative paper. Never clone the content photograph into the animation:
   keep the real spread stationary and hidden until the final reveal, so it appears exactly once.
-  Paper sheets bend subtly through four joined strips and flatten before landing.
+  Paper sheets bend through four joined strips, with an 11-degree curl at each free-edge
+  joint and a gentle 3.5-degree reverse flex, then flatten before landing.
   Preserve the cover's 3:4 proportions and leave room for perspective within the viewport.
   Anchor the spine at the horizontal center of the reader, independent of the first spread's
   column count. The closed cover sits right of the spine and opens into the left half.
   The back link remains visible and usable throughout. Projects return links reverse the entry
-  choreography when its geometry is still valid; direct visits and resized layouts use normal
+  choreography at 0.9775× speed, keeping the return close to the opening pace, when its geometry is still valid; direct visits and resized layouts use normal
   navigation. Mobile, reduced-motion, and JavaScript-disabled visits show content directly.
   Animate transforms instead of layout dimensions; do not animate the reader's geometry.
   Keep turning planes in 3D: parent opacity can flatten faces and flash mirrored lettering.
