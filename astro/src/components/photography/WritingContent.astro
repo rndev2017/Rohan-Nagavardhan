@@ -1,0 +1,17 @@
+---
+import {PortableText} from 'astro-portabletext';
+import type {PortableTextBlock} from '@portabletext/types';
+import WritingBlock from './WritingBlock.astro';
+
+interface Props {text: PortableTextBlock[]}
+const {text} = Astro.props;
+const components = {
+  block: Object.fromEntries(
+    ['normal', 'h2', 'h3'].flatMap((style) =>
+      ['', '-center', '-right'].map((alignment) => [style + alignment, WritingBlock]),
+    ),
+  ),
+};
+---
+
+<PortableText value={text} components={components} />

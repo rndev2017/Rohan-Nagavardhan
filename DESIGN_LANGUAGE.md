@@ -40,6 +40,9 @@ The main personal site is unaffected by these photography-only roles.
   Render headings in normal-weight Georgia: `text-photo-title` for h2 and
   `text-photo-heading` for h3. Use `photo-sm` below headings and between paragraphs,
   and `photo-lg` before subsequent headings. The running project title remains the page h1.
+- Writing blocks each support left (default), center, or right alignment through the Portable
+  Text style menu, independently for paragraphs, headings, and subheadings. Preserve authored
+  alignment on desktop and phones; existing styles remain left-aligned.
 - Covers self-host one small Latin Fraunces WOFF2 (weight 700, optical size 72, softness 80,
   wonk 1). License: `astro/public/fonts/Fraunces-OFL.txt`. No runtime font service or new weights.
 - Cover titles can decrease slightly for long names and use up to three lines within their
@@ -225,7 +228,8 @@ before it appears there.
   does not reserve space on narrow screens. Preserve desktop hover tilt and pause.
 - Use 44px navigation hit areas and safe-area-aware gutters. Compact vertical spacing on short
   touch screens so playback controls remain in view; avoid a fixed minimum viewport height.
-- Reader headings and descriptions align left on phones, with the Projects link above them.
+- Reader writing defaults to left alignment on phones and preserves authored block alignment,
+  with the Projects link above it.
   Keep the marker and chevrons below a scrollable content area; two-column spreads stack in
   authored order without squeezing long writing into separate tiny scroll boxes.
 - Serve responsive image candidates in the reader; keep image proportions and cap mobile reader images at 55svh. Book-entry motion requires

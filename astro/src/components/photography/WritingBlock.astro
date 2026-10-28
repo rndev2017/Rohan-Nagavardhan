@@ -1,0 +1,10 @@
+---
+import type {PortableTextBlock} from '@portabletext/types';
+
+const {node} = Astro.props as {node: PortableTextBlock};
+const [style, alignment] = (node.style || 'normal').split('-');
+const Tag = style === 'h2' ? 'h2' : style === 'h3' ? 'h3' : 'p';
+const textAlign = alignment === 'center' || alignment === 'right' ? alignment : 'left';
+---
+
+<Tag style={{textAlign}}><slot /></Tag>
